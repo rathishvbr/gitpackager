@@ -1,0 +1,3 @@
+#!/bin/sh
+# this will have nothing.
+mkdir -p /usr/share/megam

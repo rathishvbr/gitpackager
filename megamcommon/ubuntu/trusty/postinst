@@ -1,0 +1,39 @@
+#!/bin/sh
+
+set -e
+
+MEGAMHOME=/usr/share/megam
+MEGAM_GROUP=megam
+MEGAM_USER=megam
+
+create_megamgroup() {
+    if ! getent group $MEGAM_GROUP > /dev/null 2>&1; then
+        addgroup --system $MEGAM_GROUP
+    fi
+}
+
+
+
+create_megamuser() {
+    # Adding megam
+    if ! id -u $MEGAM_USER > /dev/null 2>&1; then
+        echo "Creating user megam in group megam"
+        useradd --system --no-create-home --gid $MEGAM_GROUP --shell /bin/false $MEGAM_USER
+    fi
+}
+
+
+if [ "$1" = "configure" ]; then
+    create_megamgroup
+    create_megamuser
+
+    if ! [ -d "$MEGAMHOME" ]; then
+        mkdir "$MEGAMHOME"
+        chown $MEGAM_USER "$MEGAMHOME"
+    fi
+
+    # Use dpkg-statoverride instead of direct chmod/chown
+    if ! dpkg-statoverride --list $MEGAM_HOME >/dev/null 2>&1; then
+        dpkg-statoverride --update --add $MEGAM_USER root 755 $MEGAM_HOME
+    fi
+fi
