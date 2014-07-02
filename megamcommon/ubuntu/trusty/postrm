@@ -1,0 +1,29 @@
+#!/bin/sh
+
+set -e
+
+MEGAMHOME=/usr/share/megam
+MEGAM_GROUP=megam
+MEGAM_USER=megam
+
+disable_megamuser() {
+    if getent passwd $MEGAM_USER > /dev/null 2>&1; then
+        usermod --shell /bin/false $MEGAM_USER
+    fi
+}
+
+if [ "$1" = "purge" ]; then
+    # purge stats overrides
+    # stats overrides could already be removed by root
+    dpkg-statoverride --remove $MEGAMHOME || true
+
+    # Don't delete oneadmin or cloud group for now
+    # See http://wiki.debian.org/AccountHandlingInMaintainerScripts
+    # ... just disable account
+    disable_megamuser
+
+    # Purge megam  files
+    rm -rf $MEGAMHOME
+    rm -rf /var/run/megam
+    rm -rf /var/log/megam
+fi
