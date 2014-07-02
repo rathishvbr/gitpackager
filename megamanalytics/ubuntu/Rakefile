@@ -19,7 +19,8 @@ end
 
 
 task :trustydeb => [:inittrusty_setup, :clone] do
-  system './g', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION
+  system './g_heka', MegamPkg::Ger::CONFIG[:heka_name], MegamPkg::Ger::VERSION
+  system './g_tap', MegamPkg::Ger::CONFIG[:tap_name], MegamPkg::Ger::VERSION
 end
 
 task :inittrusty_setup do
@@ -43,13 +44,16 @@ task :initprecise_setup do
 end
 
 task :precisedeb => [:initprecise_setup, :clone] do
-  system 'g', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION
+  system './g', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION
 end
 
 
 task :clone do
-  if !File.exists? 'nilavu/'
-   system "git clone https://github.com/megamsys/nilavu.git"
+  if !File.exists? 'heka/'
+   system "git clone https://github.com/megamsys/heka.git"
+ end
+  if !File.exists? 'tap/'
+   system "git clone https://github.com/megamsys/tap.git"
  end
 end
 
