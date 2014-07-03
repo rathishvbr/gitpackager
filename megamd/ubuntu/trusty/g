@@ -1,7 +1,8 @@
-cd megam_gateway
+cd megam_akka
 
 sbt clean
 sbt dist:clean
 sbt compile
+sbt package
 sbt stage
 sbt debian:package-bin

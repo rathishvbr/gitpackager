@@ -19,7 +19,7 @@ end
 
 
 task :trustydeb => [:inittrusty_setup, :clone] do
-  system './g', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION
+  system 'g', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION
 end
 
 task :inittrusty_setup do
@@ -48,13 +48,13 @@ end
 
 
 task :clone do
-  if !File.exists? 'nilavu/'
-   system "git clone https://github.com/megamsys/nilavu.git"
+  if !File.exists? 'megam_akka/'
+   system "git clone https://github.com/megamsys/megam_akka.git"
  end
 end
 
 task :copydeb do
   if !File.exists? '*.deb'
-   cp './nilavu/*.deb' '../../../'
+   cp './megam_akka/*.deb' '../../../'
   end
 end

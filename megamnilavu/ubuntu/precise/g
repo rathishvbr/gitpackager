@@ -1,5 +1,9 @@
 #!/bin/sh
+cd nilavu/script
 ./d clean
+
+cd ..
+
 
 cd ..
 bundle update

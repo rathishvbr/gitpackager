@@ -2,7 +2,8 @@
 
 set -e
 
-MEGAMHOME=/usr/share/megam
+MEGAM_INSTALLHOME=/usr/share/megam
+MEGAMHOME=/var/lib/megam
 MEGAM_GROUP=megam
 MEGAM_USER=megam
 
@@ -16,6 +17,8 @@ if [ "$1" = "purge" ]; then
     # purge stats overrides
     # stats overrides could already be removed by root
     dpkg-statoverride --remove $MEGAMHOME || true
+    # stats overrides could already be removed by root
+    dpkg-statoverride --remove $MEGAM_INSTALLHOME || true
 
     # Don't delete oneadmin or cloud group for now
     # See http://wiki.debian.org/AccountHandlingInMaintainerScripts
@@ -23,7 +26,12 @@ if [ "$1" = "purge" ]; then
     disable_megamuser
 
     # Purge megam  files
-    rm -rf $MEGAMHOME
+    rm -rf $MEGAMHOME/.megamauth
+    rm -rf $MEGAHOME/heka
+    rm -rf $MEGAMHOME/coc.db
+    rm -rf $MEGAMHOME/config
+    rm -rf $MEGAM_INSTALLHOME 2>/dev/null || true
+    rm -rf $MEGAMHOME 2>/dev/null || true
     rm -rf /var/run/megam
     rm -rf /var/log/megam
 fi

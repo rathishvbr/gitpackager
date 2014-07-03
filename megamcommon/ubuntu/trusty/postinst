@@ -2,7 +2,8 @@
 
 set -e
 
-MEGAMHOME=/usr/share/megam
+MEGAMHOME=/var/lib/megam
+MEGAM_INSTALLHOME=/usr/share/megam
 MEGAM_GROUP=megam
 MEGAM_USER=megam
 
@@ -12,28 +13,33 @@ create_megamgroup() {
     fi
 }
 
-
-
 create_megamuser() {
-    # Adding megam
-    if ! id -u $MEGAM_USER > /dev/null 2>&1; then
-        echo "Creating user megam in group megam"
-        useradd --system --no-create-home --gid $MEGAM_GROUP --shell /bin/false $MEGAM_USER
+    if ! getent passwd $MEGAM_USER > /dev/null 2>&1; then
+        adduser --system --ingroup $MEGAM_GROUP --home $MEGAMHOME --shell /bin/bash $MEGAM_USER
+    else
+        MEGAMHOME=`getent passwd $MEGAM_USER | cut -f6 -d:`
+        # Renable user (give him a shell)
+        usermod --shell /bin/bash $MEGAM_USER
+        # Make sure MEGAMHOME exists, might have been removed on previous purge
+        mkdir -p $MEGAMHOME
     fi
 }
-
 
 if [ "$1" = "configure" ]; then
     create_megamgroup
     create_megamuser
 
-    if ! [ -d "$MEGAMHOME" ]; then
-        mkdir "$MEGAMHOME"
-        chown $MEGAM_USER "$MEGAMHOME"
+    if ! [ -d "$MEGAM_INSTALLHOME" ]; then
+        mkdir "$MEGAM_INSTALLHOME"
     fi
 
     # Use dpkg-statoverride instead of direct chmod/chown
-    if ! dpkg-statoverride --list $MEGAM_HOME >/dev/null 2>&1; then
-        dpkg-statoverride --update --add $MEGAM_USER root 755 $MEGAM_HOME
+    if ! dpkg-statoverride --list $MEGAMHOME >/dev/null 2>&1; then
+        dpkg-statoverride --update --add $MEGAM_USER root 755 $MEGAMHOME
+    fi
+
+    # Use dpkg-statoverride instead of direct chmod/chown
+    if ! dpkg-statoverride --list $MEGAM_INSTALLHOME >/dev/null 2>&1; then
+        dpkg-statoverride --update --add $MEGAM_USER root 755 $MEGAM_INSTALLHOME
     fi
 fi

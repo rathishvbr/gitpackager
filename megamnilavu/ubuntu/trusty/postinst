@@ -65,9 +65,6 @@ nilavu.mypaas.io
 
 EOF
 
-cp /etc/nginx/private/nilavu.key /usr/share/megam/megamnilavu/conf
-cp /etc/nginx/certs/nilavu_pub.crt /usr/share/megam/megamnilavu/conf
-
 ln -s /etc/nginx/sites-available/nilavu /etc/nginx/sites-enabled/nilavu
 
 
