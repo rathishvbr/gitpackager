@@ -49,12 +49,12 @@ end
 
 task :clone do
   if !File.exists? 'nilavu/'
-   system "git clone https://github.com/megamsys/nilavu.git"
+   system "git clone https://github.com/megamsys/megam_gateway.git"
  end
 end
 
 task :copydeb do
   if !File.exists? '*.deb'
-   cp './nilavu/*.db' '../../../'
+   cp './megam_gateway/*.deb' '../../../'
   end
 end
