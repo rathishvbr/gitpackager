@@ -135,6 +135,37 @@ chown -R megam:megam /usr/share/megam/megamnilavu
 
 chdir /usr/share/megam/megamnilavu
 
+cat > //var/lib/megam/common.yml <<EOF                                  #Common yml
+
+monitor:
+  metric_source: ganglia
+  host: ganglia_host
+  base_url: http://monitor.megam.co.in/ganglia
+  cluster: megampaas
+
+storage:
+  type: local
+  aws_access_key: AWS_ACCCESS_KEY
+  aws_secret_key: AWS_SECRET_KEY
+  cross_cloud: cloud_keys
+  cloud_tool: cloudrecipes
+  server_url: https://s3-ap-southeast-1.amazonaws.com
+
+api:
+  host: localhost
+  pub_key: megamgateway_pub.crt
+  private_key: megamgateway.key
+
+#if db and production are start from begining of the line it assumes as two inner hashes 
+#{"db"=>nil, "production"=>{"adapter"=>"sqlite3"}}
+#db:
+#  production:
+#        adapter: sqlite3
+#        database: db/cocdb
+#        pool: 5
+#        timeout: 5000
+EOF
+
 echo "setting up database"
 rake db:migrate
 
@@ -148,3 +179,5 @@ echo "started"
 initctl reload-configuration
 
 service nginx restart
+
+
