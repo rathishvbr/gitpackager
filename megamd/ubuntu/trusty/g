@@ -1,3 +1,4 @@
+#!/bin/sh
 cd megam_akka
 
 sbt clean
