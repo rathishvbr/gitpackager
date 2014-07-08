@@ -6,13 +6,14 @@ class Distro < Thor                                              # [1]
   map "-L" => :list                                              # [3]
 
   desc "build", "build all of the available apps"                # [4]
-  method_options :clean => :boolean, :name => :string            # [5]
+  method_options :clean => :boolean             # [5]
 
   def build(name)
     package_name = options[:name]
-
+    puts "hurray i am"
     if options.clean?
       # iterate over all the directories and kill off rake scripts
+      puts "hurray i am cleaning"
     end
     # other code
   end
