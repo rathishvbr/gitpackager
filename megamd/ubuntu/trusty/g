@@ -4,6 +4,7 @@ cd megam_akka
 sbt clean
 sbt dist:clean
 sbt compile
-sbt package
 sbt stage
+sbt dist:dist
+sbt package
 sbt debian:package-bin
