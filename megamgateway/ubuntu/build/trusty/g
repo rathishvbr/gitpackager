@@ -1,0 +1,7 @@
+#!/bin/sh
+cd megam_gateway
+sbt clean
+sbt dist:clean
+sbt compile
+sbt stage
+sbt debian:package-bin
