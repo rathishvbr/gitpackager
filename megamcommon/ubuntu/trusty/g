@@ -1,2 +1,3 @@
 #!/bin/sh
+mkdir -p usr/share/megam
 fpm -s dir -t deb -n $1 -v $2 --after-install ./postinst --after-remove ./postrm --license "Apache" --vendor "Megam Systems" --maintainer "<rajthilak@megam.co.in>" --url "http://www.gomegam.com" --description "Megam common an empty package which just creates an user megam and group megam." ./usr/share/megam
