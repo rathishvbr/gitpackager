@@ -1,2 +1,0 @@
-#!/bin/sh
-fpm -s dir -t deb -n $1 -v $2 -d "ganglia-monitor-python,gmetad,ganglia-webfrontend" --after-install ./postinst  --license "Apache" --vendor "Megam Systems" --maintainer "<rajthilak@megam.co.in>" --url "http://www.gomegam.com" --description "Megam monitor with ganglia." .
