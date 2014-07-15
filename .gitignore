@@ -13,7 +13,7 @@
 /log/*.log
 /tmp
 
-*/build
+**/build
 
 # Ignore all files which ends with ~
 *~

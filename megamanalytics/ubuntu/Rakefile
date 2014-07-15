@@ -2,7 +2,7 @@ require "rake"
 require "../../version.rb"
 require "./config.rb"
 puts ">> ------------- [#{MegamPkg::Ger::CONFIG[:name]} #{MegamPkg::Ger::VERSION}]"
-task :default => :trustydeb
+task :default => :trusty :precise
 
 build_dir ="build"
 trusty_dir ="trusty"
@@ -18,7 +18,7 @@ task :clean do
 end
 
 
-task :trustydeb => [:inittrusty_setup, :clone] do
+task :trusty => [:inittrusty_setup, :clone] do
   system './g_heka', MegamPkg::Ger::CONFIG[:heka_name], MegamPkg::Ger::VERSION
   system './g_tap', MegamPkg::Ger::CONFIG[:tap_name], MegamPkg::Ger::VERSION
 end
@@ -43,8 +43,10 @@ task :initprecise_setup do
   Dir.chdir build_precise_dir
 end
 
-task :precisedeb => [:initprecise_setup, :clone] do
-  system './g', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION
+task :precise => [:initprecise_setup, :clone] do
+  system './g_heka', MegamPkg::Ger::CONFIG[:heka_name], MegamPkg::Ger::VERSION
+  system './g_tap', MegamPkg::Ger::CONFIG[:tap_name], MegamPkg::Ger::VERSION
+
 end
 
 
