@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+pwd
 cd heka
 source build.sh
 make deb
