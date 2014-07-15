@@ -5,17 +5,17 @@ This project helps in packaging megam - private datacenter.
 
 This has rake files that auto-generates builds for Megam.
 
-In the first phase we plan to provide `deb` support for
+In the first phase we plan to provide `debs`.
 
-***
+---
 
 The list of packages built and their dependency are shown below.
 
 * precise (12.04)
-[Precise](images/precise.png)
+[Precise](./images/precise.png)
 
 * trusty (14.04)
-[Trusty](images/trusty.png)
+[Trusty](./images/trusty.png)
 
 How can you build it
 -----------------------
@@ -45,16 +45,24 @@ Install  packages
 sudo add-apt-repository "deb http://get.megam.co/ $(lsb_release -sc) testing"
 
 
-wget -qO - http://get.megam.co/?? | sudo apt-key add -
-
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv B3E0C1B7
 
 sudo apt-get update
 
+# should install ruby2.0, megamcommon, nginx
 sudo apt-get install megamnilavu
 
+# should install riak, megamcomon
 sudo apt-get install megamgateway
 
+# should install rabbitmq
+sudo apt-get install megamd
+
+# should install heka, elasticserver
 sudo apt-get install megamanalytics
+
+# should install ganglia
+sudo apt-get install megammonitor
 
 
 ```
@@ -62,6 +70,11 @@ sudo apt-get install megamanalytics
 Testing packages
 ------------------------
 
+```
+
+Follow the current google docs link
+
+```
 
 
 
