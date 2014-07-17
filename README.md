@@ -5,17 +5,22 @@ This project helps in packaging megam - private datacenter.
 
 This has rake files that auto-generates builds for Megam.
 
-In the first phase we plan to provide `debs`.
 
 ---
+In the first phase we plan to provide _`debs`_.
 
-The list of packages built and their dependency are shown below.
+The list of debian packages built and their dependency are shown below.
 
-* precise (12.04)
-[Precise](./images/precise.png)
+* Ubuntu Precise (12.04)
+![Precise](https://github.com/megamsys/packager/blob/master/images/precise.png)
 
-* trusty (14.04)
-[Trusty](./images/trusty.png)
+* Ubuntu Trusty (14.04)
+![Trusty](https://github.com/megamsys/packager/blob/master/images/trusty.png)
+
+`We are working on it. You can give us a hand too.`
+
+* Debian Wheezy
+* _`rpm`_
 
 How can you build it
 -----------------------
@@ -44,7 +49,6 @@ Install  packages
 ```
 sudo add-apt-repository "deb http://get.megam.co/ $(lsb_release -sc) testing"
 
-
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv B3E0C1B7
 
 sudo apt-get update
@@ -72,7 +76,8 @@ Testing packages
 
 ```
 
-Follow the current google docs link
+[Follow this link](http://bit.ly/1sWIDxn)
+
 
 ```
 
