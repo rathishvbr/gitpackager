@@ -133,9 +133,7 @@ chmod 666 /usr/share/megam/megamnilavu/production.log
 
 chown -R megam:megam /usr/share/megam/megamnilavu
 
-chdir /usr/share/megam/megamnilavu
-
-cat > //var/lib/megam/common.yml <<EOF                                  #Common yml
+cat > //var/lib/megam/nilavu.yml <<EOF                                  #Common yml
 
 monitor:
   metric_source: ganglia
@@ -166,6 +164,8 @@ api:
 #        timeout: 5000
 EOF
 
+cd /usr/share/megam/megamnilavu
+gem install rake
 echo "setting up database"
 rake db:migrate
 
