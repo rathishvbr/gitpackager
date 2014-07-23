@@ -1,0 +1,9 @@
+#!/bin/sh
+
+chown megam:megam /var/run/megam/megamcib
+
+chown megam:megam /var/log/megam/megamcib
+
+initctl reload-configuration
+
+service megamcib start || echo "megamcib could not be started. Try manually with service megamcib start"
