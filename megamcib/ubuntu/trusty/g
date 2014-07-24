@@ -5,12 +5,16 @@ cd cloudinabox/src/github.com/megamsys/cloudinabox
 
 make clean
 
-make test
+make build
+
+#make test
 
 make client
 
-
 cp  cib ../../../../../usr/share/megam/megamcib/bin
+cp  -r views ../../../../../usr/share/megam/megamcib
+cp  -r static ../../../../../usr/share/megam/megamcib
+cp  -r static_source ../../../../../usr/share/megam/megamcib
 
 cd ../../../../../
 

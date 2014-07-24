@@ -18,7 +18,7 @@ task :clean do
 end
 
 
-task :trusty => [:inittrusty_setup, :clone] do
+task :trusty => [:inittrusty_setup, :initcib, :clone] do
   system './g', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION
 end
 
@@ -30,6 +30,13 @@ task :inittrusty_setup do
     cp_r f, target
   end
   Dir.chdir build_trusty_dir
+end
+
+task :initcib do
+  mkdir_p "cloudinabox"
+  mkdir_p "cloudinabox/src"
+  mkdir_p "cloudinabox/src/github.com"
+  mkdir_p "cloudinabox/src/github.com/megamsys"
 end
 
 task :initprecise_setup do
@@ -48,9 +55,11 @@ end
 
 
 task :clone do
-  if !File.exists? 'cloudinabox/'
-   system "git clone " + MegamPkg::Ger::CONFIG[:git]
+  if !File.exists? 'cloudinabox/src/github.com/megamsys/cloudinabox/'
+   Dir.chdir 'cloudinabox/src/github.com/megamsys'
+   system "git clone " + MegamPkg::Ger::CONFIG[:git]   
  end
+ Dir.chdir '../../../../'
 end
 
 task :copydeb do
