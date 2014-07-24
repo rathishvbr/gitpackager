@@ -24,7 +24,7 @@ setuid megam
 # start the megamcib seed
 script
   echo "[`date -u +%Y-%m-%dT%T.%3NZ`] (sys) megamcib starting" >> /var/log/megam/megamcib/megamcib.log
-  exec ./bin/megamcib >> /var/log/megam/megamcib/megamcib.log 2>&1
+  exec ./bin/cib >> /var/log/megam/megamcib/megamcib.log 2>&1
 end script
 
 post-start script
