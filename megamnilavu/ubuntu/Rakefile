@@ -43,7 +43,7 @@ task :initprecise_setup do
 end
 
 task :precise => [:initprecise_setup, :clone] do
-  system 'g', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION
+  system './g', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION
 end
 
 
