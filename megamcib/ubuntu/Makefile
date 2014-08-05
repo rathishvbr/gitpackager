@@ -107,8 +107,10 @@ tree_iso:
 
 .PHONY: burn_usb
 burn_usb:
-	sudo cp preseed.cfg $(USB_IMAGEDIR)
-	sudo cp txt.cfg $(USB_IMAGEDIR)
+	sudo cp ./usb/preseed.seed $(USB_IMAGEDIR)
+	sudo cp ./usb/txt.cfg $(USB_IMAGEDIR)		
+	sudo rm -rf splash.png 
+	sudo cp ./trusty/image/splash.png $(USB_IMAGEDIR)
 	xorriso -as mkisofs -r -J -b isolinux.bin -c boot.cat \
 		-no-emul-boot -boot-load-size 4 -boot-info-table \
 		-eltorito-alt-boot \
@@ -119,7 +121,7 @@ burn_usb:
     read -r -p "--> Burn the iso in usb[/dev/sdb]. Have you plugged it in ?   [y/N] " CONTINUE; \
 	done ; \
 	if [ $$CONTINUE = "y" ] || [ $$CONTINUE = "Y" ]; then \
-	 sudo sudo dd if=$(MEGAM_MINIISO) of=/dev/sdb; \
+	  sudo dd if=$(MEGAM_MINIISO) of=/dev/sdb; \
 	fi;
 
 .PHONY:  qemu_test
