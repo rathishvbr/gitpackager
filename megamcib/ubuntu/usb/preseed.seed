@@ -45,8 +45,8 @@ d-i passwd/make-user boolean true
 d-i passwd/user-fullname string Cloud Administrator
 d-i passwd/username string cloudadmin
 # Normal user's password, either in clear text
-#d-i passwd/user-password password cloudadmin
-#d-i passwd/user-password-again password cloudadmin
+d-i passwd/user-password password cloudadmin
+d-i passwd/user-password-again password cloudadmin
 
 # Set to true if you want to encrypt the first user's home directory.
 d-i user-setup/encrypt-home boolean false
