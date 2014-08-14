@@ -49,7 +49,8 @@ end
 
 task :clone do
   if !File.exists? 'megam_akka/'
-   system "git clone https://github.com/megamsys/megam_akka.git"
+   #system "git clone https://github.com/megamsys/megam_akka.git"
+   cp_r '/home/ram/code/megam/workspace/megam_akka', './'
  end
 end
 

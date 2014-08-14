@@ -107,7 +107,7 @@ tree_iso:
 
 .PHONY: burn_usb
 burn_usb:
-	sudo cp ./usb/preseed.seed $(USB_IMAGEDIR)
+	sudo cp ./usb/preseed.cfg $(USB_IMAGEDIR)
 	sudo cp ./usb/txt.cfg $(USB_IMAGEDIR)		
 	sudo rm -rf splash.png 
 	sudo cp ./trusty/image/splash.png $(USB_IMAGEDIR)
@@ -116,7 +116,7 @@ burn_usb:
 		-eltorito-alt-boot \
 		--efi-boot boot/grub/efi.img -no-emul-boot \
 		-o $(MEGAM_MINIISO) $(USB_IMAGEDIR); \
-	geniso_hybrid_plus_firmware_partition $(MEGAM_MINIISO); \
+	./geniso_hybrid_plus_firmware_partition $(MEGAM_MINIISO); \
 	while [ -z "$$CONTINUE" ]; do \
     read -r -p "--> Burn the iso in usb[/dev/sdb]. Have you plugged it in ?   [y/N] " CONTINUE; \
 	done ; \
