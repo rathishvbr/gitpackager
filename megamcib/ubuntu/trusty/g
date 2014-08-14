@@ -18,6 +18,7 @@ ls
 cp -rf ./views/ ../../../../../usr/share/megam/megamcib
 cp -rf ./static/ ../../../../../usr/share/megam/megamcib
 cp -rf ./static_source/ ../../../../../usr/share/megam/megamcib
+cp -rf ./conf/ ../../../../../usr/share/megam/megamcib
 cp cib ../../../../../usr/share/megam/megamcib/bin
 
 cd ../../../../../
