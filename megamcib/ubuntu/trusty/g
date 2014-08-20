@@ -11,11 +11,18 @@ make build
 
 make client
 
-cp  cib ../../../../../usr/share/megam/megamcib/bin
-cp  -r views ../../../../../usr/share/megam/megamcib
-cp  -r static ../../../../../usr/share/megam/megamcib
-cp  -r static_source ../../../../../usr/share/megam/megamcib
+echo "`pwd`"
+
+ls
+
+cp -rf ./views/ ../../../../../usr/share/megam/megamcib
+cp -rf ./static/ ../../../../../usr/share/megam/megamcib
+cp -rf ./static_source/ ../../../../../usr/share/megam/megamcib
+cp -rf ./conf/ ../../../../../usr/share/megam/megamcib
+cp cib ../../../../../usr/share/megam/megamcib/bin
 
 cd ../../../../../
 
-fpm -s dir -t deb -n $1 -v $2 -d "megamcommon" --before-install ./preinst --after-install ./postinst --before-remove ./prerm --deb-upstart ./etc/init/megamcib --license "Apache" --vendor "Megam Systems" --maintainer "<rajthilak@megam.co.in>" --url "http://www.gomegam.com" --description "Cloud In a Box seed daemon" ./usr/share/megam/megamcib/bin
+echo "`dir`"
+
+fpm -s dir -t deb -n $1 -v $2 -d "megamcommon" --before-install ./preinst --after-install ./postinst --before-remove ./prerm --deb-upstart ./etc/init/megamcib --license "Apache" --vendor "Megam Systems" --maintainer "<rajthilak@megam.co.in>" --url "http://www.gomegam.com" --description "Cloud In a Box seed daemon" ./usr/share/megam/megamcib
