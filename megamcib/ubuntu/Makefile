@@ -17,11 +17,11 @@ MOUNT_ISODIR = /mnt
 
 TRUSTY_MINI_ISO = $(BUILDDIR)/trusty_mini.iso
 TRUSTY_MEGAM_ISO = $(BUILDDIR)/trusty_megam.iso
-TRUSTY_MINI_URL = "http://archive.ubuntu.com/ubuntu/dists/trusty/main/installer-amd64/current/images/netboot/mini.iso"
+TRUSTY_MINI_URL = "http://archive.ubuntu.com/ubuntu/dists/trusty-updates/main/installer-amd64/current/images/netboot/mini.iso"
 
 CENTOS_MINI_ISO = $(BUILDDIR)/centos_mini.iso
 CENTOS_MEGAM_ISO = $(BUILDDIR)/centos_megam.iso
-CENTOS_MINI_URL = "http://centosmirror.go4hosting.in/centos/6.5/isos/x86_64/CentOS-6.5-x86_64-minimal.iso"
+CENTOS_MINI_URL = "http://centosmirror.go4hosting.in/centos/7.0.1406/isos/x86_64/CentOS-7.0-1406-x86_64-NetInstall.iso"
 
 TEMP_MINIISO=$(BUILDDIR)/trusty_mini.iso
 MEGAM_MINIISO=$(BUILDDIR)/trusty_megam.iso
