@@ -1,0 +1,10 @@
+Template: cib-config/text
+Type: text
+Description: Cloud In a Box is Ready!
+  1. Register at https://www.megam.co.
+     The registered [email id, api key] is needed to login to your Cloud In a Box.
+
+  2. Use a system with a browser to configure Cloud In Box.
+     Get started by entering http://testing:8086 in your browser.
+
+  For more information http://www.gomegam.com/docs/design_and_installation/building_your_cib/introcib.html
