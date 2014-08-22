@@ -2,6 +2,8 @@
 
 set -e
 
+. /usr/share/debconf/confmodule
+
 chown megam:megam /var/run/megam/megamcib
 
 chown megam:megam /var/log/megam/megamcib
@@ -10,12 +12,9 @@ initctl reload-configuration
 
 service megamcib start || echo "megamcib could not be started. Try manually with service megamcib start"
 
-# Source debconf library
-. /usr/share/debconf/confmodule
+db_settitle megamcib/cibt
 
-# Set title for the dialog
-db_settitle cib-config/title
-
-db_input critical cib-config/text
-
+db_input high megamcib/cibt || true
 db_go
+
+db_fset megamcib/cibt seen false
