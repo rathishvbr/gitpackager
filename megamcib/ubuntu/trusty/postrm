@@ -1,5 +1,5 @@
 #!/bin/sh
-#!/bin/sh
+
 if [ -d "/usr/share/megam/megamcib" ]; then
   rm -r /usr/share/megam/megamcib
 fi
