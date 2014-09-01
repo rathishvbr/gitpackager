@@ -20,6 +20,7 @@ end
 
 task :trusty => [:inittrusty_setup, :initcib, :clone] do
   system './g', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION
+#  system './ng', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION
 end
 
 task :inittrusty_setup do
@@ -33,9 +34,6 @@ task :inittrusty_setup do
 end
 
 task :initcib do
-  mkdir_p "cloudinabox"
-  mkdir_p "cloudinabox/src"
-  mkdir_p "cloudinabox/src/github.com"
   mkdir_p "cloudinabox/src/github.com/megamsys"
 end
 
@@ -57,7 +55,7 @@ end
 task :clone do
   if !File.exists? 'cloudinabox/src/github.com/megamsys/cloudinabox/'
    Dir.chdir 'cloudinabox/src/github.com/megamsys'
-   system "git clone " + MegamPkg::Ger::CONFIG[:git]   
+   system "git clone " + MegamPkg::Ger::CONFIG[:git]
  end
  Dir.chdir '../../../../'
 end
