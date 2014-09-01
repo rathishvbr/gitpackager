@@ -19,7 +19,7 @@ respawn limit 0 60
 chdir /usr/share/megam/megamcib
 
 # changes to the user and group before running the job's process
-setuid megam
+#setuid megam
 
 # start the megamcib seed
 script
