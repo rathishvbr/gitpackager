@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+cd heka
+source build.sh
+make deb
