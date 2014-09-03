@@ -1,4 +1,0 @@
-sbt clean
-sbt compile
-sbt stage
-sbt debian:package-bin

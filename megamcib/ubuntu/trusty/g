@@ -1,0 +1,15 @@
+#!/bin/sh
+mkdir -p ./usr/share/megam/megamcib/bin
+
+cd cloudinabox/src/github.com/megamsys/cloudinabox
+
+make
+
+cp -rf ./views/ ../../../../../usr/share/megam/megamcib
+cp -rf ./static_source/ ../../../../../usr/share/megam/megamcib
+cp -rf ./conf/ ../../../../../usr/share/megam/megamcib
+cp cibd ../../../../../usr/share/megam/megamcib/bin
+
+cd ../../../../../
+
+fpm -s dir -t deb -n $1 -v $2 -d "megamcommon, debconf, debconf-utils, whiptail, apt-utils" --before-install ./preinst --after-install ./postinst --before-remove ./prerm --deb-upstart ./etc/init/megamcib --deb-templates ./templates --license "Apache" --vendor "Megam Systems" --maintainer "<alrin@megam.co.in>" --url "http://www.gomegam.com" --description "Cloud In a Box base seed daemon" ./usr/share/megam/megamcib

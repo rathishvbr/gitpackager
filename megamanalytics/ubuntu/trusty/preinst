@@ -10,11 +10,18 @@ chown megam:megam /var/log/megam/megamanalytics
 mkdir -p /var/lib/megam/heka
 
 cat > //var/lib/megam/heka/hekad.toml <<EOF
-[TestWebserver]
+[LogOUT]
 type = "LogstreamerInput"
-log_directory = "/usr/share/megam/megamherk/logs/"
-file_match = '(?P<DomainName>[^/]+)/(?P<FileName>[^/]+)'
-differentiator = ["DomainName", "_log"]
+log_directory = "/var/lib/megam/logs/"
+file_match = '(?P<DomainName>[^/]+)/(?P<FileName>.*)\_out$'
+differentiator = ["DomainName"]
+
+[logERR]
+type = "LogstreamerInput"
+log_directory = "/var/lib/megam/logs/"
+file_match = '(?P<DomainName>[^/]+)/(?P<FileName>.*)\_err$'
+differentiator = ["DomainName"]
+
 
 [AMQPOutput]
 url = "amqp://guest:guest@localhost/"

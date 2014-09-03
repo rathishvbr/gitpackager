@@ -105,6 +105,12 @@ end
 
 EOF
 
+#set MEGAM_HOME for megamnilavu    NOTFOR THE WHOLE SYSTEM(we can't access by echo $MEGAM_HOME)
+cat > //var/lib/megam/env.sh <<EOF
+initctl set-env MEGAM_HOME='/var/lib/megam'             
+EOF
+
+chmod 755 /var/lib/megam/env.sh
 
 cat > //etc/init/megamnilavu.conf <<EOF
 # Configuration Upstart file for Nilavu
@@ -115,8 +121,8 @@ stop on runlevel [!12345]
 
 
 pre-start script
-
-
+cd /var/lib/megam
+./env.sh
 end script
 
 
@@ -133,9 +139,7 @@ chmod 666 /usr/share/megam/megamnilavu/production.log
 
 chown -R megam:megam /usr/share/megam/megamnilavu
 
-chdir /usr/share/megam/megamnilavu
-
-cat > //var/lib/megam/common.yml <<EOF                                  #Common yml
+cat > //var/lib/megam/nilavu.yml <<EOF                                  #Common yml
 
 monitor:
   metric_source: ganglia
@@ -166,11 +170,18 @@ api:
 #        timeout: 5000
 EOF
 
+cd /usr/share/megam/megamnilavu
+gem install rake
+
+export MEGAM_HOME=/var/lib/megam                        #To have DB under megam_home
+
 echo "setting up database"
 rake db:migrate
 
 #setup a host name nilavu.some.com
 echo "127.0.0.1 nilavu.mypaas.io megamnilavu" >> /etc/hosts
+
+chown -R megam:megam /var/lib/megam/db                  #otherwise error in db access
 
 echo "starting megamnilavu"
 sudo start megamnilavu

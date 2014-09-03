@@ -2,7 +2,7 @@ require "rake"
 require "../../version.rb"
 require "./config.rb"
 puts ">> ------------- [#{MegamPkg::Ger::CONFIG[:name]} #{MegamPkg::Ger::VERSION}]"
-task :default => :trusty :precise
+task :default => :trusty
 
 build_dir ="build"
 trusty_dir ="trusty"
@@ -49,12 +49,12 @@ end
 
 task :clone do
   if !File.exists? 'pysnowflake/'
-   system "git clone https://github.com/megamsys/pysnowflake.git"
+   system "git clone " + MegamPkg::Ger::CONFIG[:git]
  end
 end
 
 task :copydeb do
   if !File.exists? '*.deb'
-   cp './pysnowflake/*.db' '../../../'
+   cp './pysnowflake/*.deb' '../../../'
   end
 end

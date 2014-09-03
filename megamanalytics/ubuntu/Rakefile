@@ -2,7 +2,7 @@ require "rake"
 require "../../version.rb"
 require "./config.rb"
 puts ">> ------------- [#{MegamPkg::Ger::CONFIG[:name]} #{MegamPkg::Ger::VERSION}]"
-task :default => :trusty :precise 
+task :default => :trusty
 
 build_dir ="build"
 trusty_dir ="trusty"
@@ -61,6 +61,6 @@ end
 
 task :copydeb do
   if !File.exists? '*.deb'
-   cp './nilavu/*.db' '../../../'
+   cp_r './heka/*.deb' '../../../'
   end
 end
