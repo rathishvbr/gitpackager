@@ -1,10 +1,12 @@
 Template: megamcib/cibt
 Type: note
-Description: Cloud In a Box is Ready!
- 1. Register at https://www.megam.co.
- The registered [email id, api key] is needed to login to your Cloud In a Box.
+Description: Cloud In a Box : Base is Ready!
+ 1. Unix userid : cibadmin pw: cibadmin
  .
- 2. Use a system with a browser to configure Cloud In Box.
- Get started by entering http://HOSTNAME:8086 in your browser.
+ 2. Register at https://www.megam.co.
  .
- For more information http://www.gomegam.com/docs/design_and_installation/building_your_cib/introcib.html
+ 3. Use a system with a browser to configure Cloud In Box.
+ Get started by entering http://<ip_address>:8086 in your browser.
+ Use the [email id, api key] registered at https://www.megam.co as your login credentials.
+ .
+ For more information http://bit.ly/megamcib
