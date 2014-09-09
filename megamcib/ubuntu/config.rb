@@ -1,7 +1,8 @@
 module MegamPkg
   class Ger
   CONFIG =  {:os => ['trusty', 'precise'],
-        :name => "megamcib",
+        :name => "megamcib", 
+        :name_node => "megamcibn",
         :git => "https://github.com/megamsys/cloudinabox.git"}
 
   if !Gem::Specification::find_all_by_name('fpm').any?

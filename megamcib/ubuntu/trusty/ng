@@ -3,8 +3,6 @@ mkdir -p ./usr/share/megam/megamcib/bin
 
 cd cloudinabox/src/github.com/megamsys/cloudinabox
 
-make
-
 cp -rf ./views/ ../../../../../usr/share/megam/megamcib
 cp -rf ./conf/ ../../../../../usr/share/megam/megamcib
 cp cibnd ../../../../../usr/share/megam/megamcib/bin
