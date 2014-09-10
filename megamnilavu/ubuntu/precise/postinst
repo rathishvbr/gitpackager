@@ -65,6 +65,8 @@ nilavu.mypaas.io
 
 EOF
 
+gem install bundler 
+
 ln -s /etc/nginx/sites-available/nilavu /etc/nginx/sites-enabled/nilavu
 
 
