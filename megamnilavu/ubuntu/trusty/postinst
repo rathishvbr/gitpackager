@@ -7,9 +7,9 @@ mkdir /etc/unicorn
 mkdir -p /var/log/megam/megamnilavu
 mkdir -p /var/run/megam/megamnilavu
 
-chown megam:megam /var/run/megam/megamnilavu
+#chown megam:megam /var/run/megam/megamnilavu
 
-chown megam:megam /var/log/megam/megamnilavu
+#chown megam:megam /var/log/megam/megamnilavu
 
 cat <<EOF >/etc/nginx/sites-available/nilavu
 server {
@@ -182,7 +182,8 @@ rake db:seed
 #setup a host name nilavu.some.com
 echo "127.0.0.1 nilavu.mypaas.io megamnilavu" >> /etc/hosts
 
-chown -R megam:megam /var/lib/megam/db                  #otherwise error in db access
+[ -d /var/lib/megam/db ] && chown -R megam:megam /var/lib/megam/db 
+[ -d /usr/share/megam/megamnilavu/db ] && chown -R megam:megam /usr/share/megam/megamnilavu/db
 
 echo "starting megamnilavu"
 sudo start megamnilavu
