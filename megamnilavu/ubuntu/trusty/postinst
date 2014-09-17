@@ -11,62 +11,6 @@ mkdir -p /var/run/megam/megamnilavu
 
 #chown megam:megam /var/log/megam/megamnilavu
 
-cat <<EOF >/etc/nginx/sites-available/nilavu
-server {
-   listen 443;
-   server_name nilavu.mypass.io;
-
-   # SSL configuration
-   ssl on;
-        ssl_certificate /etc/nginx/certs/nilavu_pub.crt;
-        ssl_certificate_key /etc/nginx/private/nilavu.key;
-
-   ssl_session_timeout 5m;
-
-   ssl_protocols SSLv3 TLSv1;
-   ssl_ciphers ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv3:+EXP;
-   ssl_prefer_server_ciphers on;
-
-   # serve assets or request page from proxy (if asset not found)
-   location / {
-      try_files \$uri @proxy;
-   }
-
-   # the play web server
-   location @proxy {
-      proxy_pass  http://localhost:8080;
-      proxy_redirect off;
-      proxy_buffering off;
-
-      #send protocol info to play server
-      proxy_set_header        Host               \$host;
-      proxy_set_header        X-Real-IP          \$remote_addr;
-      proxy_set_header        X-Forwarded-Proto  https;
-      proxy_set_header        X-Forwarded-Ssl    on;
-      proxy_set_header        X-Forwarded-For    \$proxy_add_x_forwarded_for;
-   }
-}
-
-EOF
-
-mkdir -p /etc/nginx/private &&
-mkdir -p /etc/nginx/certs &&
-
-openssl req -x509 -nodes -days 365 -newkey rsa:1024 \
--keyout /etc/nginx/private/nilavu.key \
--out /etc/nginx/certs/nilavu_pub.crt <<EOF
-IN
-TN
-Private
-
-Megam Nilavu Portal
-Development
-nilavu.mypaas.io
-
-EOF
-
-ln -s /etc/nginx/sites-available/nilavu /etc/nginx/sites-enabled/nilavu
-
 
 cat > /etc/unicorn/nilavu.rb <<EOF
 
@@ -190,7 +134,5 @@ sudo start megamnilavu
 echo "started"
 
 initctl reload-configuration
-
-service nginx restart
 
 
