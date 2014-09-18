@@ -49,7 +49,7 @@ end
 
 task :clone do
   if !File.exists? 'megam_gateway/'
-   system "git clone https://github.com/megamsys/megam_gateway.git"
+   system "git clone -b #{MegamPkg::Ger::CONFIG[:branch]} https://github.com/megamsys/megam_gateway.git"
  end
 end
 
