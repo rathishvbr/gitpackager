@@ -123,8 +123,7 @@ echo "setting up database"
 rake db:migrate
 rake db:seed
 
-#setup a host name nilavu.some.com
-echo "127.0.0.1 nilavu.mypaas.io megamnilavu" >> /etc/hosts
+
 
 [ -d /var/lib/megam/db ] && chown -R megam:megam /var/lib/megam/db 
 [ -d /usr/share/megam/megamnilavu/db ] && chown -R megam:megam /usr/share/megam/megamnilavu/db

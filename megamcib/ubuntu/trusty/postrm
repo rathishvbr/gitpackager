@@ -4,6 +4,10 @@ if [ -d "/usr/share/megam/megamcib" ]; then
   rm -r /usr/share/megam/megamcib
 fi
 
+if [ -d "/var/lib/megam/megamcib" ]; then
+  rm -r /var/lib/megam/megamcib
+fi
+
 if [ -d "/var/run/megam/megamcib" ]; then
   rm -r /var/run/megam/megamcib
 fi
