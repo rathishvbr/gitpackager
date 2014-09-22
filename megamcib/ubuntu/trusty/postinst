@@ -16,7 +16,7 @@ service megamcib start || echo "megamcib could not be started. Try manually with
 
 db_settitle megamcib/cibt
 
-db_input high megamcib/cibt || true
+db_input critical megamcib/cibt || true
 db_go
 
 db_fset megamcib/cibt seen false
