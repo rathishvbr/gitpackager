@@ -120,8 +120,8 @@ gem install rake
 export MEGAM_HOME=/var/lib/megam                        #To have DB under megam_home
 
 echo "setting up database"
-rake db:migrate
-rake db:seed
+rake db:migrate RAILS_ENV=production
+rake db:seed RAILS_ENV=production
 
 
 
