@@ -1,0 +1,5 @@
+#!/bin/sh
+
+#stop megamheka || echo "megamheka wasn't even running!"
+stop megamdesigner || echo "megamdesigner wasn't even running!"
+

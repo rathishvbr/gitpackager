@@ -1,0 +1,8 @@
+#!/bin/sh
+cd varai
+npm install
+cd ..
+
+pkgr package ./varai/ --user=megam --group=megam --maintainer="Thomas Alrin<alrin@megam.co.in>, Raj Thilak <rajthilak@megam.co.in>, Kishorekumar Neelamegam<nkishore@megam.co.in>, Megam Systems <gomegam@megam.co.in>" --runner='upstart-1.5' --dependencies=nodejs nodejs-legacy --after-install=$PWD/postinst --before-install=$PWD/preinst --after-remove=$PWD/postrm --before-remove=$PWD/prerm --auto  --clean --name=megamdesigner --version=0.5 --iteration=1  --edge  --homepage="http://www.gomegam.com" --description="Megam - Visual Designer" --license="Apache" --home="/usr/share/megam"
+
+#dependency elasticsearch removed for testing
