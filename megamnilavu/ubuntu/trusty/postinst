@@ -23,8 +23,6 @@ listen "8080", :tcp_nodelay => true, :backlog => 100
 
 working_directory '/usr/share/megam/megamnilavu'
 
-pid "/var/run/megam/megamnilavu/nilavu.pid"
-
 stdout_path "/var/log/megam/megamnilavu/nilavu_out.log"
 stderr_path "/var/log/megam/megamnilavu/nilavu_err.log"
 
@@ -36,11 +34,6 @@ preload_app false
 
 # How many worker processes
 worker_processes 8
-
-
-# Run forked children as specified user/group
-user "megam", "megam"
-
 
 # What to do before we fork a worker
 before_fork do |server, worker|
@@ -60,19 +53,40 @@ cat > //etc/init/megamnilavu.conf <<EOF
 # Configuration Upstart file for Nilavu
 description "Upstart script for nilavu"
 
-start on (local-filesystems)
-stop on runlevel [!12345]
+# When to start the service
+start on runlevel [2345]
+start on (started networking)
 
+# When to stop the service
+stop on runlevel [016]
+stop on (stopping networking)
+stop on (stopped megamnilavu)
+
+# Automatically restart process if crashed. Tries 0 times every 60 seconds
+respawn
+respawn limit 0 60
 
 pre-start script
-cd /var/lib/megam
-./env.sh
+ [ -d /var/run/megam/megamnilavu ] || mkdir -p /var/run/megam/megamnilavu
+ [ -d /var/log/megam/megamnilavu ] || mkdir -p /var/log/megam/megamnilavu
+ cd /var/lib/megam
+ ./env.sh
+ echo "[`date -u +%Y-%m-%dT%T.%3NZ`] (sys) megamnilavu starting" >> /var/log/megam/megamnilavu/megamnilavu.log
 end script
 
+script
+ exec start-stop-daemon --start --chdir "/usr/share/megam/megamnilavu/" --exec /usr/bin/bundle exec unicorn_rails -- -E production -c "/etc/unicorn/nilavu.rb"
+end script
 
-respawn
+post-start script
+    PID=`status megamnilavu | egrep -oi '([0-9]+)$' | head -n1`
+    echo $PID > /var/run/megam/megamnilavu/megamnilavu.pid
+end script
 
-exec start-stop-daemon --start --chdir "/usr/share/megam/megamnilavu/" --exec /usr/bin/bundle exec unicorn_rails -- -E production -c "/etc/unicorn/nilavu.rb"
+post-stop script
+    rm /var/run/megam/megamnilavu/megamnilavu.pid
+    echo "[`date -u +%Y-%m-%dT%T.%3NZ`] (sys) megamnilavu Stopping" >> /var/log/megam/megamnilavu/megamnilavu.log
+end script
 EOF
 
 cat > //usr/share/megam/megamnilavu/production.log <<EOF
@@ -101,8 +115,9 @@ storage:
 
 api:
   host: localhost
-  pub_key: megamgateway_pub.crt
-  private_key: megamgateway.key
+  scheme: http                                                          #key must
+  pub_key: megamgateway_pub.crt                                         #key must
+  private_key: megamgateway.key                                         #key must
 
 #if db and production are start from begining of the line it assumes as two inner hashes 
 #{"db"=>nil, "production"=>{"adapter"=>"sqlite3"}}

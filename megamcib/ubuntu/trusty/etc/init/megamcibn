@@ -24,7 +24,7 @@ chdir /usr/share/megam/megamcib
 # start the cibnd node daemon
 script
   echo "[`date -u +%Y-%m-%dT%T.%3NZ`] (sys) megamcibn starting" >> /var/log/megam/megamcib/megamcib.log
-  exec ./bin/cibnd >> /var/log/megam/megamcib/megamcib.log 2>&1
+  exec ./bin/cibnd startnode >> /var/log/megam/megamcib/megamcib.log 2>&1
 end script
 
 post-start script
