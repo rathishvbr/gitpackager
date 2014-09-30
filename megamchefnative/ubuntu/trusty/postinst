@@ -1,0 +1,8 @@
+#!/bin/sh
+
+chown megam:megam /var/run/megam/megamchefnative
+
+chown megam:megam /var/log/megam/megamchefnative
+
+initctl reload-configuration
+service megamchefnative start || echo "megamchefnative could not be started. Try manually with service megamchefnative start"

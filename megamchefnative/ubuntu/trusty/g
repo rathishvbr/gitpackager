@@ -1,0 +1,12 @@
+#!/bin/sh
+
+mkdir -p ./usr/share/megam/megamchefnative/bin
+
+go get -t github.com/ctdk/goiardi
+
+go install github.com/ctdk/goiardi
+
+cp ~/.go/bin/goiardi ./usr/share/megam/megamchefnative/bin
+
+
+fpm -s dir -t deb -n $1 -v $2 -d "megamcommon" --before-install ./preinst --after-install ./postinst --before-remove ./prerm --deb-upstart ./etc/init/megamchefnative --license "Apache" --vendor "Megam Systems" --maintainer "<alrin@megam.co.in>" --url "http://www.gomegam.com" --description "Chef native daemon for Megam" ./usr/share/megam/megamchefnative
