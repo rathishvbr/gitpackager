@@ -1,0 +1,2 @@
+#!/bin/sh
+service megamchefnative stop || echo "megamchefnative wasn't even running!"

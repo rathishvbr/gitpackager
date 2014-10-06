@@ -1,0 +1,13 @@
+#!/bin/sh
+
+if [ -d "/usr/share/megam/megamchefnative" ]; then
+  rm -r /usr/share/megam/megamchefnative
+fi
+
+if [ -d "/var/run/megam/megamchefnative" ]; then
+  rm -r /var/run/megam/megamchefnative
+fi
+
+if [ -d "/var/log/megam/megamchefnative" ]; then
+  rm -r /var/log/megam/megamchefnative
+fi

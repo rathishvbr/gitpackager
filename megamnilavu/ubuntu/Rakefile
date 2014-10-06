@@ -52,7 +52,7 @@ end
 
 task :clone do
   if !File.exists? 'nilavu/'
-   system "git clone https://github.com/megamsys/nilavu.git"
+   system "git clone -b #{MegamPkg::Ger::CONFIG[:branch]} https://github.com/megamsys/nilavu.git"
  end
 end
 
