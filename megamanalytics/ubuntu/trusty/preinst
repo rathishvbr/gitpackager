@@ -1,6 +1,6 @@
 #!/bin/sh
-# this will have nothing. 
-echo "==============> preinstall  start<======================"
+
+
 mkdir -p /var/log/megam/megamanalytics
 mkdir -p /var/run/megam/megamanalytics
 chown megam:megam /var/run/megam/megamanalytics
@@ -50,7 +50,6 @@ start on startup
 stop on shutdown
 
 script
-    export HOME="/root"
     echo $$ > /var/run/megam/megamanalytics/heka.pid
     exec sudo /var/lib/megam/heka/megam_heka >> /var/log/megam/megamanalytics/heka.log 2>&1
 end script
@@ -68,4 +67,3 @@ end script
 EOF
 
 start megamheka
-echo "==============> preinstall end<======================"

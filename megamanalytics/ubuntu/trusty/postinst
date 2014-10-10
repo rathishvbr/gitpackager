@@ -9,8 +9,6 @@ start on startup
 stop on shutdown
 
 script
-    export HOME="/root"
-
     echo $$ > /var/run/megam/megamanalytics/megamanalytics.pid
     exec sudo /usr/bin/node /usr/share/megam/megamanalytics/tap_monitor.js >> /var/log/megam/megamanalytics/megamanalytics.log 2>&1
 end script

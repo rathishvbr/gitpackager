@@ -1,0 +1,3 @@
+mkdir -p /var/run/megam/megametcd
+
+mkdir -p /var/log/megam/megametcd

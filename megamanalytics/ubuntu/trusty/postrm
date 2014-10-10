@@ -1,5 +1,4 @@
 #!/bin/sh
-echo "==============> post remove start <======================"
 
 [ -d /var/log/megam/megamanalytics ] && rm -rf /var/log/megam/megamanalytics
 
@@ -11,4 +10,4 @@ echo "==============> post remove start <======================"
 
 [ -d /var/lib/megam/heka ] && rm -rf /var/lib/megam/heka
 
-echo "==============> post remove end<======================"
+
