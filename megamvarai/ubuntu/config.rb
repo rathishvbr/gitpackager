@@ -1,7 +1,7 @@
 module MegamPkg
   class Ger
   CONFIG =  {:os => ['trusty', 'precise'],
-        :designer_name => "megamdesigner"}
+        :designer_name => "megamvarai"}
 
   if !Gem::Specification::find_all_by_name('pkgr').any?
       puts "gem install pkgr"

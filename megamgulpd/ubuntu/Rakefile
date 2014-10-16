@@ -18,8 +18,9 @@ task :clean do
 end
 
 
-task :trusty => [:inittrusty_setup, :clone] do
-  system './g_designer', MegamPkg::Ger::CONFIG[:designer_name], MegamPkg::Ger::VERSION
+task :trusty => [:inittrusty_setup, :initcib, :clone] do
+  system './g', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION
+  system './ng', MegamPkg::Ger::CONFIG[:name_node], MegamPkg::Ger::VERSION
 end
 
 task :inittrusty_setup do
@@ -27,9 +28,13 @@ task :inittrusty_setup do
   mkdir_p build_trusty_dir
   Rake::FileList[trusty_dir +"/**"].each do |f|
     target = File.join build_trusty_dir,  File.basename(f)
-    cp f, target
+    cp_r f, target
   end
   Dir.chdir build_trusty_dir
+end
+
+task :initcib do
+  mkdir_p "gulp/src/github.com/megamsys"
 end
 
 task :initprecise_setup do
@@ -43,17 +48,20 @@ task :initprecise_setup do
 end
 
 task :precise => [:initprecise_setup, :clone] do
-  system './g_designer', MegamPkg::Ger::CONFIG[:designer_name], MegamPkg::Ger::VERSION
-
+  system './g', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION
 end
 
 
-task :clone do 
-  if !File.exists? 'designer/'
-   system "git clone https://github.com/megamsys/varai.git"
+task :clone do
+  if !File.exists? 'gulp/src/github.com/megamsys/gulp/'
+   Dir.chdir 'gulp/src/github.com/megamsys'
+   system "git clone " + MegamPkg::Ger::CONFIG[:git]
  end
+ Dir.chdir '../../../../'
 end
 
 task :copydeb do
- 
+  if !File.exists? '*.deb'
+   cp_r './gulp/*.deb' '../../../'
+  end
 end

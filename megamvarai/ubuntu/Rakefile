@@ -19,7 +19,7 @@ end
 
 
 task :trusty => [:inittrusty_setup, :clone] do
-  system './g', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION
+  system './g', MegamPkg::Ger::CONFIG[:designer_name], MegamPkg::Ger::VERSION
 end
 
 task :inittrusty_setup do
@@ -43,20 +43,16 @@ task :initprecise_setup do
 end
 
 task :precise => [:initprecise_setup, :clone] do
-  system './ruby-2.0.0-build'
-  system './g', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION
-
+  system './g', MegamPkg::Ger::CONFIG[:designer_name], MegamPkg::Ger::VERSION
 end
 
 
 task :clone do
-  if !File.exists? 'nilavu/'
-   system "git clone -b #{MegamPkg::Ger::CONFIG[:branch]} https://github.com/megamsys/nilavu.git"
+  if !File.exists? 'varai/'
+    system "git clone -b #{MegamPkg::Ger::CONFIG[:branch]} https://github.com/megamsys/nilavu.git"
  end
 end
 
 task :copydeb do
-  if !File.exists? '*.deb'
-   cp './nilavu/*.deb' '../../../'
-  end
+
 end
