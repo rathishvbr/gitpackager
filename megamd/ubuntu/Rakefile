@@ -17,8 +17,11 @@ task :clean do
   rm_rf build_precise_dir
 end
 
+task :initmegamd do
+  mkdir_p "megamd/src/github.com/megamsys"
+end
 
-task :trusty => [:inittrusty_setup, :clone] do
+task :trusty => [:inittrusty_setup, :initmegamd, :clone] do
   system './g', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION
 end
 
@@ -27,7 +30,7 @@ task :inittrusty_setup do
   mkdir_p build_trusty_dir
   Rake::FileList[trusty_dir +"/**"].each do |f|
     target = File.join build_trusty_dir,  File.basename(f)
-    cp f, target
+    cp_r f, target
   end
   Dir.chdir build_trusty_dir
 end

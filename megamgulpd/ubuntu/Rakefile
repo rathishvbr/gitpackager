@@ -17,8 +17,12 @@ task :clean do
   rm_rf build_precise_dir
 end
 
+task :initgulpd do
+  mkdir_p "gulp/src/github.com/megamsys"
+end
 
-task :trusty => [:inittrusty_setup, :initcib, :clone] do
+
+task :trusty => [:inittrusty_setup, :initgulpd, :clone] do
   system './g', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION
   system './ng', MegamPkg::Ger::CONFIG[:name_node], MegamPkg::Ger::VERSION
 end
