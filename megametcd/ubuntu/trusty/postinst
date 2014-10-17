@@ -5,4 +5,5 @@ chown megam:megam /var/run/megam/megametcd
 chown megam:megam /var/log/megam/megametcd
 
 initctl reload-configuration
+
 service etcd start || echo "etcd could not be started. Try manually with service etcd start"
