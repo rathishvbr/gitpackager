@@ -4,7 +4,6 @@ mkdir -p ./usr/share/megam/megamd/bin
 
 cd megamd/src/github.com/megamsys/megamd
 
-
 make build
 
 cp -rf ./conf/ ../../../../../usr/share/megam/megamd

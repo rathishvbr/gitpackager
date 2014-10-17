@@ -1,0 +1,8 @@
+#!/bin/sh
+[ -d /var/log/megam/megamvarai ] && rm -rf /var/log/megam/megamvarai
+
+[ -d /var/run/megam/megamvarai ] && rm -rf /var/run/megamvarai
+
+[ -d /usr/share/megam/megamvarai ] && rm -rf /usr/share/megam/megamvarai
+
+[ -d /etc/megamvarai ] && rm -rf /etc/megamvarai
