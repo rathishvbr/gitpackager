@@ -1,17 +1,17 @@
 #!/bin/sh
 
-if [ -d "/usr/share/megam/megamcib" ]; then
-  rm -r /usr/share/megam/megamcib
+if [ -d "/usr/share/megam/megamgulpd" ]; then
+  rm -r /usr/share/megam/megamgulpd
 fi
 
-if [ -d "/var/lib/megam/megamcib" ]; then
-  rm -r /var/lib/megam/megamcib
+if [ -d "/var/lib/megam/megamgulpd" ]; then
+  rm -r /var/lib/megam/megamgulpd
 fi
 
-if [ -d "/var/run/megam/megamcib" ]; then
-  rm -r /var/run/megam/megamcib
+if [ -d "/var/run/megam/megamgulpd" ]; then
+  rm -r /var/run/megam/megamgulpd
 fi
 
-if [ -d "/var/log/megam/megamcib" ]; then
-  rm -r /var/log/megam/megamcib
+if [ -d "/var/log/megam/megamgulpd" ]; then
+  rm -r /var/log/megam/megamgulpd
 fi
