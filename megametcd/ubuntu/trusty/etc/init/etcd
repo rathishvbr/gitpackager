@@ -9,7 +9,6 @@ start on (started networking)
 # When to stop the service
 stop on runlevel [016]
 stop on (stopping networking)
-stop on (stopped megamd)
 
 # Automatically restart process if crashed. Tries 0 times every 60 seconds
 respawn

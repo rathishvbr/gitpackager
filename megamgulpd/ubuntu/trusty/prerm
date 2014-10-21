@@ -1,2 +1,2 @@
 #!/bin/sh
-service megamcib stop || echo "megamcib wasn't even running!"
+service megamgulpd stop || echo "megamgulpd wasn't even running!"
