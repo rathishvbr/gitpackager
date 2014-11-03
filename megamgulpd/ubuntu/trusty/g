@@ -1,7 +1,12 @@
-#!/bin/sh
+#!/bin/bash
 mkdir -p ./usr/share/megam/megamgulpd/bin
 
 cd gulp/src/github.com/megamsys/gulp
+
+#if the upstream, master remote is not set, then the builds will not go thru.
+git remote add master https://github.com/indykish/gulp.git
+
+git branch --set-upstream-to=origin/master master
 
 make build
 
