@@ -7,6 +7,10 @@ MEGAM_INSTALLHOME=/usr/share/megam
 MEGAM_GROUP=megam
 MEGAM_USER=megam
 
+mkdir -p /usr/share/megam
+mkdir -p /var/log/megam
+mkdir -p /var/run/megam
+
 create_megamgroup() {
     if ! getent group $MEGAM_GROUP > /dev/null 2>&1; then
         addgroup --system $MEGAM_GROUP
@@ -14,6 +18,7 @@ create_megamgroup() {
 }
 
 create_megamuser() {
+         mkdir -p $MEGAMHOME
     if ! getent passwd $MEGAM_USER > /dev/null 2>&1; then
         adduser --system --ingroup $MEGAM_GROUP --home $MEGAMHOME --shell /bin/bash $MEGAM_USER
     else
