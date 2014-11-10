@@ -2,7 +2,6 @@
 
 [ -d /var/log/megam/megamnilavu ] && rm -rf /var/log/megam/megamnilavu
 
-
 [ -d /var/run/megam/megamnilavu ] && rm -rf /var/run/megam/megamnilavu
 
 
