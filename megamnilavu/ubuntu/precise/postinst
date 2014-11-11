@@ -7,67 +7,9 @@ mkdir /etc/unicorn
 mkdir -p /var/log/megam/megamnilavu
 mkdir -p /var/run/megam/megamnilavu
 
-chown megam:megam /var/run/megam/megamnilavu
+#chown megam:megam /var/run/megam/megamnilavu
 
-chown megam:megam /var/log/megam/megamnilavu
-
-cat <<EOF >/etc/nginx/sites-available/nilavu
-server {
-   listen 443;
-   server_name nilavu.mypass.io;
-
-   # SSL configuration
-   ssl on;
-        ssl_certificate /etc/nginx/certs/nilavu_pub.crt;
-        ssl_certificate_key /etc/nginx/private/nilavu.key;
-
-   ssl_session_timeout 5m;
-
-   ssl_protocols SSLv3 TLSv1;
-   ssl_ciphers ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv3:+EXP;
-   ssl_prefer_server_ciphers on;
-
-   # serve assets or request page from proxy (if asset not found)
-   location / {
-      try_files \$uri @proxy;
-   }
-
-   # the play web server
-   location @proxy {
-      proxy_pass  http://localhost:8080;
-      proxy_redirect off;
-      proxy_buffering off;
-
-      #send protocol info to play server
-      proxy_set_header        Host               \$host;
-      proxy_set_header        X-Real-IP          \$remote_addr;
-      proxy_set_header        X-Forwarded-Proto  https;
-      proxy_set_header        X-Forwarded-Ssl    on;
-      proxy_set_header        X-Forwarded-For    \$proxy_add_x_forwarded_for;
-   }
-}
-
-EOF
-
-mkdir -p /etc/nginx/private &&
-mkdir -p /etc/nginx/certs &&
-
-openssl req -x509 -nodes -days 365 -newkey rsa:1024 \
--keyout /etc/nginx/private/nilavu.key \
--out /etc/nginx/certs/nilavu_pub.crt <<EOF
-IN
-TN
-Private
-
-Megam Nilavu Portal
-Development
-nilavu.mypaas.io
-
-EOF
-
-gem install bundler 
-
-ln -s /etc/nginx/sites-available/nilavu /etc/nginx/sites-enabled/nilavu
+#chown megam:megam /var/log/megam/megamnilavu
 
 
 cat > /etc/unicorn/nilavu.rb <<EOF
@@ -81,8 +23,6 @@ listen "8080", :tcp_nodelay => true, :backlog => 100
 
 working_directory '/usr/share/megam/megamnilavu'
 
-pid "/var/run/megam/megamnilavu/nilavu.pid"
-
 stdout_path "/var/log/megam/megamnilavu/nilavu_out.log"
 stderr_path "/var/log/megam/megamnilavu/nilavu_err.log"
 
@@ -95,11 +35,6 @@ preload_app false
 # How many worker processes
 worker_processes 8
 
-
-# Run forked children as specified user/group
-user "megam", "megam"
-
-
 # What to do before we fork a worker
 before_fork do |server, worker|
   sleep 1
@@ -107,24 +42,51 @@ end
 
 EOF
 
+#set MEGAM_HOME for megamnilavu    NOTFOR THE WHOLE SYSTEM(we can't access by echo $MEGAM_HOME)
+cat > //var/lib/megam/env.sh <<EOF
+initctl set-env MEGAM_HOME='/var/lib/megam'             
+EOF
+
+chmod 755 /var/lib/megam/env.sh
 
 cat > //etc/init/megamnilavu.conf <<EOF
 # Configuration Upstart file for Nilavu
 description "Upstart script for nilavu"
 
-start on (local-filesystems)
-stop on runlevel [!12345]
+# When to start the service
+start on runlevel [2345]
+start on (started networking)
 
+# When to stop the service
+stop on runlevel [016]
+stop on (stopping networking)
+stop on (stopped megamnilavu)
+
+# Automatically restart process if crashed. Tries 0 times every 60 seconds
+respawn
+respawn limit 0 60
 
 pre-start script
-
-
+ [ -d /var/run/megam/megamnilavu ] || mkdir -p /var/run/megam/megamnilavu
+ [ -d /var/log/megam/megamnilavu ] || mkdir -p /var/log/megam/megamnilavu
+ cd /var/lib/megam
+ ./env.sh
+ echo "[`date -u +%Y-%m-%dT%T.%3NZ`] (sys) megamnilavu starting" >> /var/log/megam/megamnilavu/megamnilavu.log
 end script
 
+script
+ exec start-stop-daemon --start --chdir "/usr/share/megam/megamnilavu/" --exec /usr/bin/bundle exec unicorn_rails -- -E production -c "/etc/unicorn/nilavu.rb"
+end script
 
-respawn
+post-start script
+    PID=`status megamnilavu | egrep -oi '([0-9]+)$' | head -n1`
+    echo $PID > /var/run/megam/megamnilavu/megamnilavu.pid
+end script
 
-exec start-stop-daemon --start --chdir "/usr/share/megam/megamnilavu/" --exec /usr/bin/bundle exec unicorn_rails -- -E production -c "/etc/unicorn/nilavu.rb"
+post-stop script
+    rm /var/run/megam/megamnilavu/megamnilavu.pid
+    echo "[`date -u +%Y-%m-%dT%T.%3NZ`] (sys) megamnilavu Stopping" >> /var/log/megam/megamnilavu/megamnilavu.log
+end script
 EOF
 
 cat > //usr/share/megam/megamnilavu/production.log <<EOF
@@ -135,13 +97,62 @@ chmod 666 /usr/share/megam/megamnilavu/production.log
 
 chown -R megam:megam /usr/share/megam/megamnilavu
 
-chdir /usr/share/megam/megamnilavu
+cat > //var/lib/megam/nilavu.yml <<EOF                                  #Common yml
+
+api:
+  host: localhost
+  #host: api.megam.co
+  scheme: http
+  pub_key: megamgateway_pub.crt
+  private_key: megamgateway.key
+
+storage:
+  type: riak
+  #server_url: 192.168.2.6
+  server_url: localhost
+  cloud_tool_bucket: cloudtools
+  cloud_keys_bucket: cloudaccesskeys
+  ssh_files_bucket: sshfiles
+  #type :s3
+  #server_url: https://s3-ap-southeast-1.amazonaws.com
+
+varai:
+  host: localhost
+  port: 1880
+
+auth:
+  fb_client_id:
+  fb_secret_key:
+  twitter_client_id:
+  twitter_secret_key:
+  github_client_id:
+  github_secret_key:
+  assembla_client_id:
+  assembla_secret_key:
+  google_client_id: 394446952494-vajon1t747d507rka21nm8ls96qg5p4u.apps.googleusercontent.com
+  google_secret_key: WNd7iGxEQsC8HQGEFgMiXnXb
+
+monitor:
+  metric_source: ganglia
+  host: ganglia_host
+  base_url: http://monitor.megam.co.in/ganglia
+  cluster: megampaas
+
+EOF
+
+cd /usr/share/megam/megamnilavu
+gem install rake
+
+export MEGAM_HOME=/var/lib/megam                        #To have DB under megam_home
 
 echo "setting up database"
-rake db:migrate
+rake db:migrate RAILS_ENV=production
+rake db:seed RAILS_ENV=production
 
-#setup a host name nilavu.some.com
-echo "127.0.0.1 nilavu.mypaas.io megamnilavu" >> /etc/hosts
+
+
+[ -d /var/lib/megam/db ] && chown -R megam:megam /var/lib/megam/db 
+[ -d /usr/share/megam/megamnilavu/db ] && chown -R megam:megam /usr/share/megam/megamnilavu/db
 
 echo "starting megamnilavu"
 sudo start megamnilavu
@@ -149,4 +160,4 @@ echo "started"
 
 initctl reload-configuration
 
-service nginx restart
+
