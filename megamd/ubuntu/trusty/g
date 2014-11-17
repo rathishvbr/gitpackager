@@ -1,8 +1,11 @@
-#!/bin/sh
+#!/bin/bash
 
 mkdir -p ./usr/share/megam/megamd/bin
 
 cd megamd/src/github.com/megamsys/megamd
+
+# sometimes  the dependencies aren't getting pulled. Adding a master solved the problem.
+git remote add master https://github.com/indykish/megamd.git
 
 make build
 
