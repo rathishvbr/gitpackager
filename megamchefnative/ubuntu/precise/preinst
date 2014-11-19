@@ -1,3 +1,0 @@
-mkdir -p /var/run/megam/snowflake
-
-mkdir -p /var/log/megam/snowflake

@@ -42,7 +42,7 @@ task :initprecise_setup do
   Dir.chdir build_precise_dir
 end
 
-task :precise => [:initprecise_setup, :clone] do
+task :precise => [:initprecise_setup] do
   system './g', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION
 end
 
@@ -50,6 +50,6 @@ end
 
 task :copydeb do
   if !File.exists? '*.deb'
-   cp './pysnowflake/*.deb' '../../../'
+   cp './*.deb' '../../../'
   end
 end
