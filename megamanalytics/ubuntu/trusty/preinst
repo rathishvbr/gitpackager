@@ -12,13 +12,13 @@ mkdir -p /var/lib/megam/heka
 cat > //var/lib/megam/heka/hekad.toml <<EOF
 [LogOUT]
 type = "LogstreamerInput"
-log_directory = "/var/lib/megam/logs/"
+log_directory = "/var/lib/megam/megamd/logs/"
 file_match = '(?P<DomainName>[^/]+)/(?P<FileName>.*)\_out$'
 differentiator = ["DomainName"]
 
 [logERR]
 type = "LogstreamerInput"
-log_directory = "/var/lib/megam/logs/"
+log_directory = "/var/lib/megam/megamd/logs/"
 file_match = '(?P<DomainName>[^/]+)/(?P<FileName>.*)\_err$'
 differentiator = ["DomainName"]
 
