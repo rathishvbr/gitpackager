@@ -1,0 +1,25 @@
+#!/bin/sh
+mkdir -p ./usr/share/megam
+
+wget -r -c -O gogs.zip https://github.com/gogits/gogs/releases/download/v0.5.5/linux_amd64.zip
+
+unzip  -d ./usr/share/megam gogs.zip  && rm gogs.zip
+
+mv ./usr/share/megam/gogs ./usr/share/megam/megamgogs
+
+mkdir -p ./usr/share/megam/megamgogs/custom/conf
+
+cat > .//usr/share/megam/megamgogs/custom/conf/app.ini <<EOF
+[repository]
+ROOT = /var/lib/megam/megamgogs/repos
+
+[database]
+DB_TYPE = sqlite3
+NAME = gogs
+USER = root
+PASSWD =
+; For "sqlite3" only
+PATH = data/gogs.db
+EOF
+
+fpm -s dir -t deb -n $1 -v $2 -d "megamcommon" --before-install ./preinst --after-install ./postinst --before-remove ./prerm --deb-upstart ./etc/init/megamgogs --license "Apache" --vendor "Megam Systems" --maintainer "<rajthilak@megam.co.in>" --url "http://www.gomegam.com" --description "Gogs Go Git service" ./usr/share/megam/megamgogs
