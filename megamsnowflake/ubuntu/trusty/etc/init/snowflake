@@ -1,5 +1,5 @@
 # Configuration Upstart file for Nilavu
-description "Upstart script for nilavu"
+description "Upstart script for snowflake"
 
 # When to start the service
 start on runlevel [2345]
