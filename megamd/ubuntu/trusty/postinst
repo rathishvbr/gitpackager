@@ -30,4 +30,27 @@ if [ -d "/etc/chef-server" ]; then
 
 fi
 
+while read Iface Destination Gateway Flags RefCnt Use Metric Mask MTU Window IRTT; do
+		[ "$Mask" = "00000000" ] && \
+		interface="$Iface" && \
+		ipaddr=$(LC_ALL=C /sbin/ip -4 addr list dev "$interface" scope global) && \
+		ipaddr=${ipaddr#* inet } && \
+		ipaddr=${ipaddr%%/*} && \
+		break
+	done < /proc/net/route
+
+
+
+cat > //var/lib/megam/env.sh <<EOF
+initctl set-env ETCD_ADDR="$ipaddr:4001"
+initctl set-env ETCD_BIND_ADDR="$ipaddr:4001"
+initctl set-env ETCD_PEER_ADDR="$ipaddr:7001"
+initctl set-env ETCD_PEER_BIND_ADDR="$ipaddr:7001"
+EOF
+
+chmod 755 /var/lib/megam/env.sh
+
+
+
+
 service megamd start || echo "megamd could not be started. Try manually with service megamd start"
