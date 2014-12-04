@@ -1,0 +1,33 @@
+#!/bin/bash
+
+mkdir -p /var/lib/megam/megamd
+
+chown megam:megam /var/run/megam/megamd
+
+chown megam:megam /var/log/megam/megamd
+
+initctl reload-configuration
+
+if [ -d "/etc/chef-server" ]; then
+
+  chef-server-ctl reconfigure
+
+  chef-server-ctl restart
+
+  unzip /usr/share/megam/megamd/conf/chef-repo.zip -d /var/lib/megam/megamd
+
+  set -e
+
+  chef_repo_dir=`find /var/lib/megam/megamd  -name chef-repo  | awk -F/ -vOFS=/ 'NF-=0' | sort -u`
+
+  cp /etc/chef-server/*.pem $chef_repo_dir
+  
+  git clone https://github.com/megamsys/chef-repo $chef_repo_dir
+
+  gem install knife
+
+  knife cookbook upload --all -c $chef_repo_dir
+
+fi
+
+service megamd start || echo "megamd could not be started. Try manually with service megamd start"

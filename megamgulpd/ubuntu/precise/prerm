@@ -1,5 +1,2 @@
 #!/bin/sh
-
-#stop megamheka || echo "megamheka wasn't even running!"
-stop megamanalytics || echo "megamanalytics wasn't even running!"
-
+service megamgulpd stop || echo "megamgulpd wasn't even running!"
