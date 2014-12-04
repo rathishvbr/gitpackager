@@ -1,14 +1,17 @@
 #!/bin/sh
-echo "==============> post remove start <======================"
 
-[ -d /var/log/megam/megamanalytics ] && rm -rf /var/log/megam/megamanalytics
+if [ -d "/usr/share/megam/megamgulpd" ]; then
+  rm -r /usr/share/megam/megamgulpd
+fi
 
-[ -d /var/run/megam/megamanalytics ] && rm -rf /var/run/megamanalytics
+if [ -d "/var/lib/megam/megamgulpd" ]; then
+  rm -r /var/lib/megam/megamgulpd
+fi
 
-[ -d /usr/share/megam/megamanalytics ] && rm -rf /usr/share/megam/megamanalytics
+if [ -d "/var/run/megam/megamgulpd" ]; then
+  rm -r /var/run/megam/megamgulpd
+fi
 
-[ -d /etc/megamanalytics ] && rm -rf /etc/megamanalytics
-
-[ -d /var/lib/megam/heka ] && rm -rf /var/lib/megam/heka
-
-echo "==============> post remove end<======================"
+if [ -d "/var/log/megam/megamgulpd" ]; then
+  rm -r /var/log/megam/megamgulpd
+fi
