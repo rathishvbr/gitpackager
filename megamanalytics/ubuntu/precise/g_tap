@@ -1,6 +1,7 @@
 #!/bin/sh
 cd tap
 npm install
+cd ..
 
-
-pkgr package ./tap/ --user=megam --group=megam --maintainer="Thomas Alrin<alrin@megam.co.in>, Raj Thilak <rajthilak@megam.co.in>, Kishorekumar Neelamegam<nkishore@megam.co.in>, Megam Systems <gomegam@megam.co.in>" --runner='upstart-1.5' --dependencies=nodejs nodejs-legacy openjdk-7-jre elasticsearch --after-install=$PWD/postinst --before-install=$PWD/preinst --after-remove=$PWD/postrm --before-remove=$PWD/prerm --auto  --clean --name=megamanalytics --version=0.5 --iteration=1  --edge  --homepage="http://www.gomegam.com" --description="Megam - Online log for megam" --license="Apache" --home="/usr/share/megam"
+pkgr package ./tap/ --user=megam --group=megam --maintainer="Thomas Alrin<alrin@megam.co.in>, Raj Thilak <rajthilak@megam.co.in>, Kishorekumar Neelamegam<nkishore@megam.co.in>, Megam Systems <gomegam@megam.co.in>" --runner='upstart-1.5' --dependencies=nodejs nodejs-legacy openjdk-7-jre heka --after-install=$PWD/postinst --before-install=$PWD/preinst --after-remove=$PWD/postrm --before-remove=$PWD/prerm --auto  --clean --name=megamanalytics --version=0.5 --iteration=1  --edge  --homepage="http://www.gomegam.com" --description="Megam - Realtime logs for megam" --license="Apache" --home="/usr/share/megam"
+#dependency elasticsearch removed for testing

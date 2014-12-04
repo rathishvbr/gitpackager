@@ -1,11 +1,7 @@
 #!/bin/sh
-# this will have nothing. 
-echo "==============> preinstall  start<======================"
-mkdir -p /var/log/megam/megamdesigner
-mkdir -p /var/run/megam/megamdesigner
-chown megam:megam /var/run/megam/megamdesigner
+# this will have nothing.
+mkdir -p /var/log/megam/megamvarai
+mkdir -p /var/run/megam/megamvarai
+chown megam:megam /var/run/megam/megamvarai
 
-chown megam:megam /var/log/megam/megamdesigner
-
-
-echo "==============> preinstall end<======================"
+chown megam:megam /var/log/megam/megamvarai
