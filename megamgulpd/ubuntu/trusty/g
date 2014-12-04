@@ -11,6 +11,9 @@ git branch --set-upstream-to=origin/master master
 make build
 
 cp -rf ./conf/ ../../../../../usr/share/megam/megamgulpd
+
+cp -rf ./conf/ /home/megam/bin/
+
 cp gulpd ../../../../../usr/share/megam/megamgulpd/bin
 
 cd ../../../../../
