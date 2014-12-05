@@ -1,0 +1,20 @@
+#!/bin/bash
+
+set -e
+
+. /usr/share/debconf/confmodule
+
+chown megam:megam /var/run/megam/megamcib
+
+chown megam:megam /var/log/megam/megamcib
+
+initctl reload-configuration
+
+service megamcibn start || echo "megamcibn could not be started. Try manually with service megamcibn start"
+
+db_settitle megamcibn/cibtn
+
+db_input high megamcibn/cibtn || true
+db_go
+
+db_fset megamcibn/cibtn seen false
