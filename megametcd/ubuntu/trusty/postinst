@@ -1,8 +1,8 @@
 #!/bin/sh
 
-chown megam:megam /var/run/megam/megametcd
+#chown megam:megam /var/run/megam/megametcd
 
-chown megam:megam /var/log/megam/megametcd
+#chown megam:megam /var/log/megam/megametcd
 
 initctl reload-configuration
 
