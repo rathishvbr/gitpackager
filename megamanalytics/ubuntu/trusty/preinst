@@ -3,9 +3,9 @@
 
 mkdir -p /var/log/megam/megamanalytics
 mkdir -p /var/run/megam/megamanalytics
-chown megam:megam /var/run/megam/megamanalytics
+#chown megam:megam /var/run/megam/megamanalytics
 
-chown megam:megam /var/log/megam/megamanalytics
+#chown megam:megam /var/log/megam/megamanalytics
 
 mkdir -p /var/lib/megam/heka
 

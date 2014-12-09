@@ -2,9 +2,9 @@
 
 mkdir -p /var/lib/megam/megamgulpd
 
-chown megam:megam /var/run/megam/megamgulpd
+#chown megam:megam /var/run/megam/megamgulpd
 
-chown megam:megam /var/log/megam/megamgulpd
+#chown megam:megam /var/log/megam/megamgulpd
 
 initctl reload-configuration
 

@@ -95,7 +95,7 @@ EOF
 
 chmod 666 /usr/share/megam/megamnilavu/production.log
 
-chown -R megam:megam /usr/share/megam/megamnilavu
+#chown -R megam:megam /usr/share/megam/megamnilavu
 
 cat > //var/lib/megam/nilavu.yml <<EOF                                  #Common yml
 
