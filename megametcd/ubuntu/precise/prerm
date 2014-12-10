@@ -1,2 +1,2 @@
 #!/bin/sh
-service snowflake stop || echo "snowflake wasn't even running!"
+service etcd stop || echo "etcd wasn't even running!"

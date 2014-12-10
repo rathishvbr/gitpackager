@@ -1,13 +1,14 @@
 #!/bin/sh
 #!/bin/sh
-if [ -d "/usr/share/megam/snowflake" ]; then
-  rm -r /usr/share/megam/snowflake
+if [ -d "/usr/share/megam/megametcd" ]; then
+  rm -r /usr/share/megam/megametcd
 fi
 
-if [ -d "/var/run/megam/snowflake" ]; then
-  rm -r /var/run/megam/snowflake
+if [ -d "/var/run/megam/megametcd" ]; then
+  rm -r /var/run/megam/megametcd
 fi
 
-if [ -d "/var/log/megam/snowflake" ]; then
-  rm -r /var/log/megam/snowflake
+if [ -d "/var/log/megam/megametcd" ]; then
+  rm -r /var/log/megam/megametcd
 fi
+

@@ -1,13 +1,6 @@
 #!/bin/sh
-echo "==============> post remove start <======================"
+[ -d /var/log/megam/megamvarai ] && rm -rf /var/log/megam/megamvarai
 
-[ -d /var/log/megam/megamdesigner ] && rm -rf /var/log/megam/megamdesigner
+[ -d /var/run/megam/megamvarai ] && rm -rf /var/run/megam/megamvarai
 
-[ -d /var/run/megam/megamdesigner ] && rm -rf /var/run/megamdesigner
-
-[ -d /usr/share/megam/megamdesigner ] && rm -rf /usr/share/megam/megamdesigner
-
-[ -d /etc/megamdesigner ] && rm -rf /etc/megamdesigner
-
-
-echo "==============> post remove end<======================"
+[ -d /usr/share/megam/megamvarai ] && rm -rf /usr/share/megam/megamvarai
