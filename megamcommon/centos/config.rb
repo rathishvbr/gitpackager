@@ -1,6 +1,6 @@
 module MegamPkg
   class Ger
-  CONFIG =  {:os => ['trusty', 'precise', 'centos7'],
+  CONFIG =  {:os => ['7'],
         :name => "megamcommon"}
   end
 end
