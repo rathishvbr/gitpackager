@@ -2,7 +2,7 @@ require "rake"
 require "../../version.rb"
 require "./config.rb"
 puts ">> ------------- [#{MegamPkg::Ger::CONFIG[:name]} #{MegamPkg::Ger::VERSION}]"
-task :default => :7
+task :default => :centos7
 
 build_dir ="build"
 centos7_dir ="7"
@@ -14,7 +14,7 @@ task :clean do
 end
 
 
-task :7 => [:initcentos7_setup] do
+task :centos7 => [:initcentos7_setup] do
   system './g', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION
 end
 
