@@ -1,0 +1,8 @@
+#!/bin/sh
+
+mkdir -p ./usr/share/megam/megametcd/bin
+
+
+
+fpm -s dir -t rpm -n megametcd -v 0.1 -d "megamcommon" --before-install ./preinst --after-install ./postinst --before-remove ./prerm  --after-remove ./postrm --license "Apache" --vendor "Megam Systems" --maintainer "<rajthilak@megam.co.in>" --url "http://www.gomegam.com" --description "Etcd packaged used by Megam" ./usr/share/megam/megametcd/bin
+

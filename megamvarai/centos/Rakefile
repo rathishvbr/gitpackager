@@ -30,6 +30,6 @@ end
 
 task :copyrpm do
   if !File.exists? '*.rpm'
-   cp './megam_common/*.rm' '../../../'
+   cp './megam_varai/*.rm' '../../../'
   end
 end

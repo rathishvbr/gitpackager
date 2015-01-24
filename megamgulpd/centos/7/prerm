@@ -1,0 +1,2 @@
+#!/bin/sh
+service megamgulpd stop || echo "megamgulpd wasn't even running!"
