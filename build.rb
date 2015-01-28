@@ -1,8 +1,10 @@
+#!/usr/bin/env ruby
+
 require 'thor'
 require 'highline'
 
 class Distro < Thor                                              # [1]
-  package_name "Build"                                           # [2]
+  package_name "Build"                                      # [2]
   map "-L" => :list                                              # [3]
 
   desc "build", "build all of the available apps"                # [4]
@@ -14,6 +16,8 @@ class Distro < Thor                                              # [1]
     if options.clean?
       # iterate over all the directories and kill off rake scripts
       puts "hurray i am cleaning"
+    else
+      puts "Building..."  
     end
     # other code
   end
@@ -23,3 +27,5 @@ class Distro < Thor                                              # [1]
     # list everything
   end
 end
+
+Distro.start

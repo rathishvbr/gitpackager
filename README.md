@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 packaging
 =========
 
@@ -125,3 +126,6 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
+=======
+# megampackager
+>>>>>>> ed68fc11d18ab55b3e34174ff2d69df1e3306d68

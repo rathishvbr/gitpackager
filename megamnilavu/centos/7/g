@@ -1,0 +1,5 @@
+#!/bin/sh
+
+mkdir -p ./usr/share/megam
+
+fpm -s dir -t rpm -p ./nilavu --rpm-user megam --rpm-group megam --maintainer "Thomas Alrin<alrin@megam.co.in>, Raj Thilak <rajthilak@megam.co.in>, Kishorekumar Neelamegam<nkishore@megam.co.in>, Megam Systems <gomegam@megam.co.in>" -d 'megamcommon git-core curl bundler rake zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties ruby2.0 ruby2.0-dev wbritish wamerican' --after-install ./postinst --before-install ./preinst --after-remove ./postrm --before-remove ./prerm -n megamnilavu -v 0.1 --iteration 1 --url "http://www.gomegam.com" --description "Nilavu - Web portal for Megam" --license "Apache" ./usr/share/megam
