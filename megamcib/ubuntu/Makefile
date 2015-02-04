@@ -40,13 +40,13 @@ list:
 	@echo "Useful targets:"
 	@echo
 	@echo "list"
-	@echo "realclean"
+	@echo "clean"
 	@echo "trusy"
 	@echo
 
 # Clean all targets.
-.PHONY: realclean
-realclean:
+.PHONY: clean
+clean:
 	rm -rf $(BUILDDIR)
 
 
@@ -54,12 +54,12 @@ realclean:
 # we provide a generic build rule.
 .PHONY: trusty
 trusty: wget_trusty tree_iso burn_usb mknode_iso qemu_test
-	-@if [ -e $(MEGAM_MINIISO) ]; then \
+	if [ -e $(MEGAM_MINIISO) ]; then \
 		echo "--> Successfully created trusty_megam 64bit mini distro"; \
 	else \
 		echo "Failure : Can't create trusty_megam mini distro." ;  exit 2; \
 	fi; \
-	-@if [ -e $(MEGAMNODE_MINIISO) ]; then \
+	if [ -e $(MEGAMNODE_MINIISO) ]; then \
 		echo "--> Successfully created trusty_megamnode 64bit mini distro"; \
 	else \
 		echo "Failure : Can't create trusty_megamnode mini distro." ;  exit 2; \
@@ -69,12 +69,12 @@ trusty: wget_trusty tree_iso burn_usb mknode_iso qemu_test
 # we provide a generic build rule.
 .PHONY: centos
 centos: wget_centos tree_iso burn_usb qemu_test
-	-@if [ -e $(MEGAM_MINIISO) ]; then \
+	if [ -e $(MEGAM_MINIISO) ]; then \
 		echo "Successfully created centos_megam 64bit mini distro"; \
 	else \
 		echo "Failure : Can't create centos_megam mini distro." ;  exit 2; \
 	fi; \
-	-@if [ -e $(MEGAMNODE_MINIISO) ]; then \
+	if [ -e $(MEGAMNODE_MINIISO) ]; then \
 		echo "--> Successfully created centos_megamnode 64bit mini distro"; \
 	else \
 		echo "Failure : Can't create centos_megamnode mini distro." ;  exit 2; \
