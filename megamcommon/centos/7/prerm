@@ -6,6 +6,7 @@ case "$1" in
    purge)
         deluser --quiet --system megam > /dev/null || true
         delgroup --quiet --system megam > /dev/null || true
+	
    ;;
    upgrade)
    ;;
