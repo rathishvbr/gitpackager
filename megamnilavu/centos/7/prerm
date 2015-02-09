@@ -1,2 +1,2 @@
 #!/bin/sh
-service megamnilavu stop || echo "megamnilavu wasn't even running!"
+systemctl stop megamnilavu.service || echo "megamnilavu wasn't even running!" >/dev/stdout
