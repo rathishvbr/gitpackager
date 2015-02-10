@@ -4,6 +4,6 @@
 
 #chown megam:megam /var/log/megam/megametcd
 
-initctl reload-configuration
 
-service etcd start || echo "etcd could not be started. Try manually with service etcd start"
+
+systemctl start etcd.service || echo "etcd could not be started. Try manually with service etcd start" >/dev/stdout

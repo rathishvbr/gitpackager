@@ -14,7 +14,7 @@ task :clean do
 end
 
 
-task :centos7 => [:initcentos7_setup] do
+task :centos7 => [:initcentos7_setup,:clone] do
   system './g', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION
 end
 
@@ -26,6 +26,12 @@ task :initcentos7_setup do
     cp_r f, target
   end
   Dir.chdir build_centos7_dir
+end
+
+task :clone do
+  if !File.exists? 'megam_gateway/'
+   system "git clone -b #{MegamPkg::Ger::CONFIG[:branch]} https://github.com/megamsys/megam_gateway.git"
+ end
 end
 
 task :copyrpm do

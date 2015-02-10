@@ -1,2 +1,2 @@
 #!/bin/sh
-service megamd stop || echo "megamd wasn't even running!"
+systemctl stop megamd.service|| echo "megamd wasn't even running!" >/dev/stdout
