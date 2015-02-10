@@ -43,51 +43,34 @@ end
 EOF
 
 #set MEGAM_HOME for megamnilavu    NOTFOR THE WHOLE SYSTEM(we can't access by echo $MEGAM_HOME)
-cat > //var/lib/megam/env.sh <<EOF
-initctl set-env MEGAM_HOME='/var/lib/megam'             
+cat > //var/lib/megam/megamnilavu.env <<EOF
+MEGAM_HOME='/var/lib/megam'           
 EOF
 
-chmod 755 /var/lib/megam/env.sh
+cat > //etc/systemd/system/megamnilavu.service <<EOF
+[Unit]
+Description=Upstart script for nilavu
+After=network.target
+After=runlevel2.target
+After=runlevel3.target
+After=runlevel4.target
+After=runlevel5.target
+[Service]
+EnvironmentFile='/var/lib/megam/megamnilavu.env' 
+ExecStartPre=[ -d /var/run/megam/megamnilavu ] || mkdir -p /var/run/megam/megamnilavu
+ExecStartPre=[ -d /var/log/megam/megamnilavu ] || mkdir -p /var/log/megam/megamnilavu
+ExecStart=start-stop-daemon --start --chdir "/usr/share/megam/megamnilavu/" --exec /usr/bin/bundle exec unicorn_rails -- -E production -c "/etc/unicorn/nilavu.rb"
+ExecStartPost=`status megamnilavu | egrep -oi '([0-9]+)$' | head -n1` > /var/run/megam/megamnilavu/megamnilavu.pid
+ExecStopPost=rm /var/run/megam/megamnilavu/megamnilavu.pid | echo "[`date -u +%Y-%m-%dT%T.%3NZ`] (sys) megamnilavu Stopping" >> /var/log/megam/megamnilavu/megamnilavu.log
+#ExecStop=runlevel0.target
+#ExecStop=runlevel1.target
+#ExecStop=runlevel6.target
+#KillMode=mixed
 
-cat > //etc/init/megamnilavu.conf <<EOF
-# Configuration Upstart file for Nilavu
-description "Upstart script for nilavu"
-
-# When to start the service
-start on runlevel [2345]
-start on (started networking)
-
-# When to stop the service
-stop on runlevel [016]
-stop on (stopping networking)
-stop on (stopped megamnilavu)
-
-# Automatically restart process if crashed. Tries 0 times every 60 seconds
-respawn
-respawn limit 0 60
-
-pre-start script
- [ -d /var/run/megam/megamnilavu ] || mkdir -p /var/run/megam/megamnilavu
- [ -d /var/log/megam/megamnilavu ] || mkdir -p /var/log/megam/megamnilavu
- cd /var/lib/megam
- ./env.sh
- echo "[`date -u +%Y-%m-%dT%T.%3NZ`] (sys) megamnilavu starting" >> /var/log/megam/megamnilavu/megamnilavu.log
-end script
-
-script
- exec start-stop-daemon --start --chdir "/usr/share/megam/megamnilavu/" --exec /usr/bin/bundle exec unicorn_rails -- -E production -c "/etc/unicorn/nilavu.rb"
-end script
-
-post-start script
-    PID=`status megamnilavu | egrep -oi '([0-9]+)$' | head -n1`
-    echo $PID > /var/run/megam/megamnilavu/megamnilavu.pid
-end script
-
-post-stop script
-    rm /var/run/megam/megamnilavu/megamnilavu.pid
-    echo "[`date -u +%Y-%m-%dT%T.%3NZ`] (sys) megamnilavu Stopping" >> /var/log/megam/megamnilavu/megamnilavu.log
-end script
 EOF
+
+chmod 755 /var/lib/megam/megamnilavu.env
+
 
 cat > //usr/share/megam/megamnilavu/production.log <<EOF
 test log
@@ -147,21 +130,11 @@ EOF
 cd /usr/share/megam/megamnilavu
 gem install rake
 
-export MEGAM_HOME=/var/lib/megam                        #To have DB under megam_home
 
-echo "setting up database"
-rake db:migrate RAILS_ENV=production
-rake db:seed RAILS_ENV=production
+echo "starting megamnilavu" >/dev/stdout
+sudo systemctl start megamnilavu.service
+echo "started" >/dev/stdout
 
-
-
-[ -d /var/lib/megam/db ] && chown -R megam:megam /var/lib/megam/db 
-[ -d /usr/share/megam/megamnilavu/db ] && chown -R megam:megam /usr/share/megam/megamnilavu/db
-
-echo "starting megamnilavu"
-sudo start megamnilavu
-echo "started"
-
-initctl reload-configuration
+systemctl reload megamnilavu.service
 
 
