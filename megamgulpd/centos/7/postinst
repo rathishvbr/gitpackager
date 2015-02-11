@@ -6,7 +6,6 @@ mkdir -p /var/lib/megam/megamgulpd
 
 #chown megam:megam /var/log/megam/megamgulpd
 
-initctl reload-configuration
 
-service megamgulpd start || echo "megamgulpd could not be started. Try manually with service megamgulpd start"
+systemctl start megamgulpd || echo "megamgulpd could not be started. Try manually with service megamgulpd start" >/dev/stdout
 

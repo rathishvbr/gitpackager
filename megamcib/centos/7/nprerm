@@ -1,0 +1,2 @@
+
+systemctl stop megamcibn || echo "megamcibn wasn't even running!" >/dev/stdout
