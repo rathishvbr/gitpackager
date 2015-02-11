@@ -12,6 +12,5 @@ chown megam:megam /usr/share/megam/megamgogs
 
 chown -R megam:megam /usr/share/megam/megamgogs
 
-initctl reload-configuration
 
-service megamgogs start || echo "megamgogs could not be started. Try manually with service megamgogs start"
+systemctl start megamgogs || echo "megamgogs could not be started. Try manually with service megamgogs start" >/dev/stdout

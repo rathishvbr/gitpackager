@@ -50,11 +50,4 @@ EOF
 
 chmod 755 /var/lib/megam/megamd.env
 
-cat > //etc/systemd/system/megamnilavu.service <<EOF
-[Service]
-EnvironmentFile='/var/lib/megam/megamd.env' 
-EOF
-
-
-
 systemctl start megamd.service || echo "megamd could not be started. Try manually with service megamd start" >/dev/stdout

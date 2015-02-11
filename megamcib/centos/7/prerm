@@ -1,0 +1,3 @@
+#!/bin/sh
+
+systemctl stop megamcib || echo "megamcib wasn't even running!" >/dev/stdout

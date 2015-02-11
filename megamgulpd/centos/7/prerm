@@ -1,2 +1,3 @@
 #!/bin/sh
-service megamgulpd stop || echo "megamgulpd wasn't even running!"
+
+systemctl stop megamgulpd || echo "megamgulpd wasn't even running!" >/dev/stdout
