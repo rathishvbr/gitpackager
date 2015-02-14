@@ -53,6 +53,7 @@ end
 
 task :precise => [:initprecise_setup, :initcib, :clone] do
   system './g', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION
+  system './ng', MegamPkg::Ger::CONFIG[:name_node], MegamPkg::Ger::VERSION
 end
 
 
