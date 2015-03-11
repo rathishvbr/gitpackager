@@ -17,7 +17,7 @@ class Distro < Thor                                              # [1]
       # iterate over all the directories and kill off rake scripts
       puts "hurray i am cleaning"
     else
-      puts "Building..."  
+      puts "Building..."
     end
     # other code
   end
