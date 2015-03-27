@@ -2,10 +2,6 @@
 
 mkdir -p /var/lib/megam/megamd
 
-#chown megam:megam /var/run/megam/megamd
-
-#chown megam:megam /var/log/megam/megamd
-
 initctl reload-configuration
 
 #Gem install

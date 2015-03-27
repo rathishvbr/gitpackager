@@ -4,8 +4,6 @@ set -e
 
 . /usr/share/debconf/confmodule
 
-chown megam:megam /var/run/megam/megamcib
-
 chown megam:megam /var/log/megam/megamcib
 
 initctl reload-configuration

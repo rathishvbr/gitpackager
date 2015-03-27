@@ -29,9 +29,9 @@ end script
 
 post-start script
     PID=`status snowflake | egrep -oi '([0-9]+)$' | head -n1`
-    echo $PID > /var/run/megam/snowflake/snowflake.pid
+    echo $PID > /var/run/megam/snowflake.pid
 end script
 
 post-stop script
-    rm -f /var/run/megam/snowflake/snowflake.pid
+    rm -f /var/run/megam/snowflake.pid
 end script

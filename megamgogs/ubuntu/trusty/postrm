@@ -4,9 +4,6 @@ if [ -d "/usr/share/megam/megamgogs" ]; then
   rm -r /usr/share/megam/megamgogs
 fi
 
-if [ -d "/var/run/megam/megamgogs" ]; then
-  rm -r /var/run/megam/megamgogs
-fi
 
 if [ -d "/var/log/megam/megamgogs" ]; then
   rm -r /var/log/megam/megamgogs

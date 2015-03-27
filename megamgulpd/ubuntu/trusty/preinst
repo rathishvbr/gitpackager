@@ -1,7 +1,5 @@
 #!/bin/sh
 
-mkdir -p /var/run/megam/megamgulpd
-
 echo "127.0.0.1  `hostname`" > /etc/hosts
 
 

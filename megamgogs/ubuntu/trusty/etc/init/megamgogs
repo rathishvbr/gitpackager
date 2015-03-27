@@ -32,9 +32,9 @@ end script
 
 post-start script
     PID=`status megamgogs | egrep -oi '([0-9]+)$' | head -n1`
-    echo $PID > /var/run/megam/megamgogs/megamgogs.pid
+    echo $PID > /var/run/megam/megamgogs.pid
 end script
 
 post-stop script
-    rm -f /var/run/megam/megamgogs/megamgogs.pid
+    rm -f /var/run/megam/megamgogs.pid
 end script

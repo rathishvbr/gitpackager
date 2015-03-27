@@ -2,7 +2,7 @@ require "rake"
 require "../../version.rb"
 require "./config.rb"
 puts ">> ------------- [#{MegamPkg::Ger::CONFIG[:name]} #{MegamPkg::Ger::VERSION}]"
-task :default => :precise
+task :default => :trusty
 
 build_dir ="build"
 trusty_dir ="trusty"
