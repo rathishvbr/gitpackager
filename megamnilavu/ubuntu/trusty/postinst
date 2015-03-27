@@ -5,12 +5,6 @@ ln -sf /usr/bin/gem2.0 /usr/bin/gem
 
 mkdir /etc/unicorn
 mkdir -p /var/log/megam/megamnilavu
-mkdir -p /var/run/megam/megamnilavu
-
-#chown megam:megam /var/run/megam/megamnilavu
-
-#chown megam:megam /var/log/megam/megamnilavu
-
 
 cat > /etc/unicorn/nilavu.rb <<EOF
 

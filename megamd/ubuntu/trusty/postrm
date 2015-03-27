@@ -8,10 +8,6 @@ if [ -d "/var/lib/megam/megamd" ]; then
   rm -r /var/lib/megam/megamd
 fi
 
-if [ -d "/var/run/megam/megamd" ]; then
-  rm -r /var/run/megam/megamd
-fi
-
 if [ -d "/var/log/megam/megamd" ]; then
   rm -r /var/log/megam/megamd
 fi
