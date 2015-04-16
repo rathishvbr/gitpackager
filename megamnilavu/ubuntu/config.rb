@@ -1,7 +1,7 @@
 module MegamPkg
   class Ger
   CONFIG =  {:os => ['trusty', 'precise'],
-	:branch => "0.7",
+	:branch => "0.8",
         :name => "megamnilavu"}
 
   if !Gem::Specification::find_all_by_name('pkgr').any?
