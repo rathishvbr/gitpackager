@@ -1,3 +1,6 @@
 #!/bin/sh
 # this will have nothing.
 mkdir -p /usr/share/megam
+
+gem update -f -q
+gem install bundler

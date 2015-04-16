@@ -68,15 +68,15 @@ EOF
   #chef_repo_dir=`find /var/lib/megam/megamd  -name chef-repo  | awk -F/ -vOFS=/ 'NF-=0' | sort -u`
    chef_repo_dir="/var/lib/megam/megamd/"
 
-mkdir $chef_repo_dir/chef-repo/.chef/trusted_certs
-cp /var/opt/chef-server/nginx/ca/$ipaddr.crt /var/lib/megam/megamd/chef-repo/.chef/trusted_certs
-
 git clone https://github.com/megamsys/chef-repo.git $chef_repo_dir
   cp /etc/chef-server/admin.pem $chef_repo_dir/chef-repo/.chef
   cp /etc/chef-server/chef-validator.pem $chef_repo_dir/chef-repo/.chef
   
  sed -i "s@^[ \t]*chef_server_url.*@chef_server_url 'https://$ipaddr'@" $chef_repo_dir/chef-repo/.chef/knife.rb
   
+mkdir $chef_repo_dir/chef-repo/.chef/trusted_certs
+cp /var/opt/chef-server/nginx/ca/$ipaddr.crt /var/lib/megam/megamd/chef-repo/.chef/trusted_certs
+
 #chown -R cibadmin:cibadmin $chef_repo_dir/chef-repo
   knife cookbook upload --all -c $chef_repo_dir/chef-repo/.chef
 
