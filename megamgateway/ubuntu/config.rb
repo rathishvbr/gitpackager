@@ -1,7 +1,7 @@
 module MegamPkg
   class Ger
   CONFIG =  {:os => ['trusty', 'precise'],
-        :branch => "0.6",
+        :branch => "0.7",
         :name => "megamgateway"}
 
   end

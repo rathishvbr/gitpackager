@@ -29,9 +29,9 @@ end script
 
 post-start script
     PID=`status megamgulpd | egrep -oi '([0-9]+)$' | head -n1`
-    echo $PID > /var/run/megam/megamgulpd/megamgulpd.pid
+    echo $PID > /var/run/megam/megamgulpd.pid
 end script
 
 post-stop script
-    rm -f /var/run/megam/megamgulpd/megamgulpd.pid
+    rm -f /var/run/megam/megamgulpd.pid
 end script

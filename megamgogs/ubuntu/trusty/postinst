@@ -1,9 +1,5 @@
 #!/bin/sh
 
-chown megam:megam /var/run/megam/megamgogs
-
-chown megam:megam /var/log/megam/megamgogs
-
 chown megam:megam /var/lib/megam/megamgogs
 
 chown -R  megam:megam /var/lib/megam/megamgogs/repos
