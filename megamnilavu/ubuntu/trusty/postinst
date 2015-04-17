@@ -95,14 +95,12 @@ cat > //var/lib/megam/nilavu.yml <<EOF                                  #Common 
 
 api:
   host: localhost
-  #host: api.megam.co
   scheme: http
   pub_key: megamgateway_pub.crt
   private_key: megamgateway.key
 
 storage:
   type: riak
-  #server_url: 192.168.2.6
   server_url: localhost
   cloud_tool_bucket: cloudtools
   cloud_keys_bucket: cloudaccesskeys
@@ -130,11 +128,19 @@ auth:
   google_client_id: 394446952494-vajon1t747d507rka21nm8ls96qg5p4u.apps.googleusercontent.com
   google_secret_key: WNd7iGxEQsC8HQGEFgMiXnXb
 
+support:
+  email: myemail@email.com
+  password: mypassword
+
 monitor:
   metric_source: ganglia
   host: ganglia_host
   base_url: http://monitor.megam.co.in/ganglia
   cluster: megampaas
+
+gogs:
+ host: localhost
+ port: 6001
 
 EOF
 
