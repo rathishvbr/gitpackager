@@ -1,6 +1,6 @@
 
 description "Megam Node daemon"
-author "Rajthilak <rajthilak@megam.co.in>"
+author "Rajthilak <rajthilak@megam.io>"
 
 # When to start the service
 start on runlevel [2345]
