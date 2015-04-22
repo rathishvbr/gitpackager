@@ -18,4 +18,4 @@ cp gulpd ../../../../../usr/share/megam/megamgulpd/bin
 
 cd ../../../../../
 
-fpm -s dir -t deb -n $1 -v $2 -d "megamcommon" --before-install ./preinst --after-install ./postinst --before-remove ./prerm --deb-upstart ./etc/init/megamgulpd  --license "Apache" --vendor "Megam Systems" --maintainer "<alrin@megam.co.in>" --url "http://www.gomegam.com" --description "Megam node daemon that controls the lifecycle of an app" ./usr/share/megam/megamgulpd
+fpm -s dir -t deb -n $1 -v $2 -d "megamcommon" --before-install ./preinst --after-install ./postinst --before-remove ./prerm --deb-upstart ./etc/init/megamgulpd  --license "Apache" --vendor "Megam Systems" --maintainer "<thomasalrin@megam.io>" --url "http://www.gomegam.com" --description "Megam node daemon that controls the lifecycle of an app" ./usr/share/megam/megamgulpd

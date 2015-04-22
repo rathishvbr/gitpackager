@@ -47,7 +47,7 @@ Install  packages
 * deb
 
 ```
-sudo add-apt-repository "deb http://get.megam.co/ $(lsb_release -sc) testing"
+sudo add-apt-repository "deb http://get.megam.io/ $(lsb_release -sc) testing"
 
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv B3E0C1B7
 
@@ -109,8 +109,8 @@ thor depoly:push
 
 |                      |                                          |
 |:---------------------|:-----------------------------------------|
-| **Author:**          | Yeshwanth (<getyesh@megam.co.in>)
-|		       	           | Thomas Alrin (<alrin@megam.co.in>)
+| **Author:**          | Yeshwanth (<getyesh@megam.io>)
+|		       	           | Thomas Alrin (<thomasalrin@megam.io>)
 | **Copyright:**       | Copyright (c) 2013-2014 Megam Systems.
 | **License:**         | Apache License, Version 2.0
 
