@@ -1,8 +1,8 @@
 #!/bin/sh
-cd nilavu/script
-./d clean
+cd nilavu
+rake assets:clean
+rake tmp:clear
 
-cd ..
 
 bundle update
 bundle install 
