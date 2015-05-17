@@ -1,8 +1,5 @@
 #!/bin/sh
 
-ln -sf /usr/bin/ruby2.0 /usr/bin/ruby
-ln -sf /usr/bin/gem2.0 /usr/bin/gem
-
 mkdir /etc/unicorn
 mkdir -p /var/log/megam/megamnilavu
 
@@ -27,7 +24,7 @@ timeout 60
 preload_app false
 
 # How many worker processes
-worker_processes 8
+worker_processes 4
 
 # What to do before we fork a worker
 before_fork do |server, worker|
@@ -38,7 +35,7 @@ EOF
 
 #set MEGAM_HOME for megamnilavu    NOTFOR THE WHOLE SYSTEM(we can't access by echo $MEGAM_HOME)
 cat > //var/lib/megam/env.sh <<EOF
-initctl set-env MEGAM_HOME='/var/lib/megam'             
+initctl set-env MEGAM_HOME='/var/lib/megam'
 EOF
 
 chmod 755 /var/lib/megam/env.sh
@@ -89,8 +86,6 @@ EOF
 
 chmod 666 /usr/share/megam/megamnilavu/production.log
 
-#chown -R megam:megam /usr/share/megam/megamnilavu
-
 cat > //var/lib/megam/nilavu.yml <<EOF                                  #Common yml
 
 api:
@@ -102,11 +97,7 @@ api:
 storage:
   type: riak
   server_url: localhost
-  cloud_tool_bucket: cloudtools
-  cloud_keys_bucket: cloudaccesskeys
   ssh_files_bucket: sshfiles
-  #type :s3
-  #server_url: https://s3-ap-southeast-1.amazonaws.com
 
 tap:
   host: localhost
@@ -143,32 +134,10 @@ gogs:
  port: 6001
 
 
-opennebula:
- host: 192.168.1.100
- port: 2633
- username: username
- password: password
-
 EOF
-
-cd /usr/share/megam/megamnilavu
-gem install rake
-
-export MEGAM_HOME=/var/lib/megam                        #To have DB under megam_home
-
-#echo "setting up database"
-#rake db:migrate RAILS_ENV=production
-#rake db:seed RAILS_ENV=production
-
-
-
-[ -d /var/lib/megam/db ] && chown -R megam:megam /var/lib/megam/db 
-[ -d /usr/share/megam/megamnilavu/db ] && chown -R megam:megam /usr/share/megam/megamnilavu/db
 
 echo "starting megamnilavu"
 sudo start megamnilavu
 echo "started"
 
 initctl reload-configuration
-
-

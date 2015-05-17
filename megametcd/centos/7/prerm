@@ -1,2 +1,0 @@
-#!/bin/sh
-systemctl stop etcd.service || echo "etcd wasn't even running!" >/dev/stdout

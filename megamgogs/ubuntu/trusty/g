@@ -1,7 +1,7 @@
 #!/bin/sh
 mkdir -p ./usr/share/megam
 
-wget -r -c -O gogs.zip https://github.com/gogits/gogs/releases/download/v0.5.11/linux_amd64.zip
+wget -r -c -O gogs.zip https://github.com/gogits/gogs/releases/download/v0.6.1/linux_amd64.zip
 
 unzip  -d ./usr/share/megam gogs.zip  && rm gogs.zip
 
