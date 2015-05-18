@@ -3,5 +3,5 @@ cd tap
 npm install
 cd ..
 
-pkgr package ./tap/ --user=megam --group=megam --maintainer="Thomas Alrin<thomasalrin@megam.io>, Raj Thilak <rajthilak@megam.io>, Kishorekumar Neelamegam<nkishore@megam.io>, Megam Systems <gomegam@megam.io>" --runner='upstart-1.5' --dependencies=nodejs nodejs-legacy openjdk-7-jre heka --after-install=$PWD/postinst --before-install=$PWD/preinst --after-remove=$PWD/postrm --before-remove=$PWD/prerm --auto  --clean --name=megamanalytics --version=0.5 --iteration=1  --edge  --homepage="http://www.gomegam.com" --description="Megam - Realtime logs for megam" --license="Apache" --home="/usr/share/megam"
+pkgr package ./tap/ --user=megam --group=megam --maintainer="Thomas Alrin<thomasalrin@megam.io>, Raj Thilak <rajthilak@megam.io>, Kishorekumar Neelamegam<nkishore@megam.io>, Megam Systems <info@megam.io>" --runner='upstart-1.5' --dependencies=nodejs nodejs-legacy openjdk-7-jre heka --after-install=$PWD/postinst --before-install=$PWD/preinst --after-remove=$PWD/postrm --before-remove=$PWD/prerm --auto  --clean --name=megamanalytics --version=0.5 --iteration=1  --edge  --homepage="https://www.megam.io" --description="Megam - Realtime logs for megam" --license="Apache" --home="/usr/share/megam"
 #dependency elasticsearch removed for testing

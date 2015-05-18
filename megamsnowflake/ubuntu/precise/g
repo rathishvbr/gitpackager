@@ -3,4 +3,4 @@ cd pysnowflake
 mkdir -p ../usr/share/megam/snowflake/bin
 cp -r ./src ../usr/share/megam/snowflake/bin
 cd ..
-fpm -s dir -t deb -n $1 -v $2 -d "megamcommon,python,python-thrift" --before-install ./preinst --after-install ./postinst --before-remove ./prerm --deb-upstart ./etc/init/snowflake --license "Apache" --vendor "Megam Systems" --maintainer "<rajthilak@megam.co.in>" --url "http://www.gomegam.com" --description "Python based unique id generator server based on Twitters snowflake. source : https://github.com/erans/pysnowflake.git" ./usr/share/megam/snowflake/bin
+fpm -s dir -t deb -n $1 -v $2 -d "megamcommon,python,python-thrift" --before-install ./preinst --after-install ./postinst --before-remove ./prerm --deb-upstart ./etc/init/snowflake --license "Apache" --vendor "Megam Systems" --maintainer "<rajthilak@megam.io>" --url "https://www.megam.io" --description "Python based unique id generator server based on Twitters snowflake. source : https://github.com/erans/pysnowflake.git" ./usr/share/megam/snowflake/bin
