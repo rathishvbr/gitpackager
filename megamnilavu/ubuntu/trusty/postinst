@@ -9,11 +9,7 @@ EOF
 
 chmod 755 /var/lib/megam/env.sh
 
-cat > //usr/share/megam/megamnilavu/production.log <<EOF
-test log
-EOF
-
-chmod 666 /usr/share/megam/megamnilavu/production.log
+gem install passenger
 
 cp /usr/share/megam/megamnilavu/config/nilavu.yml /var/lib/megam/nilavu.yml
 
