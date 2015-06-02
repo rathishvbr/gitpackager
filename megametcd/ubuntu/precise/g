@@ -1,8 +1,0 @@
-#!/bin/sh
-mkdir -p ./usr/share/megam/megametcd/bin
-
-wget -r -c -O etcd.tar.gz https://github.com/coreos/etcd/releases/download/v0.4.6/etcd-v0.4.6-linux-amd64.tar.gz
-
-tar -xvf etcd.tar.gz -C ./usr/share/megam/megametcd/bin --strip-components=1 && rm etcd.tar.gz
-
-fpm -s dir -t deb -n $1 -v $2 -d "megamcommon" --before-install ./preinst --after-install ./postinst --before-remove ./prerm --deb-upstart ./etc/init/etcd --license "Apache" --vendor "Megam Systems" --maintainer "<rajthilak@megam.co.in>" --url "http://www.gomegam.com" --description "Etcd packaged used by Megam" ./usr/share/megam/megametcd/bin

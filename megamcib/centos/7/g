@@ -15,4 +15,4 @@ cp cibd ../../../../../usr/share/megam/megamcib/bin
 
 cd ../../../../../
 
-fpm -s dir -t deb -n $1 -v $2 -d "megamcommon, debconf, sqlite3, debconf-utils, whiptail, apt-utils" --before-install ./preinst --after-install ./postinst --before-remove ./prerm --deb-upstart ./etc/systemd/system/megamcib --deb-templates ./templates --license "Apache" --vendor "Megam Systems" --maintainer "<thomasalrin@megam.io>" --url "http://www.gomegam.com" --description "Cloud In a Box base seed daemon" ./usr/share/megam/megamcib
+fpm -s dir -t deb -n $1 -v $2 -d "megamcommon, debconf, sqlite3, debconf-utils, whiptail, apt-utils" --before-install ./preinst --after-install ./postinst --before-remove ./prerm --deb-upstart ./etc/systemd/system/megamcib --deb-templates ./templates --license "Apache" --vendor "Megam Systems" --maintainer "<thomasalrin@megam.io>" --url "https://www.megam.io" --description "Cloud In a Box base seed daemon" ./usr/share/megam/megamcib

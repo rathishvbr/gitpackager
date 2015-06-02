@@ -4,4 +4,4 @@ mkdir -p ./usr/share/megam
 
 
 
-fpm -s dir -t rpm -p ./varai --rpm-user megam --rpm-group megam --maintainer "Thomas Alrin<thomasalrin@megam.io>, Raj Thilak <rajthilak@megam.co.in>, Kishorekumar Neelamegam<nkishore@megam.co.in>, Megam Systems <gomegam@megam.co.in>" -d 'nodejs nodejs-legacy' --after-install ./postinst --before-install ./preinst --after-remove ./postrm --before-remove ./prerm -n megamvarai -v 0.5 --iteration 1  --url "http://www.gomegam.com" --description "Megam - Visual Designer" --license "Apache" ./usr/share/megam
+fpm -s dir -t rpm -p ./varai --rpm-user megam --rpm-group megam --maintainer "Thomas Alrin<thomasalrin@megam.io>, Raj Thilak <rajthilak@megam.io>, Kishorekumar Neelamegam<nkishore@megam.io>, Megam Systems <info@megam.io>" -d 'nodejs nodejs-legacy' --after-install ./postinst --before-install ./preinst --after-remove ./postrm --before-remove ./prerm -n megamvarai -v 0.5 --iteration 1  --url "https://www.megam.io" --description "Megam - Visual Designer" --license "Apache" ./usr/share/megam

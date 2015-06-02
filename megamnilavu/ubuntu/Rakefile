@@ -27,7 +27,7 @@ task :inittrusty_setup do
   mkdir_p build_trusty_dir
   Rake::FileList[trusty_dir +"/**"].each do |f|
     target = File.join build_trusty_dir,  File.basename(f)
-    cp f, target
+    cp_r f, target
   end
   Dir.chdir build_trusty_dir
 end
@@ -37,7 +37,7 @@ task :initprecise_setup do
   mkdir_p build_precise_dir
   Rake::FileList[precise_dir +"/**"].each do |f|
     target = File.join build_precise_dir,  File.basename(f)
-    cp f, target
+    cp_r f, target
   end
   Dir.chdir build_precise_dir
 end
