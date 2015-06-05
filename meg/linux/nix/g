@@ -11,11 +11,11 @@ build() {
   get_architecture
 
   local _arch="$RETVAL"
-  local _meg = "meg-$_arch"
+  local _meg="meg-nightly.$_arch"
 
   cd target/release
 
-  tar -cvf meg "$_meg.tar.gz"
+  tar -cvf "$_meg.tar.gz" meg
 }
 
 get_architecture() {
@@ -93,3 +93,5 @@ get_architecture() {
 
     RETVAL="$_arch"
 }
+
+build

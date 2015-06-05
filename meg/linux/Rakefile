@@ -29,10 +29,7 @@ end
 
 
 task :clone do
-  if !File.exists? 'megamd/src/github.com/megamsys/megamd/'
-   Dir.chdir 'megamd/src/github.com/megamsys'
-   #system "git clone -b #{MegamPkg::Ger::CONFIG[:branch]} " + MegamPkg::Ger::CONFIG[:git]
+  if !File.exists? 'meg'
    system "git clone " + MegamPkg::Ger::CONFIG[:git]
  end
- Dir.chdir '../../../../'
 end
