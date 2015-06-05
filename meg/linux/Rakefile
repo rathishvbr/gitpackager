@@ -1,0 +1,38 @@
+require "rake"
+require "../../version.rb"
+require "./config.rb"
+puts ">> ------------- [#{MegamPkg::Ger::CONFIG[:name]} #{MegamPkg::Ger::VERSION}]"
+task :default => :nix
+
+build_dir ="build"
+linux_dir ="nix"
+build_nix_dir ="build/nix"
+
+task :clean do
+  rm_rf build_nix_dir
+  rm_rf build_dir
+end
+
+task :nix => [:initnix_setup, :clone] do
+  system './g', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION
+end
+
+task :initnix_setup do
+  mkdir_p build_dir
+  mkdir_p build_nix_dir
+  Rake::FileList[linux_dir +"/**"].each do |f|
+    target = File.join build_nix_dir,  File.basename(f)
+    cp_r f, target
+  end
+  Dir.chdir build_nix_dir
+end
+
+
+task :clone do
+  if !File.exists? 'megamd/src/github.com/megamsys/megamd/'
+   Dir.chdir 'megamd/src/github.com/megamsys'
+   #system "git clone -b #{MegamPkg::Ger::CONFIG[:branch]} " + MegamPkg::Ger::CONFIG[:git]
+   system "git clone " + MegamPkg::Ger::CONFIG[:git]
+ end
+ Dir.chdir '../../../../'
+end
