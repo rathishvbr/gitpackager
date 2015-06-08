@@ -42,7 +42,7 @@ chmod 755 /var/lib/megam/heka/megam_heka
 cat > //etc/init/megamheka.conf <<EOF
 #!upstart
 description "Megam heka"
-author      "Megam Systems"
+author      "Mozilla/Megam Systems(https://www.megam.io)"
 
 start on startup
 stop on shutdown
@@ -53,7 +53,6 @@ script
 end script
 
 pre-start script
-    # Date format same as (new Date()).toISOString() for consistency
     echo "[`date -u +%Y-%m-%dT%T.%3NZ`] (sys) Starting" >> /var/log/megam/megamanalytics/heka.log
 end script
 

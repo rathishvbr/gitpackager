@@ -2,8 +2,8 @@
 
 cat > //etc/init/megamanalytics.conf <<EOF
 #!upstart
-description "node.js server"
-author      "Megam Systems"
+description "Megam logs(https://console.megam.io)"
+author      "Megam Systems(https://www.megam.io)"
 
 start on startup
 stop on shutdown
@@ -29,5 +29,3 @@ EOF
 echo "starting megamanalytics"
 sudo start megamanalytics
 echo "started"
-
-

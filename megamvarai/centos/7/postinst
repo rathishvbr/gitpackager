@@ -2,8 +2,8 @@
 
 cat > //etc/init/megamvarai.conf <<EOF
 #!upstart
-description "Node.js visual designer server"
-author      "Megam Systems"
+description "A slick designer(https://console.megam.io) - Beta"
+author      "Megam Systems(https://www.megam.io)"
 
 start on startup
 stop on shutdown

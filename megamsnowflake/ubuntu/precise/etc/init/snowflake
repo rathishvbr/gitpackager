@@ -1,6 +1,6 @@
 
-description "Python thrift based unique identity generating server based on twitters snowflake"
-author "Rajthilak <rajthilak@megam.io>"
+description "Thrift UID server(https://console.megam.io)"
+author "Megam Systems(https://www.megam.io)"
 
 # When to start the service
 start on runlevel [2345]
