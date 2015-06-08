@@ -1,6 +1,6 @@
 
-description "Megam Node daemon"
-author "Rajthilak <rajthilak@megam.io>"
+description "Megam Gulpd Agent(https://console.megam.io)"
+author "Megam Systems(https://www.megam.io)"
 
 # When to start the service
 start on runlevel [2345]

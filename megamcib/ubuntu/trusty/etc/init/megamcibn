@@ -1,6 +1,6 @@
 
-description "Cloud In a Box node seed daemon"
-author "Rajthilak <rajthilak@megam.io>"
+description "Megam CIBnode(https://www.megam.io)"
+author "Megam Systems(https://www.megam.io)"
 
 # When to start the service
 start on runlevel [2345]

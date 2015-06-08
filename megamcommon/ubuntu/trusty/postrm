@@ -27,8 +27,6 @@ if [ "$1" = "purge" ]; then
 
     # Purge megam  files
     rm -rf $MEGAMHOME/.megamauth
-    rm -rf $MEGAHOME/heka
-    rm -rf $MEGAMHOME/coc.db
     rm -rf $MEGAMHOME/config
     rm -rf $MEGAM_INSTALLHOME 2>/dev/null || true
     rm -rf $MEGAMHOME 2>/dev/null || true

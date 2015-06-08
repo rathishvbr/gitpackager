@@ -2,20 +2,29 @@
 
 cat > //etc/init/megamanalytics.conf <<EOF
 #!upstart
-description "node.js server"
-author      "Megam Systems"
+description "Megam logs(https://console.megam.io)"
+author      "Megam Systems(https://www.megam.io)"
 
-start on startup
+# When to start the servicee
+start on runlevel [2345]
+start on (started networking)
+
+# When to stop the service
+stop on runlevel [016]
+stop on (stopping networking)
+stop on (stopped megamanalytics)
 stop on shutdown
+
+pre-start script
+    [ -d /var/run/megam ]  || mkdir -p /var/run/megam
+    [ -d /var/log/megam ]  || mkdir -p /var/log/megam
+    [ -d /var/log/megam/megamanalytics ] || mkdir -p /var/log/megam/megamanalytics
+    echo "[`date -u +%Y-%m-%dT%T.%3NZ`] (sys) Starting" >> /var/log/megam/megamanalytics/megamanalytics.log
+end script
 
 script
     echo $$ > /var/run/megam/megamanalytics.pid
     exec sudo /usr/bin/node /usr/share/megam/megamanalytics/tap_monitor.js >> /var/log/megam/megamanalytics/megamanalytics.log 2>&1
-end script
-
-pre-start script
-    # Date format same as (new Date()).toISOString() for consistency
-    echo "[`date -u +%Y-%m-%dT%T.%3NZ`] (sys) Starting" >> /var/log/megam/megamanalytics/megamanalytics.log
 end script
 
 pre-stop script
@@ -24,10 +33,4 @@ pre-stop script
 end script
 EOF
 
-
-
-echo "starting megamanalytics"
 sudo start megamanalytics
-echo "started"
-
-
