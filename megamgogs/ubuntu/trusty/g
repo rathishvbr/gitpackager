@@ -22,4 +22,4 @@ PASSWD =
 PATH = data/gogs.db
 EOF
 
-fpm -s dir -t deb -n $1 -v $2 -d "megamcommon" --before-install ./preinst --after-install ./postinst --before-remove ./prerm --deb-upstart ./etc/init/megamgogs --license "Apache" --vendor "Megam Systems" --maintainer "<rajthilak@megam.io>" --url "http://megam.io/" --description "Gogs Go Git service" ./usr/share/megam/megamgogs
+fpm -s dir -t deb -n $1 -v $2 -d "megamcommon" --before-install ./preinst --after-install ./postinst --before-remove ./prerm --deb-upstart ./etc/init/megamgogs --license "Apache" --vendor "Megam Systems" --maintainer "<rajthilak@megam.io>" --url "https://www.megam.io/" --description "Gogs Go Git service" ./usr/share/megam/megamgogs
