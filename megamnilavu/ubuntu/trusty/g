@@ -12,6 +12,7 @@ cp -r ./nilavu/Gemfile $TMP_BUILD_HOME
 cp -r ./nilavu/Gemfile.lock $TMP_BUILD_HOME
 cp -r ./nilavu/g $TMP_BUILD_HOME
 cp -r ./nilavu/License .$TMP_BUILD_HOME
+cp -r ./nilavu/Rakefile $TMP_BUILD_HOME
 cp -r ./nilavu/README.md $TMP_BUILD_HOME
 
 cp -r ./nilavu/app $TMP_BUILD_HOME
@@ -30,4 +31,6 @@ rake tmp:clear
 
 bundle install --without development:test --path vendor/bundle --binstubs vendor/bundle/bin -j2 --deployment
 
-fpm -s dir -t deb -n $1 -v $2 --after-install ./postinst --after-remove ./postrm --license "Apache" --vendor "Megam Systems" --maintainer="Thomas Alrin<thomasalrin@megam.io>, Raj Thilak <rajthilak@megam.io>, Kishorekumar Neelamegam<nkishore@megam.io>, Megam Systems <info@megam.io>" --url "https://www.megam.io/" --description "Megam Nilavu - Web as (https://console.megam.io)" $TMP_BUILD_HOME
+rake assets:precompile RAILS_ENV=production
+
+fpm -s dir -t deb -n $1 -v $2 --after-install ./postinst --after-remove ./postrm --license "Apache" --vendor "Megam Systems" --maintainer="Thomas Alrin<thomasalrin@megam.io>, Raj Thilak <rajthilak@megam.io>, Kishorekumar Neelamegam<nkishore@megam.io>, Yeshwanth kumar <getyesh@megam.io>, Megam Systems <info@megam.io>" --url "https://www.megam.io/" --description "Megam Nilavu - Web as (https://console.megam.io)" $TMP_BUILD_HOME
