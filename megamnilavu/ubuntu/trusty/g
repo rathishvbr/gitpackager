@@ -31,4 +31,4 @@ rake assets:clean
 rake tmp:clear
 rake assets:precompile RAILS_ENV=production
 
-fpm -s dir -t deb -n $1 -v $2 --after-install ./postinst --after-remove ./postrm --license "Apache" --vendor "Megam Systems" --maintainer="Thomas Alrin<thomasalrin@megam.io>, Raj Thilak <rajthilak@megam.io>, Kishorekumar Neelamegam<nkishore@megam.io>, Yeshwanth kumar <getyesh@megam.io>, Megam Systems <info@megam.io>" --url "https://www.megam.io/" --deb-upstart ./etc/init/megamnilavu --description "Megam Nilavu - Web as (https://console.megam.io)" $TMP_BUILD_HOME
+fpm -s dir -t deb -n $1 -v $2 --after-install ./postinst --after-remove ./postrm --license "Apache" --vendor "Megam Systems" --maintainer="Thomas Alrin<thomasalrin@megam.io>, Raj Thilak <rajthilak@megam.io>, Kishorekumar Neelamegam<nkishore@megam.io>, Yeshwanth kumar <getyesh@megam.io>, Megam Systems <info@megam.io>" --url "https://www.megam.io/" --deb-upstart ./etc/init/megamnilavu.conf --description "Megam Nilavu - Web as (https://console.megam.io)" $TMP_BUILD_HOME
