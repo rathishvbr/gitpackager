@@ -1,13 +1,39 @@
 #!/bin/sh
-cd nilavu
+
+TMP_BUILD_HOME=./usr/share/megam/$1
+
+mkdir -p $TMP_BUILD_HOME
+mkdir -p $TMP_BUILD_HOME/log
+
+#just copy what you want.
+cp -r ./nilavu/config.ru $TMP_BUILD_HOME
+cp -r ./nilavu/Gemfile $TMP_BUILD_HOME
+cp -r ./nilavu/Gemfile.lock $TMP_BUILD_HOME
+cp -r ./nilavu/g $TMP_BUILD_HOME
+cp -r ./nilavu/License $TMP_BUILD_HOME
+cp -r ./nilavu/Rakefile $TMP_BUILD_HOME
+cp -r ./nilavu/README.md $TMP_BUILD_HOME
+
+cp -r ./nilavu/app $TMP_BUILD_HOME
+cp -r ./nilavu/config $TMP_BUILD_HOME
+cp -r ./nilavu/public $TMP_BUILD_HOME
+cp -r ./nilavu/vendor $TMP_BUILD_HOME
+
+cd $TMP_BUILD_HOME
+
+export MEGAM_HOME="$PWD/config"
+
+bundle install --without development:test --path vendor/bundle --binstubs vendor/bundle/bin -j2 --deployment
+
 rake assets:clean
 rake tmp:clear
+rake assets:precompile RAILS_ENV=production
 
+rm -rf $TMP_BUILD_HOME/tmp
+rm  $TMP_BUILD_HOME/log/*.log
 
-bundle update
-bundle install
+cd ../../../../
 
-cd ..
+rm -rf ./nilavu
 
-
-pkgr package ./nilavu --user=megam --group=megam --maintainer="Thomas Alrin<thomasalrin@megam.io>, Raj Thilak <rajthilak@megam.io>, Kishorekumar Neelamegam<nkishore@megam.io>, Megam Systems <info@megam.io>" --runner='upstart-1.5' --dependencies=megamcommon git-core curl bundler rake zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties wbritish wamerican --after-install=$PWD/postinst --before-install=$PWD/preinst --after-remove=$PWD/postrm --before-remove=$PWD/prerm --auto  --clean --name=$1 --version=$2 --iteration=1  --edge  --homepage="https://www.megam.io/" --description="Nilavu - Web portal for Megam" --license="Apache" --home="/usr/share/megam"
+fpm -s dir -t deb -n $1 -v $2 --after-install ./postinst --after-remove ./postrm --license "Apache" --vendor "Megam Systems" --maintainer="Thomas Alrin<thomasalrin@megam.io>, Raj Thilak <rajthilak@megam.io>, Kishorekumar Neelamegam<nkishore@megam.io>, Yeshwanth kumar <getyesh@megam.io>, Megam Systems <info@megam.io>" --url "https://www.megam.io/" --deb-upstart ./etc/init/megamnilavu.conf --description "Megam Nilavu - Web as (https://console.megam.io)" $TMP_BUILD_HOME
