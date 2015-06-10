@@ -1,0 +1,60 @@
+require "rake"
+require "../version.rb"
+require "./config.rb"
+puts ">> ------------- [#{MegamPkg::Ger::CONFIG[:name]} #{MegamPkg::Ger::VERSION}]"
+
+nix_dir="nix"
+build_dir ="build"
+
+task :default => :trusty
+
+task :clean do
+  rm_rf build_dir
+end
+
+task :initnix, [:halwa] do |halwa|
+  mkdir_p build_dir
+  build_halwa_dir="build/"+ halwa
+  mkdir_p build_halwa_dir
+  Rake::FileList[nix_dir +"/**"].each do |f|
+    target = File.join build_halwa_dir,  File.basename(f)
+    cp_r f, target
+  end
+end
+
+#this overrides the nix stuff.
+task :nix, [:halwa] => [:initnix, [:halwa]] do |halwa|
+  halwa_dir = halwa
+  Rake::FileList[halwa_dir +"/**"].each do |f|
+    target = File.join build_trusty_dir,  File.basename(f)
+    cp_r f, target
+  end
+  Dir.chdir build_halwa_dir
+end
+
+#i know this repeating, but this to partition the support os.
+# rake trusty
+# rake precise
+# rake centos7
+# rake jessie
+task :trusty, [:os] => [:initnix, [:os],  :clone] do |os|
+  system './g', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION
+end
+
+task :precise, [:os] => [:initnix, [:os],  :clone] do |os|
+  system './g', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION
+end
+
+task :centos7, [:os] => [:initnix, [:os],  :clone] do |os|
+  system './g', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION
+end
+
+task :jessie, [:os] => [:initnix, [:os],  :clone] do |os|
+  system './g', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION
+end
+
+task :clone do
+  if !File.exists? 'nilavu/'
+   system "git clone -b #{MegamPkg::Ger::CONFIG[:branch]} https://github.com/megamsys/nilavu.git"
+ end
+end
