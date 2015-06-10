@@ -16,11 +16,6 @@ end
 
 task :initnix do
   mkdir_p build_dir
-  puts ":-->>>>>>>"
-  puts ":-------- #{megger.inspect}"
-  puts ":-------- #{megger.halwa}"
-  puts ":-------- #{megger.build_halwa}"
-
   mkdir_p megger.build_halwa
 
   Rake::FileList[nix_dir +"/**"].each do |f|
@@ -47,9 +42,7 @@ end
 # rake jessie
 task :trusty   do
   megger.halwa="trusty"
-  puts "-------- #{megger.halwa}"
   megger.build_halwa="build/trusty"
-  puts ":-------- #{megger.build_halwa}"
   Rake::Task[:nix].invoke
 end
 
