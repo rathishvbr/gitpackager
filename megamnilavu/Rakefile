@@ -3,6 +3,8 @@ require "../version.rb"
 require "./config.rb"
 puts ">> ------------- [#{MegamPkg::Ger::CONFIG[:name]} #{MegamPkg::Ger::VERSION}]"
 
+megger = MegamPkg::Ger.new
+
 nix_dir="nix"
 build_dir ="build"
 
@@ -12,45 +14,55 @@ task :clean do
   rm_rf build_dir
 end
 
-task :initnix, [:halwa] do |halwa|
+task :initnix do
   mkdir_p build_dir
-  build_halwa_dir="build/"+ halwa
-  mkdir_p build_halwa_dir
+  mkdir_p megger.build_halwa
+
   Rake::FileList[nix_dir +"/**"].each do |f|
-    target = File.join build_halwa_dir,  File.basename(f)
+    target = File.join megger.build_halwa,  File.basename(f)
     cp_r f, target
   end
 end
 
-#this overrides the nix stuff.
-task :nix, [:halwa] => [:initnix, [:halwa]] do |halwa|
-  halwa_dir = halwa
-  Rake::FileList[halwa_dir +"/**"].each do |f|
-    target = File.join build_trusty_dir,  File.basename(f)
+#this overrides the nix/ stuff with halwa specific stuff.
+task :nix => [:initnix] do
+  Rake::FileList[halwa +"/**"].each do |f|
+    target = File.join build_halwa,  File.basename(f)
     cp_r f, target
-  end
-  Dir.chdir build_halwa_dir
+  end if File.exists?(megger.halwa)
+
+  Dir.chdir megger.build_halwa
+  Rake::Task[:clone].invoke
+  system './g', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION
 end
 
-#i know this repeating, but this to partition the support os.
+#i know this repeating, but this to partition the supported os just we don't have to do typechecking.
 # rake trusty
 # rake precise
 # rake centos7
 # rake jessie
-task :trusty, [:os] => [:initnix, [:os],  :clone] do |os|
-  system './g', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION
+task :trusty   do
+  megger.halwa="trusty"
+  megger.build_halwa="build/trusty"
+  Rake::Task[:nix].invoke
 end
 
-task :precise, [:os] => [:initnix, [:os],  :clone] do |os|
-  system './g', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION
+task :precise   do
+  megger.halwa ="precise"
+  megger.build_halwa="build/precise"
+  Rake::Task[:nix].invoke
 end
 
-task :centos7, [:os] => [:initnix, [:os],  :clone] do |os|
-  system './g', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION
+task :centos7 do
+  megger.halwa ="centos7"
+  megger.build_halwa="build/centos7"
+  Rake::Task[:nix].invoke
 end
 
-task :jessie, [:os] => [:initnix, [:os],  :clone] do |os|
-  system './g', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION
+task :jessie do
+  megger.halwa ="jessie"
+  megger.build_halwa="build/jessie"
+  Rake::Task[:nix].invoke
 end
 
 task :clone do
