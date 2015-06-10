@@ -21,9 +21,9 @@ cp -r ./nilavu/vendor $TMP_BUILD_HOME
 
 rm -rf ./nilavu
 
-cd $TMP_BUILD_HOME
+export MEGAM_HOME="$TMP_BUILD_HOME/config"
 
-export MEGAM_HOME="./config"
+cd $TMP_BUILD_HOME
 
 rake assets:clean
 rake tmp:clear
