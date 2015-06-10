@@ -19,9 +19,6 @@ cp -r ./nilavu/config $TMP_BUILD_HOME
 cp -r ./nilavu/public $TMP_BUILD_HOME
 cp -r ./nilavu/vendor $TMP_BUILD_HOME
 
-rm -rf ./nilavu
-
-
 cd $TMP_BUILD_HOME
 
 export MEGAM_HOME="$PWD/config"
@@ -32,7 +29,11 @@ rake assets:clean
 rake tmp:clear
 rake assets:precompile RAILS_ENV=production
 
+rm -rf $TMP_BUILD_HOME/tmp
+rm  $TMP_BUILD_HOME/log/*.log
+
 cd ../../../../
 
+rm -rf ./nilavu
+
 fpm -s dir -t deb -n $1 -v $2 --after-install ./postinst --after-remove ./postrm --license "Apache" --vendor "Megam Systems" --maintainer="Thomas Alrin<thomasalrin@megam.io>, Raj Thilak <rajthilak@megam.io>, Kishorekumar Neelamegam<nkishore@megam.io>, Yeshwanth kumar <getyesh@megam.io>, Megam Systems <info@megam.io>" --url "https://www.megam.io/" --deb-upstart ./etc/init/megamnilavu.conf --description "Megam Nilavu - Web as (https://console.megam.io)" $TMP_BUILD_HOME
-fpm -s dir -t deb -n megamnilavu -v 0.8 --after-install ./postinst --after-remove ./postrm --license "Apache" --vendor "Megam Systems" --maintainer="Thomas Alrin<thomasalrin@megam.io>, Raj Thilak <rajthilak@megam.io>, Kishorekumar Neelamegam<nkishore@megam.io>, Yeshwanth kumar <getyesh@megam.io>, Megam Systems <info@megam.io>" --url "https://www.megam.io/" --deb-upstart ./etc/init/megamnilavu.conf --description "Megam Nilavu - Web as (https://console.megam.io)" $TMP_BUILD_HOME
