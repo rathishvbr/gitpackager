@@ -21,9 +21,10 @@ cp -r ./nilavu/vendor $TMP_BUILD_HOME
 
 rm -rf ./nilavu
 
-export MEGAM_HOME="$TMP_BUILD_HOME/config"
 
 cd $TMP_BUILD_HOME
+
+export MEGAM_HOME="$PWD/config"
 
 bundle install --without development:test --path vendor/bundle --binstubs vendor/bundle/bin -j2 --deployment
 
