@@ -26,7 +26,7 @@ cd $TMP_BUILD_HOME
 export MEGAM_HOME="$PWD/config"
 
 #install the gems inside a directory called vendor/bundle
-bundle install --retry 3 --without development:test --path vendor/bundle --binstubs vendor/bundle/bin --j2 --deployment
+bundle install --retry 3 --without development:test --path vendor/bundle --binstubs vendor/bundle/bin -j2 --deployment --jobs 4
 
 #clean and precompile assets, we will have to shift it to a CDN
 rake assets:clean
@@ -34,13 +34,12 @@ rake tmp:clear
 rake assets:precompile RAILS_ENV=production
 
 #screwy and good too in a sense we package the ruby nilavu will use.
-mkdir -p vendor/ruby
-mv mkoye.sh vendor/ruby
-cd vendor/ruby
-./mkoye.sh $PWD
+mv mkoye.sh vendor
+cd vendor
+./mkoye.sh
 
 #clean tmp files
-cd ../../
+cd ../
 rm -rf $TMP_BUILD_HOME/tmp
 cd ../../../../
 rm -rf ./nilavu

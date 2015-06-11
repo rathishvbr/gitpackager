@@ -1,13 +1,10 @@
 #!/bin/sh
+# this is amd64 compiled ruby grabbed from source with so enabled.
+#refer this gist for details https://gist.github.com/indykish/bedb24f58bbd10da4ee8
+wget https://s3-ap-southeast-1.amazonaws.com/megampub/langs/ruby2.2.2.tar.gz
 
-wget http://cache.ruby-lang.org/pub/ruby/2.2/ruby-2.2.2.tar.gz
+gunzip -c ruby2.2.2.tar.gz | tar -xvf -; rm ruby2.2.2.tar.gz
 
-gunzip -c ruby-2.2.2.tar.gz | tar -xvf -; rm ruby-2.2.2.tar.gz
+rm mkoye.sh
 
-cd ruby-2.2.2
-./configure --prefix=$1  --disable-install-doc --disable-install-rdoc
-make
-make install
-
-cd ..
-rm -rf ruby-2.2.2
+mv ruby2.2.2 ruby-2.2.2

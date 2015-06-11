@@ -13,8 +13,6 @@ cp /usr/share/megam/megamnilavu/config/nilavu.yml /var/lib/megam/nilavu.yml
 
 cp /usr/share/megam/megamnilavu/g /var/lib/megam/nilavu.sh
 
-echo "starting megamnilavu..."
 sudo start megamnilavu
-echo "started"
 
 initctl reload-configuration
