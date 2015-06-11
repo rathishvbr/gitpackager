@@ -1,0 +1,18 @@
+[Unit]
+Description=Upstart script for nilavu
+After=network.target
+After=runlevel2.target
+After=runlevel3.target
+After=runlevel4.target
+After=runlevel5.target
+[Service]
+EnvironmentFile='/var/lib/megam/megamnilavu.env'
+ExecStartPre=[ -d /var/run/megam/megamnilavu ] || mkdir -p /var/run/megam/megamnilavu
+ExecStartPre=[ -d /var/log/megam/megamnilavu ] || mkdir -p /var/log/megam/megamnilavu
+ExecStart=start-stop-daemon --start --chdir "/usr/share/megam/megamnilavu/" --exec /usr/bin/bundle exec unicorn_rails -- -E production -c "/etc/unicorn/nilavu.rb"
+ExecStartPost=`status megamnilavu | egrep -oi '([0-9]+)$' | head -n1` > /var/run/megam/megamnilavu/megamnilavu.pid
+ExecStopPost=rm /var/run/megam/megamnilavu/megamnilavu.pid | echo "[`date -u +%Y-%m-%dT%T.%3NZ`] (sys) megamnilavu tata bye.!" >> /var/log/megam/megamnilavu/megamnilavu.log
+#ExecStop=runlevel0.target
+#ExecStop=runlevel1.target
+#ExecStop=runlevel6.target
+#KillMode=mixed
