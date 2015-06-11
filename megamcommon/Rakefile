@@ -26,8 +26,8 @@ end
 
 #this overrides the nix/ stuff with halwa specific stuff.
 task :nix => [:initnix] do
-  Rake::FileList[halwa +"/**"].each do |f|
-    target = File.join build_halwa,  File.basename(f)
+  Rake::FileList[megger.halwa + "/**"].each do |f|
+    target = File.join megger.build_halwa,  File.basename(f)
     cp_r f, target
   end if File.exists?(megger.halwa)
 
@@ -53,7 +53,7 @@ task :precise   do
 end
 
 task :centos7 do
-  megger.halwa ="centos7"
+  megger.halwa="centos7"
   megger.build_halwa="build/centos7"
   Rake::Task[:nix].invoke
 end
