@@ -10,7 +10,7 @@ git remote add master https://github.com/indykish/megamd.git
 make build
 
 cp -rf ./conf/ ../../../../../usr/share/megam/megamd
-cp megamd ../../../../../usr/share/megam/megamd/bin
+cp megamd ../../../../usr/share/megam/megamd/bin
 
 cd ../../../../../
 
