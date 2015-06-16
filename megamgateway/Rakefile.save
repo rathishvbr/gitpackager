@@ -1,3 +1,4 @@
+ls
 require "rake"
 require "../version.rb"
 require "./config.rb"
@@ -66,7 +67,7 @@ task :jessie do
 end
 
 task :clone do
-  if !File.exists? 'snowflake/'
-   system "git clone -b #{MegamPkg::Ger::CONFIG[:branch]} https://github.com/megamsys/snowflake.git"
+  if !File.exists? 'nilavu/'
+   system "git clone -b #{MegamPkg::Ger::CONFIG[:branch]} https://github.com/megamsys/megam_gateway.git"
  end
 end
