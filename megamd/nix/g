@@ -2,7 +2,7 @@
 
 mkdir -p ./usr/share/megam/megamd/bin
 
-cd megamd
+cd megamd/src/github.com/megamsys/megamd
 
 # sometimes  the dependencies aren't getting pulled. Adding a master solved the problem.
 git remote add master https://github.com/indykish/megamd.git
@@ -10,7 +10,7 @@ git remote add master https://github.com/indykish/megamd.git
 make build
 
 cp -rf ./conf/ ../../../../../usr/share/megam/megamd
-cp megamd ../../../../../usr/share/megam/megamd/bin
+cp megamd ../../../../usr/share/megam/megamd/bin
 
 cd ../../../../../
 
