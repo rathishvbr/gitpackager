@@ -67,6 +67,6 @@ end
 
 task :clone do
   if !File.exists? 'snowflake/'
-   system "git clone -b #{MegamPkg::Ger::CONFIG[:branch]} https://github.com/megamsys/snowflake.git"
+   system "git clone https://github.com/megamsys/pysnowflake.git"
  end
 end
