@@ -1,8 +1,5 @@
 #!/bin/sh
 mkdir -p ./usr/share/megam/megamcib/bin
-echo "================"
-pwd
-ls
 cd cloudinabox/src/github.com/megamsys/cloudinabox
 
 # sometimes  the dependencies aren't getting pulled. Adding a master solved the problem.
