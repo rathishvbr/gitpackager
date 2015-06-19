@@ -11,8 +11,4 @@ chmod 755 /var/lib/megam/env.sh
 
 cp /usr/share/megam/megamnilavu/config/nilavu.yml /var/lib/megam/nilavu.yml
 
-cp /usr/share/megam/megamnilavu/g /var/lib/megam/nilavu.sh
-
-sudo start megamnilavu
-
 initctl reload-configuration
