@@ -1,9 +1,10 @@
-#!/bin/sh
+#!/bin/bash
 
-cd varai
+cd megamvarai
 
 npm install
 
 cd ..
 
-pkgr package ./varai/ --user=megam --group=megam --maintainer="Thomas Alrin<thomasalrin@megam.io>, Raj Thilak <rajthilak@megam.io>, Kishorekumar Neelamegam<nkishore@megam.io>, Megam Systems <info@megam.io>" --runner='upstart-1.5' --dependencies=nodejs nodejs-legacy --after-install=$PWD/postinst --before-install=$PWD/preinst --after-remove=$PWD/postrm --before-remove=$PWD/prerm --auto  --clean --name=megamvarai --version=0.8 --iteration=1  --homepage="https://www.megam.io/" --description="Megam - Visual Designer" --license="Apache" --home="/usr/share/megam/megamvarai"
+pkgr package ./megamvarai/ --user=megam --group=megam --maintainer="Thomas Alrin<thomasalrin@megam.io>, Raj Thilak <rajthilak@megam.io>, Kishorekumar Neelamegam<nkishore@megam.io>, Megam Systems <info@megam.io>" --runner='upstart-1.5' --dependencies=nodejs nodejs-legacy --after-install=$PWD/postinst --before-install=$PWD/preinst --after-remove=$PWD/postrm --before-remove=$PWD/prerm --auto  --clean --name=megamvarai --version=0.8 --iteration=1  --homepage="https://www.megam.io/" --description="Megam - Visual Designer" --license="Apache" --home="/usr/share/megam/megamvarai" --verbose --env "HOME=$HOME"
+
