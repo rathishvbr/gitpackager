@@ -32,7 +32,6 @@ task :nix => [:initnix] do
   end if File.exists?(megger.halwa)
 
   Dir.chdir megger.build_halwa
-  Rake::Task[:clone].invoke
   system './g', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION
 end
 
@@ -65,8 +64,3 @@ task :jessie do
   Rake::Task[:nix].invoke
 end
 
-task :clone do
-  if !File.exists? 'nilavu/'
-   system "git clone -b #{MegamPkg::Ger::CONFIG[:branch]} https://github.com/megamsys/nilavu.git"
- end
-end

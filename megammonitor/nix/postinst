@@ -356,7 +356,7 @@ service gmetad stop
 rm /etc/ganglia/gmetad.conf
 
 cat > //etc/ganglia/gmetad.conf <<EOF 
-data_source "megamiaas" localhost
+data_source "megamiaas" $ipaddr
 #rrd_rootdir "/var/lib/megam/ganglia/rrds"
 case_sensitive_hostnames 0
 EOF

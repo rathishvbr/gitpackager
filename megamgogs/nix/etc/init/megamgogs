@@ -15,8 +15,8 @@ respawn
 respawn limit 0 60
 
 # changes to the user and group before running the job's process
-setuid megam
-setgid megam
+#setuid megam
+#setgid megam
 
 
 # set the working directory of the job processes
