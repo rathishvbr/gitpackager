@@ -67,6 +67,6 @@ end
 
 task :clone do
   if !File.exists? 'varai/'
-   system "git clone -b #{MegamPkg::Ger::CONFIG[:branch]} https://github.com/megamsys/varai.git"
+   system "git clone https://github.com/megamsys/varai.git megamvarai"
  end
 end
