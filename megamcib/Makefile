@@ -121,7 +121,7 @@ burn_usb:
 	sudo cp ./usb/preseed.cfg $(USB_IMAGEDIR)
 	sudo cp ./usb/txt.cfg $(USB_IMAGEDIR)
 	sudo rm -rf splash.png
-	sudo cp ./trusty/image/splash.png $(USB_IMAGEDIR)
+	sudo cp ./nix/image/splash.png $(USB_IMAGEDIR)
 	xorriso -as mkisofs -r -J -b isolinux.bin -c boot.cat \
 		-no-emul-boot -boot-load-size 4 -boot-info-table \
 		-eltorito-alt-boot \
@@ -141,7 +141,7 @@ mknode_iso:
 	sudo cp ./usb/npreseed.cfg $(USB_IMAGEDIR)/npreseed.cfg
 	sudo cp ./usb/ntxt.cfg $(USB_IMAGEDIR)/txt.cfg
 	sudo rm -rf splash.png
-	sudo cp ./trusty/image/splash.png $(USB_IMAGEDIR)
+	sudo cp ./nix/image/splash.png $(USB_IMAGEDIR)
 	xorriso -as mkisofs -r -J -b isolinux.bin -c boot.cat \
 		-no-emul-boot -boot-load-size 4 -boot-info-table \
 		-eltorito-alt-boot \
