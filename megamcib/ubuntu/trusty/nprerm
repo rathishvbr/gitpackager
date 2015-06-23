@@ -1,1 +1,0 @@
-service megamcibn stop || echo "megamcibn wasn't even running!"

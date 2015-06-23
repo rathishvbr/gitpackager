@@ -1,5 +1,3 @@
 #!/bin/sh
 
 [ -d /var/log/megam/megamnilavu ] && rm -rf /var/log/megam/megamnilavu
-
-[ -f /etc/unicorn/nilavu.rb ] && rm -f /etc/unicorn/nilavu.rb

@@ -1,3 +1,4 @@
+ls
 require "rake"
 require "../version.rb"
 require "./config.rb"
@@ -30,10 +31,9 @@ task :nix => [:initnix] do
     target = File.join megger.build_halwa,  File.basename(f)
     cp_r f, target
   end if File.exists?(megger.halwa)
- 
+
   Dir.chdir megger.build_halwa
-mkdir_p "usr/share/megam"  
-Rake::Task[:clone].invoke
+  Rake::Task[:clone].invoke
   system './g', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION
 end
 
@@ -68,8 +68,6 @@ end
 
 task :clone do
   if !File.exists? 'nilavu/'
-   Dir.chdir "usr/share/megam"
-   system "git clone -b #{MegamPkg::Ger::CONFIG[:branch]} https://github.com/megamsys/nilavu.git megamnilavu"
+   system "git clone -b #{MegamPkg::Ger::CONFIG[:branch]} https://github.com/megamsys/megam_gateway.git"
  end
-Dir.chdir '../../..'
 end
