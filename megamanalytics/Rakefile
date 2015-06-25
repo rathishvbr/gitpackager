@@ -34,7 +34,7 @@ task :nix => [:initnix] do
   Dir.chdir megger.build_halwa
   #mkdir_p "megamd/src/github.com/megamsys"
   Rake::Task[:clone].invoke
-system './g_heka', MegamPkg::Ger::CONFIG[:heka_name], MegamPkg::Ger::VERSION  
+#system './g_heka', MegamPkg::Ger::CONFIG[:heka_name], MegamPkg::Ger::VERSION  
 system './g_tap', MegamPkg::Ger::CONFIG[:tap_name], MegamPkg::Ger::VERSION
 end
 
@@ -70,7 +70,7 @@ end
 
 task :clone do
   if !File.exists? 'heka/'
-   system "git clone https://github.com/megamsys/heka.git"
+   #system "git clone https://github.com/megamsys/heka.git"
  end
   if !File.exists? 'tap/'
    system "git clone https://github.com/megamsys/tap.git"
