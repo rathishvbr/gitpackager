@@ -179,7 +179,7 @@ report_megam() {
   printf "*${bldblu}%-50s${txtrst}*\n" "   Packages installed or not > [OK, FAIL]         ";
   printf "*${txtblu}%-50s${txtrst}*\n" "--------------------------------------------------";
 
-  pkgnames=( ruby2.0 openjdk-8-jdk riak rabbitmq-server nodejs megamcommon megamsnowflake megamnilavu megamgateway megamd megamanalytics megammonitor megamcib megamcibn)
+  pkgnames=( ruby2.0 openjdk-8-jdk riak rabbitmq-server nodejs megamcommon megamsnowflake megamnilavu megamgateway megamd megamanalytics megammonitor megamswarm megamcib megamcibn)
 
   howdy_pkgs pkgnames[@]
 
@@ -204,7 +204,7 @@ report_megam() {
   printf "${bldwht}%-15s ${txtcyn}%-15s${txtrst} %-5s ${bldred}%-15s${txtrst}\n" 'rabbitmq-server' 'SERVICE'  '.....'  '[FAIL]';
   fi
 
-  our_sernames=( snowflake megamnilavu megamgateway megamd megamheka megamanalytics megamcib megamcibn)
+  our_sernames=( snowflake megamnilavu megamgateway megamd megamheka megamanalytics megamswarm megamcib megamcibn)
 
   howdy_services our_sernames[@]
 

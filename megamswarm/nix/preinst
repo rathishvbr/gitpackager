@@ -1,0 +1,5 @@
+#!/bin/sh
+
+service docker stop
+
+mkdir -p /var/log/megam/megamswarm

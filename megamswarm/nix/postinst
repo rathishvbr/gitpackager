@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# we create a cluster token and set it in BMDK_CLUSTERID
+bmdkcluster() {
+mkdir -p /var/lib/megam/megamswarm
+bmdk_clusterid = `/usr/share/megam/megamswarm/bin/swarm create`
+
+echo "BMDK_CLUSTERID " $bmdk_clusterid  >> /var/log/upstart/megamd.log
+
+#set MEGAM_BMDK_CLUSTERID for megamswarm
+cat > /var/lib/megam/env.sh <<EOF
+initctl set-env MEGAM_BMDK_CLUSTERID=$bmdk_clusterid
+EOF
+
+}
+
+# Grab the hostip and set it in BMDK_CLUSTERIP
+grab_hostip() {
+  while read Iface Destination Gateway Flags RefCnt Use Metric Mask MTU Window IRTT; do
+		[ "$Mask" = "00000000" ] && \
+		interface="$Iface" && \
+		ipaddr=$(LC_ALL=C /sbin/ip -4 addr list dev "$interface" scope global) && \
+		ipaddr=${ipaddr#* inet } && \
+		ipaddr=${ipaddr%%/*} && \
+		break
+	done < /proc/net/route
+  initctl set-env MEGAM_BMDK_CLUSTERIP=$ipaddr
+}
+
+# Start docker in dtached mode and join the ip address in the cluster
+join_bmdkcluster() {
+  docker -H tcp://0.0.0.0:2375 -d
+  /usr/share/megam/megamswarm/bin/swarm join --addr=$ipaddr token://$bmdk_custerid
+}
+
+cron_and_bmdkcluster
+grab_hostip
+join_bmdkcluster
+
+## voila start the service now (swarm manage)
+service megamswarm start || echo "megamswarm could not be started. Try manually with service megamswarm start"
