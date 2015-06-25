@@ -10,8 +10,9 @@ HEKA_READ_PATH=/var/lib/megam/megamd/
 CONFIG_FILE="config.json"
 JSON_SUFFIX="-json.log"
 
-
-
+##
+##Takes in the key and number , gives out the value
+##
 function jsonval() {
 
 KEY=$1
@@ -21,7 +22,9 @@ num=$2
 awk -F"[,:}]" '{for(i=1;i<=NF;i++){if($i~/'$KEY'\042/){print $(i+1)}}}' | tr -d '"' | sed -n ${num}p
 }
 
-
+##
+##Main function for linking docker logs -> heka configured path
+##
 function main() {
 for dir in $DOCKER_PATH
   do
