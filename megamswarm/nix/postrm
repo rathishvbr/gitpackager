@@ -1,13 +1,13 @@
 #!/bin/sh
 
-if [ -d "/usr/share/megam/megamd" ]; then
-  rm -r /usr/share/megam/megamd
+if [ -d "/usr/share/megam/megamswarm" ]; then
+  rm -r /usr/share/megam/megamswarm
 fi
 
-if [ -d "/var/lib/megam/megamd" ]; then
-  rm -r /var/lib/megam/megamd
+if [ -d "/var/lib/megam/megamswarm" ]; then
+  rm -r /var/lib/megam/megamswarm
 fi
 
-if [ -d "/var/log/megam/megamd" ]; then
-  rm -r /var/log/megam/megamd
+if [ -d "/var/log/megam/megamswarm" ]; then
+  rm -r /var/log/megam/megamswarm
 fi

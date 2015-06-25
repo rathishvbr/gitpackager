@@ -32,7 +32,7 @@ task :nix => [:initnix] do
   end if File.exists?(megger.halwa)
 
   Dir.chdir megger.build_halwa
-  mkdir_p "megamswarm/src/github.com/megamsys"
+  mkdir_p "megamswarm/src/github.com/docker"
   Rake::Task[:clone].invoke
   system './g', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION
 end
@@ -67,9 +67,10 @@ task :jessie do
 end
 
 task :clone do
-  if !File.exists? 'megamswarm/src/github.com/megamsys/megamd/'
-   Dir.chdir 'megamswarm/src/github.com/megamsys'
+  if !File.exists? 'megamswarm/src/github.com/docker/swarm/'
+   Dir.chdir 'megamswarm/src/github.com/docker'
    system "git clone " + MegamPkg::Ger::CONFIG[:git]
  end
+
  Dir.chdir '../../../../'
 end
