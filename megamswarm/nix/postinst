@@ -3,6 +3,14 @@
 # we create a cluster token and set it in BMDK_CLUSTERID
 bmdkcluster() {
 mkdir -p /var/lib/megam/megamswarm
+cp /usr/share/megam/megamswarm/bin/link_container_logs /var/lib/megam/megamswarm
+
+chmod +x /var/lib/megam/megamswarm/riakstash
+
+crontab  /usr/share/megam/megamswarm/bin/link_container_logs.cron.d
+
+rm /usr/share/megam/megamd/bin/link_container_logs.cron.d
+
 bmdk_clusterid = `/usr/share/megam/megamswarm/bin/swarm create`
 
 echo "BMDK_CLUSTERID " $bmdk_clusterid  >> /var/log/upstart/megamd.log

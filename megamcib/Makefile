@@ -8,7 +8,6 @@
 SHELL = /bin/sh
 
 #### Start of system configuration section. ####
-SRCDIR = ../
 
 # Temporary BUILDDIR
 BUILDDIR = ./build
@@ -41,7 +40,7 @@ list:
 	@echo
 	@echo "list"
 	@echo "clean"
-	@echo "trusy"
+	@echo "trusty"
 	@echo
 
 # Clean all targets.
