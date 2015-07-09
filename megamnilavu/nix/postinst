@@ -9,6 +9,19 @@ EOF
 
 chmod 755 /var/lib/megam/env.sh
 
+#ruby change 
+rm /usr/bin/ruby
+rm /usr/bin/gem
+ln -s /usr/bin/ruby2.0 /usr/bin/ruby
+ln -s /usr/bin/gem2.0 /usr/bin/gem
+
 cp /usr/share/megam/megamnilavu/config/nilavu.yml /var/lib/megam/nilavu.yml
+
+gem install bundler
+
+cd /usr/share/megam/megamnilavu/
+bundle install
+
+start megamnilavu
 
 initctl reload-configuration
