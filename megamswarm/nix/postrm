@@ -12,4 +12,4 @@ if [ -d "/var/log/megam/megamswarm" ]; then
   rm -r /var/log/megam/megamswarm
 fi
 
-crontab -r
+#crontab  -r
