@@ -40,50 +40,5 @@ bmdkcluster
 grab_hostip
 
 
-
-
-
-docker_upstart() {
-
-cat > /etc/init/megamdocker.conf <<EOF
-
-description "Docker cluster scheduler for baremetal (https://console.megam.io)"
-author "Megam Systems(https://www.megam.io)"
-
-# When to start the servicee
-start on runlevel [2345]
-start on (started networking)
-start on (local-filesystems)
-
-# When to stop the service
-stop on runlevel [016]
-stop on (stopping networking)
-stop on (stopped megamdocker)
-
-script
-  echo "[`date -u +%Y-%m-%dT%T.%3NZ`] (sys) megamdocker starting" >> /var/log/megam/megamdocker.log
-  exec docker -H tcp://0.0.0.0:2375 -d  >> /var/log/megam/megamdocker.log 2>&1
-end script
-
-post-start script
-    PID=`status megamdocker | egrep -oi '([0-9]+)$' | head -n1`
-    echo $PID > /var/run/megam/megamdocker.pid
-end script
-EOF
-}
-
-docker_upstart
-
-
-# Start docker in dtached mode and join the ip address in the cluster
-join_bmdkcluster() {
-#  docker -H tcp://0.0.0.0:2375 -d
-  start megamdocker
-  /usr/share/megam/megamswarm/bin/swarm join --addr=$ipaddr token://$bmdk_custerid
-}
-
-
-join_bmdkcluster
-
 ## voila start the service now (swarm manage)
 service megamswarm start || echo "megamswarm could not be started. Try manually with service megamswarm start"
