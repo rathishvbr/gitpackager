@@ -67,7 +67,7 @@ task :jessie do
 end
 
 task :clone do
-  if !File.exists? 'megamswarm/src/github.com/docker/swarm/'
+  if !File.exists? 'megamswarm/src/github.com/docker/swarm'
    Dir.chdir 'megamswarm/src/github.com/docker'
    system "git clone " + MegamPkg::Ger::CONFIG[:git]
  end
