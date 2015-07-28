@@ -13,4 +13,6 @@ cp gulpd ../../../../../usr/share/megam/megamdocker/bin
 
 cd ../../../../../
 
+cp pipework ./usr/share/megam/megamdocker/bin
+
 fpm -s dir -t deb -n $1 -v $2 -d "megamcommon, linux-image-generic-lts-trusty, docker, openvswitch-common, openvswitch-switch" --before-install ./preinst --after-install ./postinst --before-remove ./prerm --deb-upstart ./etc/init/megamgulpd  --license "Apache" --vendor "Megam Systems" --maintainer "<thomasalrin@megam.io>" --url "https://www.megam.io/" --description "Megam docker node daemon that controls the lifecycle of containers" ./usr/share/megam/megamdocker
