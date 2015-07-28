@@ -1,5 +1,7 @@
 #!/bin/sh
 
+#wget -qO- https://get.docker.com/ | sh
+
 service docker stop
 
 mkdir -p /var/log/megam/megamswarm

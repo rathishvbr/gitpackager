@@ -4,22 +4,24 @@
 bmdkcluster() {
 mkdir -p /var/lib/megam/megamswarm
 cp /usr/share/megam/megamswarm/bin/link_container_logs /var/lib/megam/megamswarm
+cp /usr/share/megam/megamswarm/bin/swarm /usr/bin/
 
-chmod +x /var/lib/megam/megamswarm/riakstash
+chmod +x /var/lib/megam/megamswarm/link_container_logs
 
 crontab  /usr/share/megam/megamswarm/bin/link_container_logs.cron.d
 
-rm /usr/share/megam/megamd/bin/link_container_logs.cron.d
+#rm /usr/share/megam/megamswarm/bin/link_container_logs.cron.d
 
-bmdk_clusterid = `/usr/share/megam/megamswarm/bin/swarm create`
+bmdk_clusterid=`/usr/share/megam/megamswarm/bin/swarm create`
 
-echo "BMDK_CLUSTERID " $bmdk_clusterid  >> /var/log/upstart/megamd.log
+echo "BMDK_CLUSTERID " $bmdk_clusterid  >> /var/log/upstart/megamswarm.log
 
 #set MEGAM_BMDK_CLUSTERID for megamswarm
 cat > /var/lib/megam/env.sh <<EOF
 initctl set-env MEGAM_BMDK_CLUSTERID=$bmdk_clusterid
 EOF
 
+chmod 755 /var/lib/megam/env.sh
 }
 
 # Grab the hostip and set it in BMDK_CLUSTERIP
@@ -35,15 +37,9 @@ grab_hostip() {
   initctl set-env MEGAM_BMDK_CLUSTERIP=$ipaddr
 }
 
-# Start docker in dtached mode and join the ip address in the cluster
-join_bmdkcluster() {
-  docker -H tcp://0.0.0.0:2375 -d
-  /usr/share/megam/megamswarm/bin/swarm join --addr=$ipaddr token://$bmdk_custerid
-}
-
-cron_and_bmdkcluster
+bmdkcluster
 grab_hostip
-join_bmdkcluster
+
 
 ## voila start the service now (swarm manage)
 service megamswarm start || echo "megamswarm could not be started. Try manually with service megamswarm start"

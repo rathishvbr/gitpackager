@@ -1,4 +1,3 @@
 #!/bin/sh
 service megamswarm stop || echo "megamswarm wasn't even running!"
 
-crontab -r
