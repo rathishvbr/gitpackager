@@ -1,10 +1,10 @@
 Template: megamcibn/cibtn
 Type: note
-Description: Cloud In a Box : Node is Ready!
+Description: On premise - CloudInaBox : Node is Ready!
  1. Unix userid : cibadmin pw: cibadmin
  .
- 2. Registered Automatically with the Base server
- The install in this server node shall commence automatically.
+ 2. This node is registered with the master server
+ The install in this node shall commence automatically.
  .
  Sit back and enjoy..... .
  For more information http://bit.ly/megamnext
