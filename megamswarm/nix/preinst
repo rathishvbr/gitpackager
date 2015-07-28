@@ -1,9 +1,15 @@
-#!/bin/sh
+#!/bin/bash
 
-#wget -qO- https://get.docker.com/ | sh
+if pgrep docker
+  then
+  echo "###############################################################"
+  echo "# Warning: Docker shouldn't be installed in the swarmmaster.  #"
+  echo "#          Proceeding by stopping docker......                #"
+  echo "###############################################################"
+  service docker stop
+fi
 
-service docker stop
-
+mkdir -p /var/lib/megam/megamswarm
 mkdir -p /var/log/megam/megamswarm
 mkdir -p /var/lib/megam/
 mkdir -p /usr/share/megam/megamswarm

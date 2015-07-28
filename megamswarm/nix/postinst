@@ -3,14 +3,7 @@
 # we create a cluster token and set it in BMDK_CLUSTERID
 bmdkcluster() {
 mkdir -p /var/lib/megam/megamswarm
-cp /usr/share/megam/megamswarm/bin/link_container_logs /var/lib/megam/megamswarm
 cp /usr/share/megam/megamswarm/bin/swarm /usr/bin/
-
-chmod +x /var/lib/megam/megamswarm/link_container_logs
-
-crontab  /usr/share/megam/megamswarm/bin/link_container_logs.cron.d
-
-#rm /usr/share/megam/megamswarm/bin/link_container_logs.cron.d
 
 bmdk_clusterid=`/usr/share/megam/megamswarm/bin/swarm create`
 
@@ -39,7 +32,6 @@ grab_hostip() {
 
 bmdkcluster
 grab_hostip
-
 
 ## voila start the service now (swarm manage)
 service megamswarm start || echo "megamswarm could not be started. Try manually with service megamswarm start"

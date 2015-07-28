@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# we create an openvswitch bridge named "megdock"
+openvswitch_bridge() {
+mkdir -p /var/lib/megam/megamdocker
+
+ovs-vsctl add-br megdock
+
+echo "[megamdocker] created openvswitch bridge : megdock"  >> /var/log/upstart/megamdocker.log
+
+cp /usr/share/megam/megamdocker/bin/pipework /var/lib/megam/
+echo "[megamdocker] copied pipework into megam_home"  >> /var/log/upstart/megamdocker.log
+}
+
+start_docker_detached() {
+  service docker stop
+
+  while read Iface Destination Gateway Flags RefCnt Use Metric Mask MTU Window IRTT; do
+		[ "$Mask" = "00000000" ] && \
+		interface="$Iface" && \
+		ipaddr=$(LC_ALL=C /sbin/ip -4 addr list dev "$interface" scope global) && \
+		ipaddr=${ipaddr#* inet } && \
+		ipaddr=${ipaddr%%/*} && \
+		break
+	done < /proc/net/route
+  echo "[megamdocker] starting docker in detached mode at $ipaddr:2375" >> /var/log/upstart/megamdocker.log
+
+  docker -H $ipaddr:2375 -d
+}
+
+openvswitch_bridge
+start_docker_detached
+
+## voila start the service now (megamdocker)
+service megamdocker start || echo "megamdocker could not be started. Try manually with service megamdocker start"
