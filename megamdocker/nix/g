@@ -1,0 +1,16 @@
+#!/bin/bash
+mkdir -p ./usr/share/megam/megamdocker/bin
+
+cd gulp/src/github.com/megamsys/gulp
+
+#if the upstream, master remote is not set, then the builds will not go thru.
+git remote add master https://github.com/megamsys/gulp.git
+
+make build
+
+cp -rf ./conf/ ../../../../../usr/share/megam/megamdocker
+cp gulpd ../../../../../usr/share/megam/megamdocker/bin
+
+cd ../../../../../
+
+fpm -s dir -t deb -n $1 -v $2 -d "megamcommon, docker, openvswitch-common, openvswitch-switch" --before-install ./preinst --after-install ./postinst --before-remove ./prerm --deb-upstart ./etc/init/megamgulpd  --license "Apache" --vendor "Megam Systems" --maintainer "<thomasalrin@megam.io>" --url "https://www.megam.io/" --description "Megam docker node daemon that controls the lifecycle of containers" ./usr/share/megam/megamdocker

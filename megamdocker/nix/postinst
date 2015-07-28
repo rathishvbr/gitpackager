@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# we create an openvswitch bridge named "megdock"
+openvswitch_bridge() {
+mkdir -p /var/lib/megam/megamdocker
+
+ovs-vsctl add-br megdock
+
+echo "[megamdocker] created openvswitch bridge : megdock"  >> /var/log/upstart/megamdocker.log
+
+}
+
+openvswitch_bridge
+
+## voila start the service now (megamdocker)
+service megamdocker start || echo "megamdocker could not be started. Try manually with service megamdocker start"

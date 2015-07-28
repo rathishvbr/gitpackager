@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if [ -d "/usr/share/megam/megamswarm" ]; then
   rm -r /usr/share/megam/megamswarm
@@ -11,5 +11,3 @@ fi
 if [ -d "/var/log/megam/megamswarm" ]; then
   rm -r /var/log/megam/megamswarm
 fi
-
-#crontab  -r
