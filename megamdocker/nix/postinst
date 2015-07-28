@@ -7,6 +7,9 @@ mkdir -p /var/lib/megam/megamdocker
 ovs-vsctl add-br megdock
 
 echo "[megamdocker] created openvswitch bridge : megdock"  >> /var/log/upstart/megamdocker.log
+
+cp /usr/share/megam/megamdocker/bin/pipework /var/lib/megam/
+echo "[megamdocker] copied pipework into megam_home"  >> /var/log/upstart/megamdocker.log
 }
 
 start_docker_detached() {
