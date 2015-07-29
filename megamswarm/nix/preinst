@@ -11,3 +11,5 @@ fi
 
 mkdir -p /var/lib/megam/megamswarm
 mkdir -p /var/log/megam/megamswarm
+mkdir -p /var/lib/megam/
+mkdir -p /usr/share/megam/megamswarm
