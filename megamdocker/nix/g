@@ -9,7 +9,7 @@ git remote add master https://github.com/megamsys/gulp.git
 make build
 
 cp -rf ./conf/ ../../../../../usr/share/megam/megamdocker
-cp gulpd ../../../../../usr/share/megam/megamdocker/bin
+cp gulpc ../../../../../usr/share/megam/megamdocker/bin
 
 cd ../../../../../
 
