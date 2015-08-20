@@ -10,7 +10,7 @@ build_dir ="build"
 
 task :default => :trusty
 
-task :clean do
+task :clean do 
   rm_rf build_dir
 end
 
@@ -18,16 +18,16 @@ task :initnix do
   mkdir_p build_dir
   mkdir_p megger.build_halwa
 
-  Rake::FileList[nix_dir + "/**"].each do |f|
-    target = File.join megger.build_halwa,  File.basename(f)
-    cp_r f, target
-  end
+  #Rake::FileList["#{megger.halwa}" + "/**"].each do |f|
+   # target = File.join megger.build_halwa,  File.basename(f)
+    #cp_r f, target
+  #end
 end
 
 #this overrides the nix/ stuff with halwa specific stuff.
 task :nix => [:initnix] do
   Rake::FileList["#{megger.halwa}" + "/**"].each do |f|
-    target = File.join megger.build_halwa,  File.basename(f)
+   target = File.join megger.build_halwa,  File.basename(f)
     cp_r f, target
   end if File.exists?(megger.halwa)
 
@@ -42,7 +42,7 @@ end
 # rake centos7
 # rake jessie
 task :trusty   do
-  megger.halwa="trusty"
+  megger.halwa=nix_dir
   megger.build_halwa="build/trusty"
   Rake::Task[:nix].invoke
 end
