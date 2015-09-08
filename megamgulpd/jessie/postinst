@@ -1,0 +1,19 @@
+#!/bin/bash
+cat >> /etc/systemd/system/megamgulpd.service << EOF
+#Place the megam gulpd here /etc/systemd/system/megamgulpd.service
+[Unit]
+Description=Megam megamgulpd
+After=network.target
+After=runlevel2.target
+After=runlevel3.target
+After=runlevel4.target
+After=runlevel5.target
+[Service]
+ExecStart=/usr/share/megam/megamgulpd/bin/gulpd
+ExecStopPost=rm -f /var/run/megam/megamgulpd.pid
+KillMode=mixed
+EOF
+
+systemctl enable megamgulpd.service 
+systemctl start megamgulpd.service
+

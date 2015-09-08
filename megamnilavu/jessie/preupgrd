@@ -1,0 +1,22 @@
+#!/bin/sh
+count="0";
+t="3";
+while [ "$count" -ne "$t" ];
+ do 
+  count=`expr $count + 1`
+  echo -n "Do u want to continue the set new configuration file  [Y/N] :"
+  read x
+  if [ $x = y ]; then
+   cp /usr/share/megam/megamnilavu/config/nilavu.yml /var/lib/megam/nilavu.yml
+   echo "new configureation file copied...."
+   break
+  fi
+  if [ "$count" -eq "3" ]; then
+     echo "more than three attempt,so it keep the old configuration file"
+     break
+  else 
+     echo "enter valid input "
+  fi
+done
+
+
