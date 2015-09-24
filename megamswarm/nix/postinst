@@ -1,21 +1,6 @@
 #!/bin/bash
 
 # we create a cluster token and set it in BMDK_CLUSTERID
-bmdkcluster() {
-mkdir -p /var/lib/megam/megamswarm
-cp /usr/share/megam/megamswarm/bin/swarm /usr/bin/
-
-bmdk_clusterid=`/usr/share/megam/megamswarm/bin/swarm create`
-
-echo "BMDK_CLUSTERID " $bmdk_clusterid  >> /var/log/upstart/megamswarm.log
-
-#set MEGAM_BMDK_CLUSTERID for megamswarm
-cat > /var/lib/megam/env.sh <<EOF
-initctl set-env MEGAM_BMDK_CLUSTERID=$bmdk_clusterid
-EOF
-
-chmod 755 /var/lib/megam/env.sh
-}
 
 # Grab the hostip and set it in BMDK_CLUSTERIP
 grab_hostip() {
@@ -30,8 +15,29 @@ grab_hostip() {
   initctl set-env MEGAM_BMDK_CLUSTERIP=$ipaddr
 }
 
-bmdkcluster
+
+bmdkcluster() {
+mkdir -p /var/lib/megam/megamswarm
+cp /usr/share/megam/megamswarm/bin/swarm /usr/bin/
+
+bmdk_clusterid=`/usr/share/megam/megamswarm/bin/swarm create`
+
+echo "BMDK_CLUSTERID " $bmdk_clusterid  >> /var/log/upstart/megamswarm.log
+
+
+#set MEGAM_BMDK_CLUSTERID for megamswarm
+cat > /var/lib/megam/env.sh <<EOF
+initctl set-env MEGAM_BMDK_CLUSTERID=$bmdk_clusterid
+initctl set-env MEGAM_BMDK_CLUSTERIP=$ipaddr
+EOF
+
+chmod 755 /var/lib/megam/env.sh
+}
+
 grab_hostip
+
+bmdkcluster
+
 
 ## voila start the service now (swarm manage)
 service megamswarm start || echo "megamswarm could not be started. Try manually with service megamswarm start"
