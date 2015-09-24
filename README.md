@@ -19,7 +19,7 @@ The list of debian packages built and their dependency are shown below.
 
 `We are working on it. You can give us a hand too.`
 
-* Debian Wheezy
+* Debian Jessie
 * _`rpm`_
 
 How can you build it
@@ -41,77 +41,16 @@ rake precise
 
 
 
-Install  packages
-------------------------
-
-* deb
-
-```
-sudo add-apt-repository "deb http://get.megam.io/ $(lsb_release -sc) testing"
-
-sudo apt-key adv --keyserver keyserver.ubuntu.com --recv B3E0C1B7
-
-sudo apt-get update
-
-# should install ruby2.0, megamcommon, nginx
-sudo apt-get install megamnilavu
-
-# should install riak, megamcomon
-sudo apt-get install megamgateway
-
-# should install rabbitmq
-sudo apt-get install megamd
-
-# should install heka, elasticserver
-sudo apt-get install megamanalytics
-
-# should install ganglia
-sudo apt-get install megammonitor
-
-
-```
-
-Testing packages
-------------------------
-
-```
-
-[Follow this link](http://bit.ly/1sWIDxn)
-
-
-```
-
-
-
-#### TO - DO
-
-* build.rb  : A thor file that provides ability to build all the packages in a single comamnd.
-
-```
-thor build:clean
-
-thor build:all
-
-thor build:trusty
-
-thor build:precise
-
-```
-
-* deploy.rb : A thor file that deploys the build packages in a server.
-
-```
-thor depoly:push
-
-```
 
 # License
 
 |                      |                                          |
 |:---------------------|:-----------------------------------------|
 | **Author:**          | Yeshwanth (<getyesh@megam.io>)
-|		       	           | Thomas Alrin (<thomasalrin@megam.io>)
-| **Copyright:**       | Copyright (c) 2013-2014 Megam Systems.
+|		       	       | Thomas Alrin (<thomasalrin@megam.io>)
+|                      | Rajthilak (<rajthilak@megam.io>)
+|                      | Kishorekumar Neelamegam (<nkishore@megam.io>)
+| **Copyright:**       | Copyright (c) 2013-2015 Megam Systems.
 | **License:**         | Apache License, Version 2.0
 
 Licensed under the Apache License, Version 2.0 (the "License");
