@@ -1,0 +1,4 @@
+#!/bin/sh
+
+systemctl enable megamnilavusample.service 
+systemctl start megamnilavu1sample.service

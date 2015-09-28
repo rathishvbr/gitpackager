@@ -1,0 +1,26 @@
+#!/bin/sh
+count="0";
+while [ "$count" -le 3 ];
+do
+  count=`expr $count + 1`
+  echo -n "Do u want to upgrade for new configuration file  [Y/N] :"
+  read x
+  if [ $x = 'y' ]; then
+   cp /usr/share/megam/megamnilavu/config/nilavu.yml /var/lib/megam/nilavu.yml
+   echo "new configuration file was succesfully copied...."
+   break
+  elif [$x = 'n' ]; then
+     echo "Ok. You can work with old configuration file"
+     break
+  else
+     if [ "$count" -eq "3" ]; then
+      echo "more than three attempt,so it keeps the old configuration file"
+      break    
+     else 
+      echo "enter valid input "
+     fi
+  fi
+done
+
+
+
