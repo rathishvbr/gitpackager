@@ -2,8 +2,8 @@
 
 cd megam_gateway
 sed -i "s/version := .*/version := \"0.9\"/" build.sbt
-sbt clean
-sbt dist:clean
-sbt compile
-sbt stage
-sbt debian:package-bin
+/home/megam/bin/sbt clean
+/home/megam/bin/sbt dist:clean
+/home/megam/bin/sbt compile
+/home/megam/bin/sbt stage
+/home/megam/bin/sbt debian:package-bin
