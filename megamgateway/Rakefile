@@ -19,9 +19,9 @@ task :initnix do
   mkdir_p megger.build_halwa
 
   #Rake::FileList[nix_dir +"/**"].each do |f|
-   # target = File.join megger.build_halwa,  File.basename(f)
-   # cp_r f, target
-  #end
+   #target = File.join megger.build_halwa,  File.basename(f)
+   #cp_r f, target
+ #end
 end
 
 #this overrides the nix/ stuff with halwa specific stuff.
@@ -62,11 +62,11 @@ end
 task :jessie do
   megger.halwa ="jessie"
   megger.build_halwa="build/jessie"
-  Rake::Task[:nix].invoke
+ Rake::Task[:nix].invoke
 end
 
 task :clone do
   if !File.exists? 'megam_gateway/'
-   system "git clone -b #{MegamPkg::Ger::CONFIG[:branch]} https://github.com/megamsys/megam_gateway.git"
+  system "git clone -b #{MegamPkg::Ger::CONFIG[:branch]} https://github.com/megamsys/megam_gateway.git"
  end
 end
