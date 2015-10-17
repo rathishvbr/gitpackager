@@ -12,7 +12,7 @@ In the first phase we plan to provide _`debs`_.
 The list of debian packages built and their dependency are shown below.
 
 * Ubuntu Trusty (14.04)
-![Trusty](https://github.com/megamsys/packager/blob/master/images/trusty.png)
+![Trusty](https://github.com/megamsys/packager/blob/master/images/trusty14.04.png)
 
 `We are working on the following. You can give us a hand too.`
 
