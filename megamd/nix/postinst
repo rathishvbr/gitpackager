@@ -2,6 +2,8 @@
 
 mkdir -p /var/lib/megam/megamd
 
+cp /usr/share/megam/megamd/conf/megamd.conf /var/lib/megam/megamd/megamd.conf
+
 initctl reload-configuration
 
 cp /usr/share/megam/megamd/bin/riakstash /var/lib/megam/megamd
