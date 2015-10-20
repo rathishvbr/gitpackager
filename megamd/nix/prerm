@@ -1,4 +1,2 @@
 #!/bin/sh
 service megamd stop || echo "megamd wasn't even running!"
-
-crontab -r
