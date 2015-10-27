@@ -2,7 +2,7 @@
 module MegamPkg
   class Ger
     attr_accessor :halwa, :build_halwa
-    CONFIG =  { os: %w(trusty precise jessie centos7), branch: '0.8', tap_name: 'megamanalytics', heka_name: "megamheka" }
+    CONFIG =  { os: %w(trusty precise jessie centos7), branch: '0.9', heka_name: "megamheka" }
 
 if !Gem::Specification::find_all_by_name('pkgr').any?
       puts "gem install pkgr"

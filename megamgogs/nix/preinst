@@ -1,3 +1,0 @@
-mkdir -p /var/log/megam/megamgogs
-
-mkdir -p /var/lib/megam/megamgogs/repos

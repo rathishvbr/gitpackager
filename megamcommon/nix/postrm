@@ -26,8 +26,8 @@ if [ "$1" = "purge" ]; then
     disable_megamuser
 
     # Purge megam  files
-    rm -rf $MEGAMHOME/.megamauth
-    rm -rf $MEGAMHOME/config
+    rm -rf $MEGAMHOME/megamgateway
+    rm -rf $MEGAMHOME/megamd
     rm -rf $MEGAM_INSTALLHOME 2>/dev/null || true
     rm -rf $MEGAMHOME 2>/dev/null || true
     rm -rf /var/run/megam

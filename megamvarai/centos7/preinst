@@ -1,7 +1,0 @@
-#!/bin/sh
-# this will have nothing.
-mkdir -p /var/log/megam/megamvarai
-mkdir -p /var/run/megam/megamvarai
-#chown megam:megam /var/run/megam/megamvarai
-
-#chown megam:megam /var/log/megam/megamvarai
