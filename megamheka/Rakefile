@@ -17,11 +17,6 @@ end
 task :initnix do
   mkdir_p build_dir
   mkdir_p megger.build_halwa
-
-  #Rake::FileList[nix_dir +"/**"].each do |f|
-   # target = File.join megger.build_halwa,  File.basename(f)
-    #cp_r f, target
-  #end
 end
 
 #this overrides the nix/ stuff with halwa specific stuff.
@@ -32,10 +27,8 @@ task :nix => [:initnix] do
   end if File.exists?(megger.halwa)
 
   Dir.chdir megger.build_halwa
-  #mkdir_p "megamd/src/github.com/megamsys"
   Rake::Task[:clone].invoke
-#system './g_heka', MegamPkg::Ger::CONFIG[:heka_name], MegamPkg::Ger::VERSION  
-system './g_tap', MegamPkg::Ger::CONFIG[:tap_name], MegamPkg::Ger::VERSION
+ system './g', MegamPkg::Ger::CONFIG[:heka_name], MegamPkg::Ger::VERSION
 end
 
 #i know this repeating, but this to partition the supported os just we don't have to do typechecking.
@@ -70,10 +63,6 @@ end
 
 task :clone do
   if !File.exists? 'heka/'
-   #system "git clone https://github.com/megamsys/heka.git"
- end
-  if !File.exists? 'tap/'
-   system "git clone https://github.com/megamsys/tap.git"
+   system "git clone https://github.com/megamsys/heka.git"
  end
 end
-

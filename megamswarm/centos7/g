@@ -4,4 +4,4 @@ mkdir -p ./usr/share/megam/megamd/bin
 
 
 
-fpm -s dir -t rpm -n megamd -v 0.1 -d "megamcommon, rabbitmq-server, megametcd, unzip" --before-install ./preinst --after-install ./postinst --before-remove ./prerm --after-remove ./postrm --license "Apache" --vendor "Megam Systems" --maintainer "<rajthilak@megam.io>" --url "https://www.megam.io" --description "The engine for Megam" ./usr/share/megam/megamd
+fpm -s dir -t rpm -n megamd -v 0.1 -d "megamcommon, rabbitmq-server, megametcd, unzip" --before-install ./preinst --after-install ./postinst --before-remove ./prerm --after-remove ./postrm --license "Apache" --vendor "Megam Systems" --maintainer "<info@megam.io>" --url "https://www.megam.io" --description "The engine for Megam" ./usr/share/megam/megamd

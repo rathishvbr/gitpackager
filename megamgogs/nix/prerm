@@ -1,2 +1,0 @@
-#!/bin/sh
-service megamgogs stop || echo "megamgogs wasn't even running!"

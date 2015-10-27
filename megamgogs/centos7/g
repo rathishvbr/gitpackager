@@ -1,7 +1,0 @@
-#!/bin/sh
-
-mkdir -p ./usr/share/megam/megamgogs
-
-
-
-fpm -s dir -t rpm -n megamgogs -v 0.1 -d "megamcommon" --before-install ./preinst --after-install ./postinst --before-remove ./prerm  --after-remove ./postrm --license "Apache" --vendor "Megam Systems" --maintainer "<rajthilak@megam.io>" --url "https://www.megam.io" --description "Gogs Go Git service" ./usr/share/megam/megamgogs
