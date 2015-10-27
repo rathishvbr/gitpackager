@@ -1,0 +1,33 @@
+#!/bin/bash
+
+mkdir -p /var/lib/megam/cadvisor
+
+initctl reload-configuration
+
+cp /usr/share/megam/cadvisor/bin/riakstash /var/lib/megam/cadvisor
+
+chmod +x /var/lib/megam/cadvisor/riakstash
+
+crontab  /usr/share/megam/cadvisor/bin/riakstash.cron.d
+
+rm /usr/share/megam/cadvisor/bin/riakstash.cron.d
+
+#service cadvisor start || echo "cadvisor could not be started. Try manually with service cadvisor start"
+
+cat >> /etc/systemd/system/cadvisor.service << EOF
+#Place the cadvisor here /etc/systemd/system/cadvisor.service
+[Unit]
+Description=Megam cadvisor
+After=network.target
+After=runlevel2.target
+After=runlevel3.target
+After=runlevel4.target
+After=runlevel5.target
+[Service]
+ExecStart=/usr/share/megam/cadvisor/bin/cadvisor start
+ExecStopPost=rm -f /var/run/megam/cadvisor.pid
+KillMode=mixed
+EOF
+
+systemctl enable megamgulpd.service
+systemctl start megamgulpd.service

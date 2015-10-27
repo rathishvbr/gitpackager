@@ -1,0 +1,40 @@
+#!/bin/bash
+# this script gets activated via a cron to sequentially cleanup riak nodes
+# when it receives a message to do so.
+#
+# Megam.  http://www.gomegam.com
+#
+# Copyright 2013-present, Megam systems
+#
+
+CADVISOR_HOME_DIR=/var/lib/megam/cadvisor
+CADVISOR_HOME_DIR=$(pushd $CADVISOR_HOME_DIR > /dev/null && echo $PWD && popd > /dev/null)
+CADVISOR_LOGS_DIR=$CADVISOR_HOME_DIR/logs
+
+# here it records all the stash messages made through the interface
+riakstash_file=$CADVISOR_HOME_DIR/riakstash
+
+
+#test for existence of the riakstash file
+if [ -f $riakstash_file ]
+then
+  echo "if entry" >> /var/log/upstart/cadvisor.log
+  #read through the file
+  while read line
+  do
+    echo $line >> /var/log/upstart/cadvisor.log
+    curl --connect-timeout 10 -X DELETE http://localhost:8098/riak/assemblies/$line
+    echo $? >> /var/log/megam/cadvisor/cadvisor.log
+    if [ $? == 0 ]; then
+      echo "*-----------------------------------------------------------------------*"  >> /var/log/upstart/cadvisor.log
+    	echo "cron riakstash => deleted riak: $line" >> /var/log/upstart/cadvisor.log
+      rm -r -f $CADVISOR_LOGS_DIR/$line
+   	  echo "cron riakstash => deleted  log: $line" >> /var/log/upstart/cadvisor.log
+      echo "*-----------------------------------------------------------------------*"  >> /var/log/upstart/cadvisor.log
+    else
+     	echo "cron riakstash => delete failed : $line" >> /var/log/upstart/cadvisor.log
+    fi
+  done < $riakstash_file
+else
+  echo "$riakstash_file not found"  >> /var/log/upstart/cadvisor.log
+fi
