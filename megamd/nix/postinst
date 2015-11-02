@@ -6,12 +6,4 @@ cp /usr/share/megam/megamd/conf/megamd.conf /var/lib/megam/megamd/megamd.conf
 
 initctl reload-configuration
 
-cp /usr/share/megam/megamd/bin/riakstash /var/lib/megam/megamd
-
-chmod +x /var/lib/megam/megamd/riakstash
-
-crontab  /usr/share/megam/megamd/bin/riakstash.cron.d
-
-rm /usr/share/megam/megamd/bin/riakstash.cron.d
-
 service megamd start || echo "megamd could not be started. Try manually with service megamd start"

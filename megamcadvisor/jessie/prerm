@@ -1,0 +1,4 @@
+#!/bin/sh
+service cadvisor stop || echo "cadvisor wasn't even running!"
+
+crontab -r

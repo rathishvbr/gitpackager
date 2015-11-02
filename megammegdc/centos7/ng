@@ -1,0 +1,12 @@
+#!/bin/sh
+mkdir -p ./usr/share/megam/megamcib/bin
+
+cd cloudinabox/src/github.com/megamsys/cloudinabox
+
+cp -rf ./views/ ../../../../../usr/share/megam/megamcib
+cp -rf ./conf/ ../../../../../usr/share/megam/megamcib
+cp cibnd ../../../../../usr/share/megam/megamcib/bin
+
+cd ../../../../../
+
+fpm -s dir -t deb -n $1 -v $2 -d "megamcommon, debconf, debconf-utils, whiptail, apt-utils" --before-install ./npreinst --after-install ./npostinst --before-remove ./nprerm --deb-upstart ./etc/systemd/system/megamcibn --deb-templates ./ntemplates --license "Apache" --vendor "Megam Systems" --maintainer "<info@megam.io>" --url "https://www.megam.io" --description "Cloud In a Box node daemon" ./usr/share/megam/megamcib

@@ -1,0 +1,2 @@
+#!/bin/sh
+systemctl stop cadvisor.service|| echo "cadvisor wasn't even running!" >/dev/stdout

@@ -1,3 +1,0 @@
-#!/bin/sh
-
-stop megamvarai || echo "megamvarai wasn't even running!"

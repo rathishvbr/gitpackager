@@ -17,16 +17,23 @@ end
 task :initnix do
   mkdir_p build_dir
   mkdir_p megger.build_halwa
+
+  Rake::FileList[nix_dir +"/**"].each do |f|
+  target = File.join megger.build_halwa,  File.basename(f)
+  cp_r f, target
+  end
 end
 
 #this overrides the nix/ stuff with halwa specific stuff.
 task :nix => [:initnix] do
-  Rake::FileList["#{megger.halwa}" + "/**"].each do |f|
+  Rake::FileList["#{megger.halwa}" +"/**"].each do |f|
     target = File.join megger.build_halwa,  File.basename(f)
     cp_r f, target
   end if File.exists?(megger.halwa)
 
   Dir.chdir megger.build_halwa
+  mkdir_p "cadvisor/src/github.com/megamsys"
+  Rake::Task[:clone].invoke
   system './g', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION
 end
 
@@ -48,7 +55,7 @@ task :precise   do
 end
 
 task :centos7 do
-  megger.halwa="centos7"
+  megger.halwa ="centos7"
   megger.build_halwa="build/centos7"
   Rake::Task[:nix].invoke
 end
@@ -57,4 +64,14 @@ task :jessie do
   megger.halwa ="jessie"
   megger.build_halwa="build/jessie"
   Rake::Task[:nix].invoke
+end
+
+task :clone do
+  if !File.exists? 'cadvisor/src/github.com/megamsys/cadvisor/'
+   Dir.chdir 'cadvisor/src/github.com/megamsys'
+   #system "git clone -b #{MegamPkg::Ger::CONFIG[:branch]} " + MegamPkg::Ger::CONFIG[:git]
+   system "git clone " + MegamPkg::Ger::CONFIG[:git]
+
+ end
+ Dir.chdir '../../../../'
 end

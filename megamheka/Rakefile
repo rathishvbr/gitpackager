@@ -21,13 +21,14 @@ end
 
 #this overrides the nix/ stuff with halwa specific stuff.
 task :nix => [:initnix] do
-  Rake::FileList["#{megger.halwa}" + "/**"].each do |f|
+  Rake::FileList["#{megger.halwa}" +"/**"].each do |f|
     target = File.join megger.build_halwa,  File.basename(f)
     cp_r f, target
   end if File.exists?(megger.halwa)
 
   Dir.chdir megger.build_halwa
-  system './g', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION
+  Rake::Task[:clone].invoke
+ system './g', MegamPkg::Ger::CONFIG[:heka_name], MegamPkg::Ger::VERSION
 end
 
 #i know this repeating, but this to partition the supported os just we don't have to do typechecking.
@@ -36,7 +37,7 @@ end
 # rake centos7
 # rake jessie
 task :trusty   do
-  megger.halwa="trusty"
+  megger.halwa="nix"
   megger.build_halwa="build/trusty"
   Rake::Task[:nix].invoke
 end
@@ -48,7 +49,7 @@ task :precise   do
 end
 
 task :centos7 do
-  megger.halwa="centos7"
+  megger.halwa ="centos7"
   megger.build_halwa="build/centos7"
   Rake::Task[:nix].invoke
 end
@@ -57,4 +58,11 @@ task :jessie do
   megger.halwa ="jessie"
   megger.build_halwa="build/jessie"
   Rake::Task[:nix].invoke
+end
+
+
+task :clone do
+  if !File.exists? 'heka/'
+   system "git clone https://github.com/megamsys/heka.git"
+ end
 end
