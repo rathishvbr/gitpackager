@@ -1,20 +1,8 @@
 #!/bin/bash
 
-mkdir -p /var/lib/megam/megamcib
+if [ -f "/usr/bin/megdc" ]; then
+  rm /usr/bin/megdc
+fi
 
-set -e
+ln -s /usr/share/megam/megdc/bin/megdc /usr/bin/megdc
 
-. /usr/share/debconf/confmodule
-
-chown megam:megam /var/log/megam/megamcib
-
-initctl reload-configuration
-
-service megamcib start || echo "megamcib could not be started. Try manually with service megamcib start"
-
-db_settitle megamcib/cibt
-
-db_input critical megamcib/cibt || true
-db_go
-
-db_fset megamcib/cibt seen false

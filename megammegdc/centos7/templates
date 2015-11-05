@@ -1,11 +1,11 @@
 Template: megamcib/cibt
 Type: note
-Description: Cloud In a Box : Base is Ready!
- 1. Unix userid : cibadmin pw: cibadmin
+Description: Megdc : Base is Ready!
+ 1. Unix userid : megdc pw: megdc
  .
  2. Register at https://www.megam.co.
  .
- 3. Use a system with a browser to configure Cloud In Box.
+ 3. Use a system with a browser to configure Megdc.
  Get started by entering http://<ip_address>:8077 in your browser.
  Use the [email id, api key] registered at https://www.megam.co as your login credentials.
  .
