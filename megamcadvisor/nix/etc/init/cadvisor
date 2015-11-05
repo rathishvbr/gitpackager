@@ -19,15 +19,15 @@ respawn
 chdir /usr/share/megam/cadvisor
 
 pre-start script
- cd /var/lib/megam
- ./env.sh
+ #cd /var/lib/megam
+ #./env.sh
 end script
 
 
 # start the cibd seed
 script
   echo "[`date -u +%Y-%m-%dT%T.%3NZ`] (sys) cadvisor starting" >> /var/log/megam/cadvisor/cadvisor.log
-  exec ./bin/cadvisor start --config /var/lib/megam/cadvisor/cadvisor.conf >> /var/log/megam/cadvisor/cadvisor.log 2>&1
+  exec ./bin/cadvisor start  >> /var/log/megam/cadvisor/cadvisor.log 2>&1
 end script
 
 post-start script
