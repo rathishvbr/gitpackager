@@ -1,5 +1,8 @@
 #!/bin/bash
 
-rm /usr/bin/megdc
+if [ -f "/usr/bin/megdc" ]; then
+  rm /usr/bin/megdc
+fi
+
 ln -s /usr/share/megam/megdc/bin/megdc /usr/bin/megdc
 
