@@ -32,10 +32,9 @@ task :nix => [:initnix] do
   end if File.exists?(megger.halwa)
 
   Dir.chdir megger.build_halwa
-  mkdir_p 'cloudinabox/src/github.com/megamsys/'
+  mkdir_p 'megdc/src/github.com/megamsys/'
   Rake::Task[:clone].invoke
   system './g', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION
-  system './ng', MegamPkg::Ger::CONFIG[:name_node], MegamPkg::Ger::VERSION
 end
 
 #i know this repeating, but this to partition the supported os just we don't have to do typechecking.
@@ -68,9 +67,9 @@ task :jessie do
 end
 
 task :clone do
-  if !File.exists? 'cloudinabox/src/github.com/megamsys/cloudinabox/'
-   Dir.chdir 'cloudinabox/src/github.com/megamsys'
-   system "git clone https://github.com/megamsys/cloudinabox.git"
+  if !File.exists? 'megdc/src/github.com/megamsys/megdc/'
+   Dir.chdir 'megdc/src/github.com/megamsys'
+   system "git clone https://github.com/megamsys/megdc.git"
 
  end
  Dir.chdir '../../../../'

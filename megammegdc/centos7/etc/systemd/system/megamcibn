@@ -1,5 +1,5 @@
 [Unit]
-Description=Cloud In a Box node seed daemon
+Description=Megdc node seed daemon
 After=network.target
 After=runlevel2.target
 After=runlevel3.target
@@ -7,8 +7,8 @@ After=runlevel4.target
 After=runlevel5.target
 [Service]
 User=megam
-ExecStart="[`date -u +%Y-%m-%dT%T.%3NZ`] (sys) megamcibn starting" >> /var/log/megam/megamcib/megamcib.log --exec ./bin/cibnd startnode >> /var/log/megam/megamcib/megamcib.log 2>&1
-ExecStartPost=`status megamcibn | egrep -oi '([0-9]+)$' | head -n1` > /var/run/megam/megamcib/megamcib.pid
+ExecStart="[`date -u +%Y-%m-%dT%T.%3NZ`] (sys) megammegdcn starting" >> /var/log/megam/megamcib/megamcib.log --exec ./bin/cibnd startnode >> /var/log/megam/megamcib/megamcib.log 2>&1
+ExecStartPost=`status megammegdcn | egrep -oi '([0-9]+)$' | head -n1` > /var/run/megam/megamcib/megamcib.pid
 ExecStopPost= rm -f /var/run/megam/megamcib/megamcib.pid
 #ExecStop=runlevel0.target
 #ExecStop=runlevel1.target
@@ -16,5 +16,4 @@ ExecStopPost= rm -f /var/run/megam/megamcib/megamcib.pid
 #KillMode=mixed
 
 # set the working directory of the job processes
-chdir /usr/share/megam/megamcib
-
+chdir /usr/share/megam/megammegdc
