@@ -4,5 +4,7 @@ if [ -f "/usr/bin/megdc" ]; then
   rm /usr/bin/megdc
 fi
 
+cp /usr/share/megam/megdc/conf/trusty/opennebula/install_gems /usr/share/one/install_gems
+
 ln -s /usr/share/megam/megdc/bin/megdc /usr/bin/megdc
 

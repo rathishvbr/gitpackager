@@ -2,12 +2,16 @@
 
 mkdir -p ./usr/share/megam/megdc/bin
 
+mkdir -p ./usr/share/one
+
 cd megdc/src/github.com/megamsys/megdc
 
 # sometimes  the dependencies aren't getting pulled. Adding a master solved the problem.
 git remote add master https://github.com/indykish/megdc.git
 
 make 
+
+cp conf/trusty/opennebula/install_gems ../../../../../usr/share/one/
 
 cp megdc ../../../../../usr/share/megam/megdc/bin
 
