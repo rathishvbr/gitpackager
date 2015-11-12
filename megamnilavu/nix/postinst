@@ -20,7 +20,7 @@ cp /usr/share/megam/megamnilavu/config/nilavu.yml /var/lib/megam/nilavu.yml
 gem install bundler
 
 cd /usr/share/megam/megamnilavu/
-bundle install
+bundle update
 
 start megamnilavu
 
