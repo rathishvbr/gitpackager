@@ -2,7 +2,7 @@
 
 mkdir -p ./usr/share/megam/megdc/bin
 
-mkdir -p ./usr/share/one
+mkdir -p ./usr/share/megam/megdc/conf/trusty/opennebula/
 
 cd megdc/src/github.com/megamsys/megdc
 
@@ -13,7 +13,7 @@ make
 
 cp megdc ../../../../../usr/share/megam/megdc/bin
 
-cp conf/trusty/opennebula/install_gems ../../../../../usr/share/one/
+cp conf/trusty/opennebula/install_gems ../../../../../usr/share/megam/megdc/conf/trusty/opennebula/
 
 cd ../../../../../
 
