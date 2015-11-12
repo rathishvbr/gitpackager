@@ -15,6 +15,8 @@ cp conf/trusty/opennebula/install_gems ../../../../../usr/share/one/
 
 cp megdc ../../../../../usr/share/megam/megdc/bin
 
+cp conf/trusty/opennebula/install_gems ../../../../../usr/share/one/
+
 cd ../../../../../
 
-fpm -s dir -t deb -n $1 -v $2 --before-install ./preinst --after-install ./postinst  --license "Apache" --vendor "Megam Systems" --maintainer "<info@megam.io>" --url "https://www.megam.io/" --description "A CLI based megam datacenter management interface" ./usr/share/megam/megdc
+fpm -s dir -t deb -n $1 -v $2 --before-install ./preinst --after-install ./postinst   --after-remove ./postrm --license "Apache" --vendor "Megam Systems" --maintainer "<info@megam.io>" --url "https://www.megam.io/" --description "A CLI based megam datacenter management interface" ./usr/share/megam/megdc
