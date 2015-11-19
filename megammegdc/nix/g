@@ -1,18 +1,20 @@
-#!/bin/sh
-mkdir -p ./usr/share/megam/megamcib/bin
-cd cloudinabox/src/github.com/megamsys/cloudinabox
+#!/bin/bash
+
+mkdir -p ./usr/share/megam/megdc/bin
+
+mkdir -p ./usr/share/megam/megdc/conf/trusty/opennebula/
+
+cd megdc/src/github.com/megamsys/megdc
 
 # sometimes  the dependencies aren't getting pulled. Adding a master solved the problem.
-git remote add master  https://github.com/megamsys/cloudinabox.git
+git remote add master https://github.com/indykish/megdc.git
 
-make build
+make 
 
-cp -rf ./views/ ../../../../../usr/share/megam/megamcib
-cp -rf ./static_source/ ../../../../../usr/share/megam/megamcib
+cp megdc ../../../../../usr/share/megam/megdc/bin
 
-cp -rf ./conf/ ../../../../../usr/share/megam/megamcib
-cp cibd ../../../../../usr/share/megam/megamcib/bin
+cp conf/trusty/opennebula/install_gems ../../../../../usr/share/megam/megdc/conf/trusty/opennebula/
 
 cd ../../../../../
 
-fpm -s dir -t deb -n $1 -v $2 -d "megamcommon, debconf, sqlite3, debconf-utils, whiptail, apt-utils" --before-install ./preinst --after-install ./postinst --before-remove ./prerm --deb-upstart ./etc/init/megamcib --deb-templates ./templates --license "Apache" --vendor "Megam Systems" --maintainer "<thomasalrin@megam.io>" --url "https://www.megam.io/" --description "Cloud In a Box base seed daemon" ./usr/share/megam/megamcib
+fpm -s dir -t deb -n $1 -v $2 --before-install ./preinst --after-install ./postinst   --after-remove ./postrm --license "Apache" --vendor "Megam Systems" --maintainer "<info@megam.io>" --url "https://www.megam.io/" --description "A CLI based megam datacenter management interface" ./usr/share/megam/megdc

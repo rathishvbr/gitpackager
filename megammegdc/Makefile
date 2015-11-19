@@ -1,6 +1,6 @@
 #!/usr/bin/make -f
 #
-# Cloud In a Box  Installer system makefile.
+# Megdc Installer system makefile.
 # Copyright 2012-2014 by the Megam team.
 # Licensed under the terms of the Apache License V2.
 #
@@ -25,8 +25,6 @@ CENTOS_MINI_URL = "http://centosmirror.go4hosting.in/centos/7.0.1406/isos/x86_64
 
 TEMP_MINIISO=$(BUILDDIR)/trusty_mini.iso
 MEGAM_MINIISO=$(BUILDDIR)/trusty_megam.iso
-MEGAMNODE_MINIISO=$(BUILDDIR)/trusty_megamnode.iso
-
 
 # By default, we just advertise what we can do.
 .PHONY: all
@@ -52,16 +50,11 @@ clean:
 # all_build is provided automagically, but for manual invocation
 # we provide a generic build rule.
 .PHONY: trusty
-trusty: wget_trusty tree_iso burn_usb mknode_iso qemu_test
+trusty: wget_trusty tree_iso burn_usb qemu_test
 	if [ -e $(MEGAM_MINIISO) ]; then \
 		echo "--> Successfully created trusty_megam 64bit mini distro"; \
 	else \
 		echo "Failure : Can't create trusty_megam mini distro." ;  exit 2; \
-	fi; \
-	if [ -e $(MEGAMNODE_MINIISO) ]; then \
-		echo "--> Successfully created trusty_megamnode 64bit mini distro"; \
-	else \
-		echo "Failure : Can't create trusty_megamnode mini distro." ;  exit 2; \
 	fi
 
 # all_build is provided automagically, but for manual invocation
@@ -72,13 +65,7 @@ centos: wget_centos tree_iso burn_usb qemu_test
 		echo "Successfully created centos_megam 64bit mini distro"; \
 	else \
 		echo "Failure : Can't create centos_megam mini distro." ;  exit 2; \
-	fi; \
-	if [ -e $(MEGAMNODE_MINIISO) ]; then \
-		echo "--> Successfully created centos_megamnode 64bit mini distro"; \
-	else \
-		echo "Failure : Can't create centos_megamnode mini distro." ;  exit 2; \
 	fi
-
 
 # all_build is provided automagically, but for manual invocation
 # we provide a generic build rule.
@@ -133,21 +120,6 @@ burn_usb:
 	if [ $$CONTINUE = "y" ] || [ $$CONTINUE = "Y" ]; then \
 	  sudo dd if=$(MEGAM_MINIISO) of=/dev/sdb; \
 	fi;
-
-.PHONY: mknode_iso
-mknode_iso:
-	sudo rm -rf $(USB_IMAGEDIR)/preseed.cfg
-	sudo cp ./usb/npreseed.cfg $(USB_IMAGEDIR)/npreseed.cfg
-	sudo cp ./usb/ntxt.cfg $(USB_IMAGEDIR)/txt.cfg
-	sudo rm -rf splash.png
-	sudo cp ./nix/image/splash.png $(USB_IMAGEDIR)
-	xorriso -as mkisofs -r -J -b isolinux.bin -c boot.cat \
-		-no-emul-boot -boot-load-size 4 -boot-info-table \
-		-eltorito-alt-boot \
-		--efi-boot boot/grub/efi.img -no-emul-boot \
-		-o $(MEGAMNODE_MINIISO) $(USB_IMAGEDIR); \
-	./geniso_hybrid_plus_firmware_partition $(MEGAMNODE_MINIISO);
-
 
 .PHONY:  qemu_test
 qemu_test:
