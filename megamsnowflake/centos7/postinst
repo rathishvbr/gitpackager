@@ -1,8 +1,5 @@
 #!/bin/sh
 
-chown megam:megam /var/run/megam/snowflake
+cp /etc/init.d/snowflake.service /etc/systemd/system/
 
-chown megam:megam /var/log/megam/snowflake
-
-initctl reload-configuration
-service snowflake start || echo "snowflake could not be started. Try manually with service snowflake start"
+systemctl start  snowflake.service || echo "snowflake could not be started. Try manually with service snowflake start"

@@ -6,8 +6,8 @@ After=runlevel3.target
 After=runlevel4.target
 After=runlevel5.target
 [Service]
-EnvironmentFile='/var/lib/megam/megamd.env' 
-ExecStartPre=cd /var/lib/megam
+EnvironmentFile=/var/lib/megam/megamd.env 
+ExecStartPre=chdir /var/lib/megam
 ExecStartPre=./megamd.env
 ExecStart=echo "[`date -u +%Y-%m-%dT%T.%3NZ`] (sys) megamd starting" >> /var/log/megam/megamd/megamd.log --exec ./bin/megamd start>> /var/log/megam/megamd/megamd.log 2>&1
 ExecStartPost=`status megamd | egrep -oi '([0-9]+)$' | head -n1` > /var/run/megam/megamd/megamd.pid
@@ -19,6 +19,6 @@ ExecStopPost=rm -f /var/run/megam/megamd/megamd.pid
 
 
 # set the working directory of the job processes
-chdir /usr/share/megam/megamd
+#chdir /usr/share/megam/megamd
 
 

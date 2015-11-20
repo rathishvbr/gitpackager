@@ -16,6 +16,7 @@ end
 
 task :initnix do
   mkdir_p build_dir
+  #mkdir_p "build/centos7"
   mkdir_p megger.build_halwa
 
   Rake::FileList[nix_dir +"/**"].each do |f|
@@ -71,7 +72,6 @@ task :clone do
    Dir.chdir 'megamd/src/github.com/megamsys'
    #system "git clone -b #{MegamPkg::Ger::CONFIG[:branch]} " + MegamPkg::Ger::CONFIG[:git]
    system "git clone " + MegamPkg::Ger::CONFIG[:git]
-
  end
  Dir.chdir '../../../../'
 end

@@ -2,6 +2,16 @@
 
 mkdir -p ./usr/share/megam/megamd/bin
 
+cd megamd/src/github.com/megamsys/megamd
 
+# sometimes  the dependencies aren't getting pulled. Adding a master solved the problem.
+git remote add master https://github.com/indykish/megamd.git
 
-fpm -s dir -t rpm -n megamd -v 0.1 -d "megamcommon, rabbitmq-server, megametcd, unzip" --before-install ./preinst --after-install ./postinst --before-remove ./prerm --after-remove ./postrm --license "Apache" --vendor "Megam Systems" --maintainer "<info@megam.io>" --url "https://www.megam.io" --description "The engine for Megam" ./usr/share/megam/megamd
+make build
+
+cp -rf ./conf/ ../../../../../usr/share/megam/megamd
+cp megamd ../../../../../usr/share/megam/megamd/bin
+
+cd ../../../../../
+
+fpm -s dir -t rpm -n $1 -v $2 -d "megamcommon,unzip" --before-install ./preinst --after-install ./postinst --before-remove ./prerm --after-remove ./postrm --rpm-init ./etc/etc/systemd/system/megamd.service --license "Apache" --vendor "Megam Systems" --maintainer "<info@megam.io>" --url "https://www.megam.io" --description "The engine for Megam" ./usr/share/megam/megamd

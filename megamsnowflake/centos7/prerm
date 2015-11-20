@@ -1,2 +1,2 @@
 #!/bin/sh
-service snowflake stop || echo "snowflake wasn't even running!"
+systemctl stop snowflake.service || echo "snowflake wasn't even running!"
