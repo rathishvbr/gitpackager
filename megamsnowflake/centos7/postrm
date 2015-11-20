@@ -1,5 +1,5 @@
 #!/bin/sh
-#!/bin/sh
+
 if [ -d "/usr/share/megam/snowflake" ]; then
   rm -r /usr/share/megam/snowflake
 fi

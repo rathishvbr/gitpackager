@@ -1,0 +1,12 @@
+#Place the megam snowflake here /etc/systemd/system/snowflake.service
+[Unit]
+Description=Megam Snowflake
+After=network.target
+After=runlevel2.target
+After=runlevel3.target
+After=runlevel4.target
+After=runlevel5.target
+[Service]
+ExecStart=/usr/share/megam/snowflake/bin/src/pysnowflake.py --host localhost --port 7609 0 1
+ExecStopPost=rm -f /var/run/megam/snowflake/snowflake.pid
+KillMode=mixed
