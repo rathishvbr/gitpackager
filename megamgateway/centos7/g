@@ -1,7 +1,9 @@
 #!/bin/sh
+
 cd megam_gateway
+sed -i "s/version := .*/version := \"0.9\"/" build.sbt
 sbt clean
 sbt dist:clean
 sbt compile
 sbt stage
-sbt rpm:package-bin
+sbt rpm:packageBin
