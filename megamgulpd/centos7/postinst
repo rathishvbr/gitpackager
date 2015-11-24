@@ -2,6 +2,8 @@
 
 mkdir -p /var/lib/megam/megamgulpd
 
+cp /etc/init.d/megamgulpd.service /etc/systemd/system/
+
 echo "Megamgulpd installed successfully"
 #systemctl start megamgulpd.service || echo "megamgulpd could not be started. Try manually with service megamgulpd start" >/dev/stdout
 
