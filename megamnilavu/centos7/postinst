@@ -21,6 +21,6 @@ cd /usr/share/megam/megamnilavu
 
 gem install bundler
 
-bundle update
+/usr/local/bin/bundle update
 
 echo "megamnilavu installed."
