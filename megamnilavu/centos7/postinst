@@ -23,4 +23,4 @@ gem install bundler
 
 /usr/local/bin/bundle update
 
-echo "megamnilavu installed."
+echo "=> systemctl start megamnilavu"
