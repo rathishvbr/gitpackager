@@ -1,12 +1,10 @@
 [Unit]
-Description=The engine for Megam
+Description=Megam Gulp daemon
 After=network.target
 After=runlevel2.target
 After=runlevel3.target
 After=runlevel4.target
 After=runlevel5.target
 [Service]
-ExecStart=/usr/share/megam/megamd/bin/megamd start
+ExecStart=/usr/share/megam/megamgulpd/bin/gulpd start --config /usr/share/megam/megamgulpd/conf/gulpd.conf
 KillMode=process
-
-
