@@ -8,5 +8,4 @@ After=runlevel4.target
 After=runlevel5.target
 [Service]
 ExecStart=/usr/share/megam/snowflake/bin/src/pysnowflake.py --host localhost --port 7609 0 1
-ExecStopPost=rm -f /var/run/megam/snowflake/snowflake.pid
-KillMode=mixed
+KillMode=process

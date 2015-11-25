@@ -1,12 +1,10 @@
 [Unit]
-Description=The engine for Megam
+Description=Megam cAdvisor daemon
 After=network.target
 After=runlevel2.target
 After=runlevel3.target
 After=runlevel4.target
 After=runlevel5.target
 [Service]
-ExecStart=/usr/share/megam/megamd/bin/megamd start
+ExecStart=/usr/share/megam/cadvisor/bin/cadvisor start
 KillMode=process
-
-

@@ -5,11 +5,11 @@ mkdir -p /var/log/megam/megamnilavu
 mkdir -p /var/run/megam/megamnilavu
 
 #set MEGAM_HOME for megamnilavu    NOTFOR THE WHOLE SYSTEM(we can't access by echo $MEGAM_HOME)
-cat > //var/lib/megam/megamnilavu.env <<EOF
+cat > //var/lib/megam/env.sh <<EOF
 MEGAM_HOME='/var/lib/megam'
 EOF
 
-chmod 755 /var/lib/megam/megamnilavu.env
+chmod 755 /var/lib/megam/env.sh
 
 #chmod 666 /usr/share/megam/megamnilavu/production.log
 
