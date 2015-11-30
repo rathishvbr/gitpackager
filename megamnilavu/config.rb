@@ -1,7 +1,7 @@
 module MegamPkg
   class Ger
     attr_accessor :halwa, :build_halwa
-    CONFIG =  { os: %w(trusty precise jessie centos7), branch: '0.9', name: 'megamnilavu' }
+    CONFIG =  { os: %w(trusty jessie centos7), branch: '0.9', name: 'megamnilavu' }
 
     #    imgaf !Gem::Specification::find_all_by_name('pkgr').any?
     #         puts "gem install pkgr"
