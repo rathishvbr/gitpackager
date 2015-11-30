@@ -28,7 +28,7 @@ echo "BMDK_CLUSTERID " $bmdk_clusterid  >> /var/log/upstart/megamswarm.log
 #set MEGAM_BMDK_CLUSTERID for megamswarm
 cat > /var/lib/megam/env.sh <<EOF
 initctl set-env MEGAM_BMDK_CLUSTERID=$bmdk_clusterid
-initctl set-env MEGAM_BMDK_CLUSTERIP=$ipaddr
+initctl set-env MEGAM_BMDK_CLUSTERIP=$ipaddr:2375
 EOF
 
 chmod 755 /var/lib/megam/env.sh
