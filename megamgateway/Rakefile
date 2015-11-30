@@ -47,11 +47,6 @@ task :trusty   do
   Rake::Task[:nix].invoke
 end
 
-task :precise   do
-  megger.halwa ="precise"
-  megger.build_halwa="build/precise"
-  Rake::Task[:nix].invoke
-end
 
 task :centos7 do
   megger.halwa ="centos7"
@@ -69,4 +64,5 @@ task :clone do
   if !File.exists? 'megam_gateway/'
   system "git clone -b #{MegamPkg::Ger::CONFIG[:branch]} https://github.com/megamsys/megam_gateway.git"
  end
+ File.write("./megam_gateway/conf/gateway.conf",File.open("./megam_gateway/conf/gateway.conf",&:read).gsub("build.date",Time.new.strftime("%Y-%m-%d %H:%M:%S")))
 end
