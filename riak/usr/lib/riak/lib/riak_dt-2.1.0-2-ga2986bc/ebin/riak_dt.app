@@ -1,0 +1,11 @@
+{application,riak_dt,
+             [{description,[]},
+              {vsn,"2.1.0-2-ga2986bc"},
+              {registered,[]},
+              {applications,[kernel,stdlib]},
+              {env,[{binary_compression,1}]},
+              {modules,[riak_dt,riak_dt_disable_flag,riak_dt_emcntr,
+                        riak_dt_enable_flag,riak_dt_gcounter,riak_dt_gset,
+                        riak_dt_lwwreg,riak_dt_map,riak_dt_od_flag,
+                        riak_dt_oe_flag,riak_dt_orset,riak_dt_orswot,
+                        riak_dt_pncounter,riak_dt_vclock]}]}.

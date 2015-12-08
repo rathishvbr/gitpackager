@@ -23,7 +23,7 @@ chdir /usr/share/megam/cadvisor
 # start the cibd seed
 script
   echo "[`date -u +%Y-%m-%dT%T.%3NZ`] (sys) cadvisor starting" >> /var/log/megam/cadvisor/cadvisor.log
-  exec ./bin/cadvisor start  >> /var/log/megam/cadvisor/cadvisor.log 2>&1
+  exec ./bin/cadvisor -port 9999  >> /var/log/megam/cadvisor/cadvisor.log 2>&1
 end script
 
 post-start script
