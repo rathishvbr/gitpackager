@@ -26,6 +26,7 @@ end
 
 #this overrides the nix/ stuff with halwa specific stuff.
 task :nix => [:initnix] do
+  puts "----------------------------------------------"
   Rake::FileList["#{megger.halwa}" +"/**"].each do |f|
     target = File.join megger.build_halwa,  File.basename(f)
     cp_r f, target
