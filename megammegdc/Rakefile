@@ -56,7 +56,7 @@ end
 
 task :centos7 do
   megger.halwa ="centos7"
-  megger.build_halwa="build/centos7"
+  megger.build_halwa="build/centos7"	
   Rake::Task[:nix].invoke
 end
 

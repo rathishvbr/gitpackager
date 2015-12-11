@@ -1,10 +1,17 @@
 [Unit]
 Description=Megam Gulp daemon
-After=network.target
-After=runlevel2.target
-After=runlevel3.target
-After=runlevel4.target
-After=runlevel5.target
+After=local-fs.target network.target
+Requires=network.target
+Wants=local-fs.target
+
 [Service]
-ExecStart=/usr/share/megam/megamgulpd/bin/gulpd start --config /usr/share/megam/megamgulpd/conf/gulpd.conf
+User=root
+Group=root
+ExecStart= /usr/share/megam/megamgulpd/bin/gulpd start --config /usr/share/megam/megamgulpd/conf/gulpd.conf
 KillMode=process
+Restart=on-failure
+RestartSec=42s
+
+[Install]
+WantedBy=multi-user.target
+
