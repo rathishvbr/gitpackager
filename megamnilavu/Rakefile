@@ -18,8 +18,8 @@ task :initnix do
   mkdir_p build_dir
   mkdir_p megger.build_halwa
 
-  Rake::FileList[nix_dir + '/**'].each do |f|
-    target = File.join megger.build_halwa, File.basename(f)
+ Rake::FileList[nix_dir +"/**"].each do |f|
+    target = File.join megger.build_halwa,  File.basename(f)
     cp_r f, target
   end
 end

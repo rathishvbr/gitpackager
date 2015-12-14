@@ -19,9 +19,9 @@ task :initnix do
   #mkdir_p "build/centos7"
   mkdir_p megger.build_halwa
 
-  Rake::FileList[nix_dir +"/**"].each do |f|
-  target = File.join megger.build_halwa,  File.basename(f)
-  cp_r f, target
+ Rake::FileList[nix_dir +"/**"].each do |f|
+    target = File.join megger.build_halwa,  File.basename(f)
+    cp_r f, target
   end
 end
 
