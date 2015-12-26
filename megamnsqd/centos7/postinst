@@ -1,0 +1,6 @@
+#!/bin/sh
+
+cp /etc/init.d/snowflake.service /etc/systemd/system/
+
+echo "snowflake installed successfully"
+#systemctl start  snowflake.service || echo "snowflake could not be started. Try manually with service snowflake start"
