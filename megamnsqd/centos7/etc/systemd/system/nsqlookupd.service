@@ -1,0 +1,10 @@
+[Unit]
+Description=Megam nsqlookup
+After=network.target
+After=runlevel2.target
+After=runlevel3.target
+After=runlevel4.target
+After=runlevel5.target
+[Service]
+ExecStart=/usr/share/megam/nsqd/bin/nsqlookupd
+KillMode=process
