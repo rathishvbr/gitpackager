@@ -19,9 +19,9 @@ task :initnix do
   #mkdir_p "build/centos7"
   mkdir_p megger.build_halwa
 
-  Rake::FileList[nix_dir +"/**"].each do |f|
-  target = File.join megger.build_halwa,  File.basename(f)
-  cp_r f, target
+ Rake::FileList[nix_dir +"/**"].each do |f|
+    target = File.join megger.build_halwa,  File.basename(f)
+    cp_r f, target
   end
 end
 
@@ -38,20 +38,9 @@ task :nix => [:initnix] do
   system './g', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION
 end
 
-#i know this repeating, but this to partition the supported os just we don't have to do typechecking.
-# rake trusty
-# rake precise
-# rake centos7
-# rake jessie
 task :trusty   do
   megger.halwa="trusty"
   megger.build_halwa="build/trusty"
-  Rake::Task[:nix].invoke
-end
-
-task :precise   do
-  megger.halwa ="precise"
-  megger.build_halwa="build/precise"
   Rake::Task[:nix].invoke
 end
 
