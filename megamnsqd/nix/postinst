@@ -9,6 +9,8 @@ while read Iface Destination Gateway Flags RefCnt Use Metric Mask MTU Window IRT
 		break
 done < /proc/net/route
 
+mv /usr/share/megam/nsqd/nsqlookupd /etc/init/nsqlookupd.conf
+
 
 cat > //var/lib/megam/env.sh <<EOF
 MEGAM_NSLOOKUPD_IP="$ipaddr"
