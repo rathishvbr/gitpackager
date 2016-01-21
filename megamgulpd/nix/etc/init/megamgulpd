@@ -4,6 +4,7 @@ author "Megam Systems(https://www.megam.io)"
 # When to start the service
 start on runlevel [2345]
 start on (started networking)
+start on (started filesystem)
 
 # When to stop the service
 stop on runlevel [016]
@@ -17,10 +18,16 @@ stop on (stopped megamgulpd)
 # set the working directory of the job processes
 chdir /usr/share/megam/megamgulpd
 
+pre-start script
+    # Date format same as (new Date()).toISOString() for consistency
+    echo "[`date -u +%Y-%m-%dT%T.%3NZ`] (sys) Starting" >> /var/log/megam/megamgulpd/megamgulpd.log
+     /var/lib/megam/env.sh
+end script
+
 # start the gulpd seed
 script
   echo "[`date -u +%Y-%m-%dT%T.%3NZ`] (sys) megamgulpd starting" >> /var/log/megam/megamgulpd/megamgulpd.log
-  exec ./bin/gulpd start --config /usr/share/megam/megamgulpd/conf/gulpd.conf >> /var/log/megam/megamgulpd/megamgulpd.log 2>&1
+  exec ./bin/gulpd -v start --config /usr/share/megam/megamgulpd/conf/gulpd.conf >> /var/log/megam/megamgulpd/megamgulpd.log 2>&1
 end script
 
 post-start script
