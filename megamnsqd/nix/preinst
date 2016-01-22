@@ -1,1 +1,1 @@
-mkdir -p /var/log/megam/nsqd
+mkdir -p /var/log/megam/nsqd /var/run/megam/nsqd/var/run/megam/nsqd/

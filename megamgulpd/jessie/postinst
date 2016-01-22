@@ -1,5 +1,10 @@
 #!/bin/bash
-cat >> /etc/systemd/system/megamgulpd.service << EOF
+
+cat > //var/lib/megam/env.sh <<EOF
+MEGAM_HOME='/var/lib/megam'
+EOF
+
+cat > /etc/systemd/system/megamgulpd.service << EOF
 #Place the megam gulpd here /etc/systemd/system/megamgulpd.service
 [Unit]
 Description=Megam Gulp daemon
@@ -9,7 +14,8 @@ After=runlevel3.target
 After=runlevel4.target
 After=runlevel5.target
 [Service]
-ExecStart=/usr/share/megam/megamgulpd/bin/gulpd start --config /usr/share/megam/megamgulpd/conf/gulpd.conf
+EnvironmentFile=/var/lib/megam/env.sh
+ExecStart=/usr/share/megam/megamgulpd/bin/gulpd -v start --config /usr/share/megam/megamgulpd/conf/gulpd.conf
 KillMode=process
 EOF
 

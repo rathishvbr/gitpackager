@@ -2,6 +2,11 @@
 
 mkdir -p /var/lib/megam/megamgulpd
 
+cat >/var/lib/megam/env.sh <<EOF
+MEGAM_HOME=/var/lib/megam/
+HOST=localhost
+EOF
+
 cp /etc/init.d/megamgulpd.service /etc/systemd/system/
 
 echo "Megamgulpd installed successfully"
