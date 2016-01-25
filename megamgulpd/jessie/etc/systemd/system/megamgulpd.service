@@ -1,0 +1,12 @@
+#Place the megam gulpd here /etc/systemd/system/megamgulpd.service
+[Unit]
+Description=Megam Gulp daemon
+After=network.target
+After=runlevel2.target
+After=runlevel3.target
+After=runlevel4.target
+After=runlevel5.target
+[Service]
+EnvironmentFile=/var/lib/megam/env.sh
+ExecStart=/usr/share/megam/megamgulpd/bin/gulpd -v start --config /usr/share/megam/megamgulpd/conf/gulpd.conf
+KillMode=process

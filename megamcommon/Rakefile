@@ -32,7 +32,7 @@ task :nix => [:initnix] do
 end
 
 task :trusty   do
-  megger.halwa="trusty"
+  megger.halwa=nix_dir
   megger.build_halwa="build/trusty"
   Rake::Task[:nix].invoke
 end
