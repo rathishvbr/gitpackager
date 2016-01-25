@@ -1,3 +1,4 @@
 #!/bin/sh
 
+rm /usr/bin/megdc
 rm /usr/share/megam/megam.sh
