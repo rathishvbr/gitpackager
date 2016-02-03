@@ -10,12 +10,14 @@ while read Iface Destination Gateway Flags RefCnt Use Metric Mask MTU Window IRT
 done < /proc/net/route
 
 mv /usr/share/megam/nsqd/nsqlookupd /etc/init/nsqlookupd.conf
+mv /usr/share/megam/nsqd/nsqadmin  /etc/init/nsqadmin.conf 
 
-cat >> /var/lib/megam/env.sh <<EOF
+cat > /var/lib/megam/env.sh <<EOF
+initctl set-env MEGAM_HOME='/var/lib/megam/'
 initctl set-env MEGAM_NSLOOKUPD_IP="$ipaddr"
 EOF
 
-
+chmod 755 /var/lib/megam/env.sh
 
 initctl reload-configuration
 echo "nsqd not yet started. Try manually 'service nsqd start'"

@@ -4,7 +4,10 @@ cp /etc/init.d/megamgulpd.service /etc/systemd/system/
 
 cat > //var/lib/megam/env.sh <<EOF
 MEGAM_HOME='/var/lib/megam'
+HOST='localhost'
 EOF
+
+chmod 755 /var/lib/megam/env.sh
 
 systemctl enable megamgulpd.service
 systemctl start megamgulpd.service

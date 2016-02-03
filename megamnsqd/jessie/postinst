@@ -1,18 +1,23 @@
 #!/bin/sh
-cat  > /etc/systemd/system/snowflake.service << EOF
-#Place the megam snowflake here /etc/systemd/system/snowflake.service
-[Unit]
-Description=Megam Snowflake
-After=network.target
-After=runlevel2.target
-After=runlevel3.target
-After=runlevel4.target
-After=runlevel5.target
-[Service]
-ExecStart=/usr/share/megam/snowflake/bin/src/pysnowflake.py --host localhost --port 7609 0 1
-ExecStopPost=rm -f /var/run/megam/snowflake/snowflake.pid
-KillMode=mixed
-EOF
-systemctl enable snowflake.service 
-systemctl start snowflake.service
 
+while read Iface Destination Gateway Flags RefCnt Use Metric Mask MTU Window IRTT; do
+		[ "$Mask" = "00000000" ] && \
+		interface="$Iface" && \
+		ipaddr=$(LC_ALL=C /sbin/ip -4 addr list dev "$interface" scope global) && \
+		ipaddr=${ipaddr#* inet } && \
+		ipaddr=${ipaddr%%/*} && \
+		break
+done < /proc/net/route
+
+mv /usr/share/megam/nsqd/nsqlookupd /etc/systemd/system/nsqlookupd.conf
+mv /usr/share/megam/nsqd/nsqadmin  /etc/systemd/system/nsqadmin.conf 
+
+cat > /var/lib/megam/env.sh <<EOF
+MEGAM_HOME='/var/lib/megam/'
+MEGAM_NSLOOKUPD_IP="$ipaddr"
+EOF
+
+chmod 755 /var/lib/megam/env.sh
+
+initctl reload-configuration
+echo "nsqd not yet started. Try manually 'service nsqd start'"
