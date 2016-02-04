@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cd megam_gateway
+cd vertice_gateway
 sed -i "s/version := .*/version := \"0.9\"/" build.sbt
 sbt clean
 sbt dist:clean

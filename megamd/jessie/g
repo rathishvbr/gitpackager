@@ -17,4 +17,4 @@ cd ../../../../../
 cp riakstash ./usr/share/megam/megamd/bin
 cp riakstash.cron.d ./usr/share/megam/megamd/bin
 
-fpm -s dir -t deb -n $1 -v $2 -d "megamcommon, unzip" --before-install ./preinst --after-install ./postinst --before-remove ./prerm --after-remove ./postrm  --license "Apache" --vendor "Megam Systems" --maintainer "<info@megam.io>" --url "https://www.megam.io/" --description "The engine for Megam" ./usr/share/megam/megamd
+fpm -s dir -t deb -n $1 -v $2 -d "megamcommon, unzip" --before-install ./preinst --after-install ./postinst --before-remove ./prerm --after-remove ./postrm --deb-init ./etc/systemd/system/megamd.service --license "Apache" --vendor "Megam Systems" --maintainer "<info@megam.io>" --url "https://www.megam.io/" --description "The engine for Megam" ./usr/share/megam/megamd

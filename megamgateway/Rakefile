@@ -50,8 +50,8 @@ task :jessie do
 end
 
 task :clone do
-  if !File.exists? 'megam_gateway/'
-  system "git clone -b #{MegamPkg::Ger::CONFIG[:branch]} https://github.com/megamsys/megam_gateway.git"
+  if !File.exists? 'vertice_gateway/'
+  system "git clone -b #{MegamPkg::Ger::CONFIG[:branch]} https://github.com/megamsys/vertice_gateway.git"
  end
- File.write("./megam_gateway/conf/gateway.conf",File.open("./megam_gateway/conf/gateway.conf",&:read).gsub("build.date",Time.new.strftime("%Y-%m-%d %H:%M:%S")))
+ File.write("./vertice_gateway/conf/gateway.conf",File.open("./vertice_gateway/conf/gateway.conf",&:read).gsub("build.date",Time.new.strftime("%Y-%m-%d %H:%M:%S")))
 end

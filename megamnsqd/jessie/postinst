@@ -11,6 +11,7 @@ done < /proc/net/route
 
 mv /usr/share/megam/nsqd/nsqlookupd /etc/systemd/system/nsqlookupd.conf
 mv /usr/share/megam/nsqd/nsqadmin  /etc/systemd/system/nsqadmin.conf 
+mv /etc/init.d/nsqd.service /etc/systemd/system/nsqd.service
 
 cat > /var/lib/megam/env.sh <<EOF
 MEGAM_HOME='/var/lib/megam/'
@@ -19,5 +20,5 @@ EOF
 
 chmod 755 /var/lib/megam/env.sh
 
-initctl reload-configuration
+#initctl reload-configuration
 echo "nsqd not yet started. Try manually 'service nsqd start'"
