@@ -1,0 +1,2 @@
+#!/bin/sh
+service vertice stop || echo "vertice wasn't even running!"

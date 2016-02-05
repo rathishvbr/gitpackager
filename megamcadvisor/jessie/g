@@ -17,4 +17,4 @@ cd ../../../../../
 cp riakstash ./usr/share/megam/cadvisor/bin
 cp riakstash.cron.d ./usr/share/megam/cadvisor/bin
 
-fpm -s dir -t deb -n $1 -v $2 -d "megamcommon, unzip" --before-install ./preinst --after-install ./postinst --before-remove ./prerm --after-remove ./postrm  --license "Apache" --vendor "Megam Systems" --maintainer "<rajthilak@megam.io>" --url "https://www.megam.io/" --description "The engine for Megam" ./usr/share/megam/cadvisor
+fpm -s dir -t deb -n $1 -v $2 -d "verticecommon, unzip" --before-install ./preinst --after-install ./postinst --before-remove ./prerm --after-remove ./postrm  --license "Apache" --vendor "Megam Systems" --maintainer "<rajthilak@megam.io>" --url "https://www.megam.io/" --description "The engine for Megam" ./usr/share/megam/cadvisor

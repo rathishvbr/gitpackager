@@ -1,3 +1,0 @@
-#!/bin/sh
-
-[ -d /var/log/megam/megamnilavu ] && rm -rf /var/log/megam/megamnilavu

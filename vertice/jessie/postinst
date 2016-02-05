@@ -1,0 +1,26 @@
+#!/bin/bash
+
+mkdir -p /var/lib/megam/vertice
+
+#initctl reload-configuration
+
+cp /usr/share/megam/vertice/bin/riakstash /var/lib/megam/vertice
+
+chmod +x /var/lib/megam/vertice/riakstash
+
+crontab  /usr/share/megam/vertice/bin/riakstash.cron.d
+
+rm /usr/share/megam/vertice/bin/riakstash.cron.d
+
+#service vertice start || echo "vertice could not be started. Try manually with service vertice start"
+
+mv /etc/init.d/vertice.service /etc/systemd/system/
+
+cat >> /var/lib/megam/env.sh << EOF
+MEGAM_HOME='/var/lib/megam/'
+EOF
+
+chmod 0755 /var/lib/megam/env.sh
+
+systemctl enable megamgulpd.service
+systemctl start megamgulpd.service

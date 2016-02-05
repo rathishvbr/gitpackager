@@ -52,58 +52,58 @@ Builds
 
 Go into the directories of,
 
-*megamcommon*
+*verticecommon*
 
 ```
 
-cd packager/megamcommon
+cd packager/verticecommon
 rake trusty
 
 ```
 
 
-*megamnilavu*
+*verticenilavu*
 
 ```
-cd megamnilavu
+cd verticenilavu
 
 #builds a package for trusty
 rake
 
 ```
 
-*megamgateway*
+*verticegateway*
 
 ```
 
-cd packager/megamgateway
+cd packager/verticegateway
 rake trusty
 
 ```
 
-*megamsnowflake*
+*verticesnowflake*
 
 ```
 
-cd packager/megamsnowflake
+cd packager/verticesnowflake
 rake trusty
 
 ```
 
-*megamd*
+*vertice*
 
 ```
 
-cd packager/megamd
+cd packager/vertice
 rake trusty
 
 ```
 
-*megamgulpd*
+*verticegulpd*
 
 ```
 
-cd packager/megamgulpd
+cd packager/verticegulpd
 rake trusty
 
 ```

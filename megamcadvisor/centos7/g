@@ -4,4 +4,4 @@ mkdir -p ./usr/share/megam/cadvisor/bin
 
 
 
-fpm -s dir -t rpm -n cadvisor -v 0.1 -d "megamcommon, rabbitmq-server, megametcd, unzip" --before-install ./preinst --after-install ./postinst --before-remove ./prerm --after-remove ./postrm --license "Apache" --vendor "Megam Systems" --maintainer "<rajthilak@megam.io>" --url "https://www.megam.io" --description "The engine for Megam" ./usr/share/megam/cadvisor
+fpm -s dir -t rpm -n cadvisor -v 0.1 -d "verticecommon, rabbitmq-server, megametcd, unzip" --before-install ./preinst --after-install ./postinst --before-remove ./prerm --after-remove ./postrm --license "Apache" --vendor "Megam Systems" --maintainer "<rajthilak@megam.io>" --url "https://www.megam.io" --description "The engine for Megam" ./usr/share/megam/cadvisor

@@ -9,11 +9,11 @@ cd megdc/src/github.com/megamsys/megdc
 # sometimes  the dependencies aren't getting pulled. Adding a master solved the problem.
 git remote add master https://github.com/indykish/megdc.git
 
-make 
+make
 
 cp megdc ../../../../../usr/share/megam/megdc/bin
 
-cp conf/trusty/opennebula/install_gems ../../../../../usr/share/megam/megdc/conf/trusty/opennebula/
+cp conf/install_gems ../../../../../usr/share/megam/megdc/conf/
 
 cd ../../../../../
 

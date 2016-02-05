@@ -1,0 +1,2 @@
+#!/bin/sh
+service  stop || echo " wasn't even running!"

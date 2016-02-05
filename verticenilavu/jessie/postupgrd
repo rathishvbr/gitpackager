@@ -1,0 +1,4 @@
+#!/bin/sh
+
+systemctl enable verticenilavu.service
+systemctl start verticenilavu1.service

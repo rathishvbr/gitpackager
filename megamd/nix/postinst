@@ -1,9 +1,0 @@
-#!/bin/bash
-
-mkdir -p /var/lib/megam/megamd
-
-cp /usr/share/megam/megamd/conf/megamd.conf /var/lib/megam/megamd/megamd.conf
-
-initctl reload-configuration
-
-service megamd start || echo "megamd could not be started. Try manually with service megamd start"

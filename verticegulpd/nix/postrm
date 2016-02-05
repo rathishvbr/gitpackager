@@ -1,0 +1,16 @@
+#!/bin/sh
+
+if [ -d "/usr/share/megam/verticegulpd" ]; then
+  rm -r /usr/share/megam/verticegulpd
+fi
+
+if [ -d "/var/lib/megam/verticegulpd" ]; then
+  rm -r /var/lib/megam/verticegulpd
+fi
+
+if [ -d "/var/log/megam/verticegulpd" ]; then
+  rm -r /var/log/megam/verticegulpd
+fi
+if [ -f "/var/log/megam/verticegulpd.pid" ]; then
+  rm /var/log/megam/verticegulpd.pid
+fi
