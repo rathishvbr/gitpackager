@@ -5,7 +5,7 @@ author "Megam Systems(https://www.megam.io)"
 start on runlevel [2345]
 start on (started networking)
 start on (local-filesystems)
-start on (rabbitmq-server-running or started rabbitmq-server)
+start on (nsqd-running or started nsqd)
 
 # When to stop the service
 stop on runlevel [016]

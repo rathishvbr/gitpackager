@@ -1,2 +1,2 @@
 #!/bin/sh
-service  stop || echo " wasn't even running!"
+systemctl stop verticegulpd || echo " wasn't even running!"

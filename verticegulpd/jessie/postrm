@@ -15,3 +15,7 @@ fi
 if [ -d "/var/log/megam/verticegulpd" ]; then
   rm -r /var/log/megam/verticegulpd
 fi
+
+if [ -f "/etc/systemd/system/verticegulpd.service" ]; then
+  rm /etc/systemd/system/verticegulpd.service
+fi

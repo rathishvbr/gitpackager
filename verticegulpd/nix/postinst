@@ -3,6 +3,8 @@
 cat > //var/lib/megam/env.sh <<EOF
 initctl set-env MEGAM_HOME='/var/lib/megam'
 EOF
+chmod 755 /var/lib/megam/env.sh
+
 
 mkdir -p /var/lib/megam/verticegulpd /var/lib/megam/gulp/
 

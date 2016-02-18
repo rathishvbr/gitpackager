@@ -14,3 +14,7 @@ fi
 if [ -f "/var/log/megam/verticegulpd.pid" ]; then
   rm /var/log/megam/verticegulpd.pid
 fi
+
+if [ -f "/etc/init/verticegulpd.conf" ]; then
+  rm /etc/init/verticegulpd.conf
+fi
