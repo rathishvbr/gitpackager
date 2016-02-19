@@ -1,0 +1,57 @@
+require "rake"
+require "../version.rb"
+require "./config.rb"
+puts ">> ------------- [#{MegamPkg::Ger::CONFIG[:name]} #{MegamPkg::Ger::VERSION}]"
+
+megger = MegamPkg::Ger.new
+
+nix_dir="nix"
+build_dir ="build"
+
+task :default => :trusty
+
+task :clean do
+  rm_rf build_dir
+end
+
+task :initnix do
+  mkdir_p build_dir
+  mkdir_p megger.build_halwa
+end
+
+#this overrides the nix/ stuff with halwa specific stuff.
+task :nix => [:initnix] do
+  Rake::FileList["#{megger.halwa}" +"/**"].each do |f|
+    target = File.join megger.build_halwa,  File.basename(f)
+    cp_r f, target
+  end if File.exists?(megger.halwa)
+
+  Dir.chdir megger.build_halwa
+  Rake::Task[:clone].invoke
+  system './g', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION
+end
+
+task :trusty   do
+  megger.halwa=nix_dir
+  megger.build_halwa="build/trusty"
+  Rake::Task[:nix].invoke
+end
+
+task :centos7 do
+  megger.halwa ="centos7"
+  megger.build_halwa="build/centos7"
+  Rake::Task[:nix].invoke
+end
+
+task :jessie do
+  megger.halwa ="jessie"
+  megger.build_halwa="build/jessie"
+ Rake::Task[:nix].invoke
+end
+
+task :clone do
+  if !File.exists? 'vertice_gateway/'
+  system "git clone -b #{MegamPkg::Ger::CONFIG[:branch]} https://github.com/megamsys/vertice_gateway.git"
+ end
+ File.write("./vertice_gateway/conf/gateway.conf",File.open("./vertice_gateway/conf/gateway.conf",&:read).gsub("build.date",Time.new.strftime("%Y-%m-%d %H:%M:%S")))
+end

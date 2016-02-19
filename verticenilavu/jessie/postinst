@@ -1,0 +1,32 @@
+#!/bin/sh
+
+mkdir -p /var/log/megam/verticenilavu
+
+#set MEGAM_HOME for verticenilavu    NOTFOR THE WHOLE SYSTEM(we can't access by echo $MEGAM_HOME)
+cat > //var/lib/megam/env.sh <<EOF
+MEGAM_HOME='/var/lib/megam'
+EOF
+
+chmod 755 /var/lib/megam/env.sh
+
+#ruby change
+rm /usr/bin/ruby
+rm /usr/bin/gem
+ln -s /usr/bin/ruby2.1 /usr/bin/ruby
+ln -s /usr/bin/gem2.1 /usr/bin/gem
+
+cp /usr/share/megam/verticenilavu/config/nilavu.yml /var/lib/megam/nilavu.yml
+
+cp /etc/init.d/verticenilavu.service /etc/systemd/system/
+
+gem install bundler
+
+cd /usr/share/megam/verticenilavu/
+bundle install
+
+#start verticenilavu
+
+#initctl reload-configuration
+
+systemctl enable verticenilavu
+systemctl start verticenilavu

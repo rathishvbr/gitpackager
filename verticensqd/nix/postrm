@@ -1,0 +1,9 @@
+#!/bin/sh
+
+if [ -d "/usr/share/megam/nsqd" ]; then
+  rm -r /usr/share/megam/nsqd
+fi
+
+if [ -d "/var/log/megam/nsqd" ]; then
+  rm -r /var/log/megam/nsqd
+fi

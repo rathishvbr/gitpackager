@@ -1,0 +1,9 @@
+#!/bin/sh
+
+cd vertice_gateway
+sed -i "s/version := .*/version := \"1.0\"/" build.sbt
+sbt clean
+sbt dist:clean
+sbt compile
+sbt stage
+sbt debian:package-bin

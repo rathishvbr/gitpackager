@@ -5,4 +5,4 @@ mkdir -p ./usr/share/megam/megamgulpd
 
 
 
-fpm -s dir -t rpm -n megamgulpd -v 0.1 -d "megamcommon" --before-install ./preinst --after-install ./postinst --before-remove ./prerm --after-remove ./postrm --license "Apache" --vendor "Megam Systems" --maintainer "<thomasalrin@megam.io>" --url "https://www.megam.io" --description "Megam node daemon that controls the lifecycle of an app" ./usr/share/megam/megamgulpd
+fpm -s dir -t rpm -n megamgulpd -v 0.1 -d "verticecommon" --before-install ./preinst --after-install ./postinst --before-remove ./prerm --after-remove ./postrm --license "Apache" --vendor "Megam Systems" --maintainer "<thomasalrin@megam.io>" --url "https://www.megam.io" --description "Megam node daemon that controls the lifecycle of an app" ./usr/share/megam/megamgulpd

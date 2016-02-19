@@ -1,0 +1,2 @@
+#!/bin/sh
+systemctl stop verticenilavu.service || echo "verticenilavu wasn't even running!" >/dev/stdout

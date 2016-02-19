@@ -2,7 +2,7 @@
 
 mkdir -p /var/lib/megam/cadvisor
 
-initctl reload-configuration
+#initctl reload-configuration
 
 cp /usr/share/megam/cadvisor/bin/riakstash /var/lib/megam/cadvisor
 

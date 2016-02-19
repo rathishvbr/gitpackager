@@ -1,7 +1,0 @@
-#!/bin/bash
-
-mkdir -p /var/lib/megam/megamd
-
-cp /usr/share/megam/megamd/conf/megamd.conf /var/lib/megam/megamd/megamd.conf
-
-echo "megamd installed successfully"

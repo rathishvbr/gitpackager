@@ -1,8 +1,0 @@
-#!/bin/bash
-
-mkdir -p /var/lib/megam/megamgulpd /var/lib/megam/gulp/
-
-initctl reload-configuration
-
-service megamgulpd start || echo "megamgulpd could not be started. Try manually with service megamgulpd start"
-
