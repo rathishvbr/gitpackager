@@ -56,6 +56,6 @@ task :clone do
     system "git clone -b #{MegamPkg::Ger::CONFIG[:branch]} https://github.com/megamsys/nilavu.git verticenilavu"
  end
   Dir.chdir 'verticenilavu/config'
-  File.write("nilavu.yml",File.open("nilavu.yml",&:read).gsub("build.date",Time.new.strftime("%Y-%m-%d %H:%M:%S")))
+  #File.write("nilavu.yml",File.open("nilavu.yml",&:read).gsub("build.date",Time.new.strftime("%Y-%m-%d %H:%M:%S")))
   Dir.chdir '../../../../..'
 end
