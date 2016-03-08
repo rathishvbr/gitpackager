@@ -14,6 +14,7 @@ make
 cp megdc ../../../../../usr/share/megam/megdc/bin
 
 cp conf/install_gems ../../../../../usr/share/megam/megdc/conf/
+cp conf/megdc.conf ../../../../../usr/share/megam/megdc/conf
 
 cd ../../../../../
 
