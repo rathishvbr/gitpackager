@@ -10,4 +10,4 @@ mkdir -p /var/lib/megam/verticegulpd /var/lib/megam/gulp/
 
 initctl reload-configuration
 
-service verticegulpd  start || echo " could not be started. Try manually with service  start"
+start verticegulpd   || echo " could not be started. Try manually with service  start"
