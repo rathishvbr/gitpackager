@@ -8,6 +8,8 @@ chmod 755 /var/lib/megam/env.sh
 
 mkdir -p /var/lib/megam/verticegulpd /var/lib/megam/gulp/
 
+ cp /usr/share/megam/verticegulpd/conf/gulpd.conf /var/lib/megam/gulp
+
 initctl reload-configuration
 
 start verticegulpd   || echo " could not be started. Try manually with service  start"

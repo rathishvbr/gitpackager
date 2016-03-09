@@ -27,7 +27,7 @@ end script
 # start the gulpd seed
 script
   echo "[`date -u +%Y-%m-%dT%T.%3NZ`] (sys)  starting" >> /var/log/megam/verticegulpd/verticegulpd.log
-  exec ./bin/gulpd -v start --config /usr/share/megam/verticegulpd/conf/gulpd.conf >> /var/log/megam/verticegulpd/verticegulpd.log 2>&1
+  exec ./bin/gulpd -v start  >> /var/log/megam/verticegulpd/verticegulpd.log 2>&1
 end script
 
 post-start script
