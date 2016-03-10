@@ -1,7 +1,0 @@
-#!/bin/sh
-
-mkdir -p /var/run/megam/snowflake
-
-mkdir -p /var/log/megam/snowflake
-
-pip install thrift

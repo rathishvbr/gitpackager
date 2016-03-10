@@ -1,5 +1,0 @@
-#!/bin/sh
-
-
-initctl reload-configuration
-service snowflake start || echo "snowflake could not be started. Try manually with service snowflake start"

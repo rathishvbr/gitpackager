@@ -1,1 +1,3 @@
 mkdir -p /var/log/megam/nsqd /var/run/megam/nsqd
+
+mkdir -p /var/lib/megam/vertice/nsqd

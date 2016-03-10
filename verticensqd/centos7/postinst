@@ -1,6 +1,25 @@
 #!/bin/sh
 
-cp /etc/init.d/snowflake.service /etc/systemd/system/
+while read Iface Destination Gateway Flags RefCnt Use Metric Mask MTU Window IRTT; do
+		[ "$Mask" = "00000000" ] && \
+		interface="$Iface" && \
+		ipaddr=$(LC_ALL=C /sbin/ip -4 addr list dev "$interface" scope global) && \
+		ipaddr=${ipaddr#* inet } && \
+		ipaddr=${ipaddr%%/*} && \
+		break
+done < /proc/net/route
 
-echo "snowflake installed successfully"
-#systemctl start  snowflake.service || echo "snowflake could not be started. Try manually with service snowflake start"
+mv /usr/share/megam/nsqd/nsqlookupd /etc/systemd/system/nsqlookupd.service
+mv /usr/share/megam/nsqd/nsqadmin  /etc/systemd/system/nsqadmin.service
+
+mv /etc/init.d/nsqd /etc/systemd/system/nsqd.service
+
+cat > /var/lib/megam/env.sh <<EOF
+MEGAM_HOME='/var/lib/megam/'
+MEGAM_NSLOOKUPD_IP="$ipaddr"
+EOF
+
+chmod 755 /var/lib/megam/env.sh
+
+#initctl reload-configuration
+echo "nsqd not yet started. Try manually 'service nsqd start'"

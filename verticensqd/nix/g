@@ -1,11 +1,11 @@
 #!/bin/sh
 mkdir -p ./usr/share/megam/nsqd/
 
-wget -r -c -O nsqd.tar.gz https://s3.amazonaws.com/bitly-downloads/nsq/nsq-0.3.6.linux-amd64.go1.5.1.tar.gz
+wget -r -c -O nsqd.tar.gz https://s3.amazonaws.com/bitly-downloads/nsq/nsq-0.3.7.linux-amd64.go1.6.tar.gz
 
 tar -xvf nsqd.tar.gz -C ./usr/share/megam/nsqd/ --strip-components=1 && rm nsqd.tar.gz
 
 cp ./etc/init/nsqlookupd ./usr/share/megam/nsqd/
 cp ./etc/init/nsqadmin   ./usr/share/megam/nsqd/
 
-fpm -s dir -t deb -n $1 -v $2 --before-install ./preinst --after-install ./postinst --before-remove ./prerm --deb-upstart ./etc/init/nsqd --license "Apache" --vendor "Megam Systems" --maintainer "<info@megam.io>" --url "https://www.megam.io" --description "Nsq messaging for Megam Oja" ./usr/share/megam/nsqd/
+fpm -s dir -t deb -n $1 -v $2 --before-install ./preinst --after-install ./postinst --before-remove ./prerm --deb-upstart ./etc/init/nsqd --license "Apache" --vendor "Megam Systems" --maintainer "<info@megam.io>" --url "https://www.megam.io" --description "Nsq messaging for Vertice" ./usr/share/megam/nsqd/

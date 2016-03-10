@@ -24,7 +24,7 @@ pre-start script
 end script
 
 script
- exec ./bin/nsqd --lookupd-tcp-address=$MEGAM_NSLOOKUPD_IP:4160 >> /var/log/megam/nsqd/nsqd.log 2>&1
+ exec ./bin/nsqd --lookupd-tcp-address=$MEGAM_NSLOOKUPD_IP:4160 -data-path=/var/lib/megam/vertice/nsqd >> /var/log/megam/nsqd/nsqd.log 2>&1
 end script
 
 post-start script
