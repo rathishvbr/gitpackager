@@ -17,4 +17,4 @@ cd ../../../../../
 cp riakstash ./usr/share/megam/vertice/bin
 cp riakstash.cron.d ./usr/share/megam/vertice/bin
 
-fpm -s dir -t deb -n $1 -v $2 -d "verticecommon, unzip" --before-install ./preinst --after-install ./postinst --before-remove ./prerm --after-remove ./postrm --deb-init ./etc/systemd/system/vertice.service --license "Apache" --vendor "Megam Systems" --maintainer "<info@megam.io>" --url "https://www.megam.io/" --description "The engine for Megam" ./usr/share/megam/vertice
+fpm -s dir -t deb -n $1 -v $2 -d "verticecommon, unzip" --before-install ./preinst --after-install ./postinst --before-remove ./prerm --after-remove ./postrm --deb-init ./etc/systemd/system/vertice.service --license "Apache" --vendor "Megam Systems" --maintainer "<info@megam.io>" --url "https://www.megam.io/" --description "The omnischedulr for Megam Vertice" ./usr/share/megam/vertice
