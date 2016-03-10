@@ -7,3 +7,7 @@ fi
 if [ -d "/var/log/megam/nsqd" ]; then
   rm -r /var/log/megam/nsqd
 fi
+
+if [ -d "/var/lib/megam/vertice/nsqd" ]; then
+  rm -r /var/lib/megam/vertice/nsqd
+fi

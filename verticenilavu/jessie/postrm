@@ -1,3 +1,7 @@
 #!/bin/sh
 
 [ -d /var/log/megam/verticenilavu ] && rm -rf /var/log/megam/verticenilavu
+
+[ -d /var/lib/megam/site_settings.yml ] && rm -rf /var/lib/megam/site_settings.yml
+
+[ -d /var/lib/megam/nilavu.conf ] && rm -rf /var/lib/megam/nilavu.conf

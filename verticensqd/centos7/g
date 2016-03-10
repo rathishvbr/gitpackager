@@ -1,12 +1,11 @@
 #!/bin/sh
+mkdir -p ./usr/share/megam/nsqd/
 
-cd pysnowflake
+wget -r -c -O nsqd.tar.gz https://s3.amazonaws.com/bitly-downloads/nsq/nsq-0.3.7.linux-amd64.go1.6.tar.gz
 
-mkdir -p ../usr/share/megam/snowflake/bin
+tar -xvf nsqd.tar.gz -C ./usr/share/megam/nsqd/ --strip-components=1 && rm nsqd.tar.gz
 
-cp -r ./src ../usr/share/megam/snowflake/bin
+cp ./etc/systemd/system/nsqlookupd ./usr/share/megam/nsqd/
+cp ./etc/systemd/system/nsqadmin ./usr/share/megam/nsqd/
 
-cd ..
-
-fpm -s dir -t rpm -n $1 -v $2 -d "verticecommon,python,python-pip" --before-install ./preinst --after-install ./postinst --before-remove ./prerm  --after-remove ./postrm --rpm-init ./etc/systemd/system/snowflake.service --license "Apache" --vendor "Megam Systems" --maintainer "<info@megam.io>" --url "https://www.megam.io" --description "Python based unique id generator server based on Twitters snowflake. source : https://github.com/erans/pysnowflake.git" ./usr/share/megam/snowflake/bin
-
+fpm -s dir -t rpm -n $1 -v $2 --before-install ./preinst --after-install ./postinst --before-remove ./prerm --rpm-init ./etc/systemd/system/nsqd.service --license "Apache" --vendor "Megam Systems" --maintainer "<info@megam.io>" --url "https://www.megam.io" --description "Nsq messaging for Megam Vertice" ./usr/share/megam/nsqd/
