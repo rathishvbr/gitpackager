@@ -2,5 +2,5 @@
 
 mkdir -p ./usr/share/megam
 
-fpm -s dir -t rpm -n $1 -v $2 --after-install ./postinst --after-remove ./postrm --before-remove ./prerm --license "Apache" --vendor "Megam Systems" --maintainer "<info@megam.io>" --url "https://www.megam.io" --description "Megam common an empty package which just creates an user megam and group megam." ./usr/share/megam
-
+fpm -s dir -t rpm -p "$MEGAM_HOME"  -f  --iteration $3 -n $1 -v $2 --after-install ./postinst --after-remove ./postrm --before-remove ./prerm --license "Apache V2" --vendor "Megam Systems" --category "infrastructure" --maintainer "Ranjitha<ranjithar@megam.io>" --url "http://docs.megam.io/docs/vertice" --description "This is an empty package that creates the group and user, and a bunch of directories
+    for Megam Vertice." ./usr/share/megam

@@ -14,4 +14,12 @@ cp gulpd ../../../../../usr/share/megam/verticegulpd/bin
 
 cd ../../../../../
 
-fpm -s dir -t deb -n $1 -v $2 -d "verticecommon" --before-install ./preinst --after-install ./postinst --before-remove ./prerm --deb-upstart ./etc/init/verticegulpd  --license "Apache" --vendor "Megam Systems" --maintainer "<thomasalrin@megam.io>" --url "https://www.megam.io/" --description "Megam Vertice agent that runs inside baremetal or vm" ./usr/share/megam/verticegulpd
+fpm -s dir -t deb -p "$MEGAM_HOME"  -f  --iteration $3 -n $1 -v $2 -d "verticecommon" --before-install ./preinst --after-install ./postinst --before-remove ./prerm --deb-upstart ./etc/init/verticegulpd  --license "Apache V2" --vendor "Megam Systems" --category "infrastructure" --maintainer "Raj Thilak <rajthilak@megam.io>, Kishorekumar Neelamegam<nkishore@megam.io>, Yeshwanth Kumar <getyesh@megam.io>, Vijaykanth<mvijaykanth@megam.io" --url "http://docs.megam.io/docs/vertice" --description "A miniscule agent that runs on the stood up infrastructure for Megam Vertice
+which provides request processing function or instrumentation on the stood up infrastructure.
+This connected to a messaging layer Nsqd (nsq.io) and connects to an opensource database
+ScyllaDB 0.19 or compatible cassandra 2.1.9.
+.
+This is the agent that provides real time log pumping to the queue, instrumentation functions
+on the stood up infrastructure.
+.
+This package contains a miniscule golang based server that works as an agent for Megam Vertice." ./usr/share/megam/verticegulpd

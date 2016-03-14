@@ -1,7 +1,7 @@
 require "rake"
 require "../version.rb"
 require "./config.rb"
-puts ">> ------------- [#{MegamPkg::Ger::CONFIG[:name]} #{MegamPkg::Ger::VERSION}]"
+puts ">> ------------- [#{MegamPkg::Ger::CONFIG[:name]} #{MegamPkg::Ger::VERSION} #{MegamPkg::Ger::ITERATION}]"
 
 megger = MegamPkg::Ger.new
 
@@ -28,7 +28,7 @@ task :nix => [:initnix] do
 
   Dir.chdir megger.build_halwa
   pwd
-  system './g', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION
+  system './g', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION, MegamPkg::Ger::ITERATION
 end
 
 task :trusty   do

@@ -8,4 +8,13 @@ bundle install
 
 cd ../../../..
 
-fpm -s dir -t rpm -n $1 -v $2 -d "verticecommon,git-core,curl,rake,zlib-devel,zlib,readline-devel,libyaml-devel,libxml2-devel,openssl-devel,ruby,ruby-devel" --before-install ./preinst --after-install ./postinst --before-upgrade ./preupgrd --before-remove ./prerm --rpm-init ./etc/etc/systemd/system/verticenilavu.service --license "Apache" --vendor "Megam Systems" --maintainer "Thomas Alrin<thomasalrin@megam.io>, Raj Thilak <rajthilak@megam.io>, Kishorekumar Neelamegam<nkishore@megam.io>, Yeshwanth Kumar <getyesh@megam.io>" --url "https://www.megam.io/" --description "Nilavu - Web(https://console.megam.io)" ./usr/share/megam/verticenilavu
+fpm -s dir -t rpm  -p "$MEGAM_HOME"  -f  --iteration $3 -n $1 -v $2 -d "verticecommon,git-core,curl,rake,zlib-devel,zlib,readline-devel,libyaml-devel,libxml2-devel,openssl-devel,ruby,ruby-devel" --before-install ./preinst --after-install ./postinst --before-upgrade ./preupgrd --before-remove ./prerm --rpm-init ./etc/etc/systemd/system/verticenilavu.service --license "Apache V2" --vendor "Megam Systems" --category "infrastructure" --maintainer "Raj Thilak <rajthilak@megam.io>, Kishorekumar Neelamegam<nkishore@megam.io>, Yeshwanth Kumar <getyesh@megam.io>, Vijaykanth<mvijaykanth@megam.io" --url "http://docs.megam.io/docs/vertice" --description "Description: Omnischeduler engine for Megam Vertice which provides scheduling
+function for Megam Vertice. This is the core engine that works on top of a
+messaging layer Nsqd (nsq.io) and connects to an opensource database
+ScyllaDB 0.19 or compatible cassandra 2.1.9.
+.
+This is the core engine that provides real time log streaming, processing requests
+sent from Vertice gateway, processing events for billing, user alerts and integration
+to billing systems like WHMCS.
+.
+This package contains a golang based server that is the core engine for Megam Vertice." ./usr/share/megam/verticenilavu

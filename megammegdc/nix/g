@@ -18,4 +18,14 @@ cp conf/megdc.conf ../../../../../usr/share/megam/megdc/conf
 
 cd ../../../../../
 
-fpm -s dir -t deb -n $1 -v $2 --before-install ./preinst --after-install ./postinst   --after-remove ./postrm --license "Apache" --vendor "Megam Systems" --maintainer "<info@megam.io>" --url "https://www.megam.io/" --description "A CLI based megam datacenter management interface" ./usr/share/megam/megdc
+fpm -s dir -t deb -p "$MEGAM_HOME"  -f  --iteration $3 -n $1 -v $2 --before-install ./preinst --after-install ./postinst   --after-remove ./postrm --license "Apache V2" --vendor "Megam Systems" --category "infrastructure" --maintainer "Raj Thilak <rajthilak@megam.io>,  Ranjitha<ranjithar@megam.io>, Vijaykanth<mvijaykanth@megam.io>" --url "http://docs.megam.io/docs/megam_megdc" --description "Description: command line which sets up OpenNebula, Ceph/LVM, Megam Vertice
+OpenNebula is an open source virtual infrastructure engine. Ceph is an
+open source unified cloud storage. Megam Vertice is an opensource platform
+as service engine.
+.
+Vertice ONE (OpenNebula) extends the benefits of virtualization platforms from a
+single physical resource to a pool of resources, decoupling the server not
+only from the physical infrastructure but also from the physical location.
+.
+This package contains Megdc command line which make your datacenter cloud using
+open source." ./usr/share/megam/megdc
