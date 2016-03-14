@@ -4,4 +4,9 @@ mkdir -p ./usr/share/megam/megamd/bin
 
 
 
-fpm -s dir -t rpm -n megamd -v 0.1 -d "verticecommon, rabbitmq-server, megametcd, unzip" --before-install ./preinst --after-install ./postinst --before-remove ./prerm --after-remove ./postrm --license "Apache" --vendor "Megam Systems" --maintainer "<info@megam.io>" --url "https://www.megam.io" --description "The engine for Megam" ./usr/share/megam/megamd
+fpm -s dir -t rpm  -p "$MEGAM_HOME"  -f  --iteration $3 -n megamd -v 0.1 -d "verticecommon, rabbitmq-server, megametcd, unzip" --before-install ./preinst --after-install ./postinst --before-remove ./prerm --after-remove ./postrm --license "Apache V2" --vendor "Megam Systems" --category "infrastructure" --maintainer "Ranjitha<ranjithar@megam.io>" --url "http://docs.megam.io/docs/megam_docker" --description "The swarm uses Dockers swarm which enables a bunch of hosts in your datacenter
+   to be managed and containerized from Megam Vertice. This is connected to the Vertice gateway (API server) only
+   .
+   This provides the features of swarm allowing orchestration and management of containers.
+   .
+   This package contains a golang based server for Megam Vertice (Docker support)" ./usr/share/megam/megamd

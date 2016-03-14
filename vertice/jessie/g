@@ -17,4 +17,13 @@ cd ../../../../../
 cp riakstash ./usr/share/megam/vertice/bin
 cp riakstash.cron.d ./usr/share/megam/vertice/bin
 
-fpm -s dir -t deb -n $1 -v $2 -d "verticecommon, unzip" --before-install ./preinst --after-install ./postinst --before-remove ./prerm --after-remove ./postrm --deb-init ./etc/systemd/system/vertice.service --license "Apache" --vendor "Megam Systems" --maintainer "<info@megam.io>" --url "https://www.megam.io/" --description "The omnischedulr for Megam Vertice" ./usr/share/megam/vertice
+fpm -s dir -t deb  -p "$MEGAM_HOME"  -f  --iteration $3 -n $1 -v $2 -d "verticecommon, unzip" --before-install ./preinst --after-install ./postinst --before-remove ./prerm --after-remove ./postrm --deb-init ./etc/systemd/system/vertice.service --license "Apache V2" --vendor "Megam Systems" --category "infrastructure" --maintainer "Raj Thilak <rajthilak@megam.io>, Kishorekumar Neelamegam<nkishore@megam.io>, Yeshwanth Kumar <getyesh@megam.io>, Vijaykanth<mvijaykanth@megam.io" --url "http://docs.megam.io/docs/vertice" --description "Description: Omnischeduler engine for Megam Vertice which provides scheduling
+function for Megam Vertice. This is the core engine that works on top of a
+messaging layer Nsqd (nsq.io) and connects to an opensource database
+ScyllaDB 0.19 or compatible cassandra 2.1.9.
+.
+This is the core engine that provides real time log streaming, processing requests
+sent from Vertice gateway, processing events for billing, user alerts and integration
+to billing systems like WHMCS.
+.
+This package contains a golang based server that is the core engine for Megam Vertice." ./usr/share/megam/vertice
