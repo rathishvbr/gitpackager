@@ -1,5 +1,5 @@
 #!/bin/bash
-mkdir -p ./usr/share/megam//bin
+mkdir -p ./usr/share/megam/verticegulpd/bin
 
 cd gulp/src/github.com/megamsys/gulp
 
