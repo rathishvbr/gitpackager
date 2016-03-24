@@ -11,7 +11,7 @@ done < /proc/net/route
 
 mv /usr/share/megam/nsqd/nsqlookupd /etc/init/nsqlookupd.conf
 mv /usr/share/megam/nsqd/nsqadmin  /etc/init/nsqadmin.conf
-
+mkdir /var/lib/megam/nsqd
 cat > /var/lib/megam/env.sh <<EOF
 initctl set-env MEGAM_HOME='/var/lib/megam/'
 initctl set-env MEGAM_NSLOOKUPD_IP="$ipaddr"

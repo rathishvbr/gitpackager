@@ -11,7 +11,7 @@ done < /proc/net/route
 
 mv /usr/share/megam/nsqd/nsqlookupd /etc/systemd/system/nsqlookupd.service
 mv /usr/share/megam/nsqd/nsqadmin  /etc/systemd/system/nsqadmin.service
-
+mkdir /var/lib/megam/nsqd
 mv /etc/init.d/nsqd /etc/systemd/system/nsqd.service
 
 cat > /var/lib/megam/env.sh <<EOF
