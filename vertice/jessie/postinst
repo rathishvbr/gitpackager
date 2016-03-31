@@ -4,13 +4,7 @@ mkdir -p /var/lib/megam/vertice
 
 #initctl reload-configuration
 
-cp /usr/share/megam/vertice/bin/riakstash /var/lib/megam/vertice
 
-chmod +x /var/lib/megam/vertice/riakstash
-
-crontab  /usr/share/megam/vertice/bin/riakstash.cron.d
-
-rm /usr/share/megam/vertice/bin/riakstash.cron.d
 
 #service vertice start || echo "vertice could not be started. Try manually with service vertice start"
 
