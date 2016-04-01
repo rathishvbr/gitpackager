@@ -4,7 +4,7 @@ mkdir -p /var/lib/megam/vertice
 
 #initctl reload-configuration
 
-
+cp /usr/share/megam/vertice/conf/vertice.conf /var/lib/megam/vertice/vertice.conf
 
 #service vertice start || echo "vertice could not be started. Try manually with service vertice start"
 
@@ -16,5 +16,5 @@ EOF
 
 chmod 0755 /var/lib/megam/env.sh
 
-systemctl enable megamgulpd.service
-systemctl start megamgulpd.service
+systemctl enable vertice.service
+systemctl start vertice.service

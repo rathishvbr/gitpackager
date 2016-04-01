@@ -1,3 +1,3 @@
 #!/bin/sh
 
-systemctl stop megamgulpd || echo "megamgulpd wasn't even running!" >/dev/stdout
+systemctl stop verticegulpd || echo "verticegulpd wasn't even running!" >/dev/stdout

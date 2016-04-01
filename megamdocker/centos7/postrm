@@ -1,17 +1,17 @@
 #!/bin/sh
 
-if [ -d "/usr/share/megam/megamgulpd" ]; then
-  rm -r /usr/share/megam/megamgulpd
+if [ -d "/usr/share/megam/verticegulpd" ]; then
+  rm -r /usr/share/megam/verticegulpd
 fi
 
-if [ -d "/var/lib/megam/megamgulpd" ]; then
-  rm -r /var/lib/megam/megamgulpd
+if [ -d "/var/lib/megam/verticegulpd" ]; then
+  rm -r /var/lib/megam/verticegulpd
 fi
 
-if [ -d "/var/run/megam/megamgulpd" ]; then
-  rm -r /var/run/megam/megamgulpd
+if [ -d "/var/run/megam/verticegulpd" ]; then
+  rm -r /var/run/megam/verticegulpd
 fi
 
-if [ -d "/var/log/megam/megamgulpd" ]; then
-  rm -r /var/log/megam/megamgulpd
+if [ -d "/var/log/megam/verticegulpd" ]; then
+  rm -r /var/log/megam/verticegulpd
 fi

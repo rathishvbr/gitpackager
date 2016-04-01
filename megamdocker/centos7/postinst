@@ -1,11 +1,10 @@
 #!/bin/bash
 
-mkdir -p /var/lib/megam/megamgulpd
+mkdir -p /var/lib/megam/verticegulpd
 
 #chown megam:megam /var/run/megam/megamgulpd
 
 #chown megam:megam /var/log/megam/megamgulpd
 
 
-systemctl start megamgulpd || echo "megamgulpd could not be started. Try manually with service megamgulpd start" >/dev/stdout
-
+systemctl start verticegulpd || echo "verticegulpd could not be started. Try manually with service verticegulpd start" >/dev/stdout
