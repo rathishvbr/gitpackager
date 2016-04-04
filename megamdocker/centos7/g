@@ -1,15 +1,15 @@
 #!/bin/bash
 
-mkdir -p ./usr/share/megam/megamgulpd
+mkdir -p ./usr/share/megam/verticegulpd
 
 
 
 
-fpm -s dir -t rpm -p "$MEGAM_HOME"  -f  --iteration $3 -n megamgulpd -v 0.1 -d "verticecommon" --before-install ./preinst --after-install ./postinst --before-remove ./prerm --after-remove ./postrm --license "Apache V2" --vendor "Megam Systems" --category "infrastructure" --maintainer "Raj Thilak <rajthilak@megam.io>, Yeshwanth Kumar <getyesh@megam.io>, Ranjitha<ranjithar@megam.io>" --url "http://docs.megam.io/docs/vertice" --description "The agent for containers in a host which provides setting up of an interface
+fpm -s dir -t rpm -p "$MEGAM_HOME"  -f  --iteration $3 -n verticegulpd -v 0.1 -d "verticecommon" --before-install ./preinst --after-install ./postinst --before-remove ./prerm --after-remove ./postrm --license "Apache V2" --vendor "Megam Systems" --category "infrastructure" --maintainer "Raj Thilak <rajthilak@megam.io>, Yeshwanth Kumar <getyesh@megam.io>, Ranjitha<ranjithar@megam.io>" --url "http://docs.megam.io/docs/vertice" --description "The agent for containers in a host which provides setting up of an interface
   to Swarm for Megam Vertice. This is connected to Megam Swarm
   .
   This provides setting up of Docker as a daemon mode and the required bridge networking
   using OpenVSwitch thereby the host can be orchestrated by Megam swarm
   .
   This package contains setting up Docker in daemon mode, OpenVSwitch bridge setup for Megam Vertice
-" ./usr/share/megam/megamgulpd
+" ./usr/share/megam/verticegulpd

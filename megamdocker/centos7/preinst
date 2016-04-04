@@ -1,8 +1,8 @@
 #!/bin/sh
 
-mkdir -p /var/run/megam/megamgulpd
+mkdir -p /var/run/megam/verticegulpd
 
 echo "127.0.0.1  `hostname`" >> /etc/hosts
 
 
-mkdir -p /var/log/megam/megamgulpd
+mkdir -p /var/log/megam/verticegulpd
