@@ -1,0 +1,9 @@
+#!/bin/sh
+
+mkdir -p /var/log/megam/verticevnc
+
+cd /usr/share/megam/verticevnc/
+
+start verticevnc
+
+initctl reload-configuration
