@@ -15,7 +15,7 @@ cd ../../../../../
 
 cp pipework ./usr/share/megam/megamdocker/bin
 
-fpm -s dir -t deb -p "$MEGAM_HOME"  -f  --iteration $3 -n $1 -v $2 -d "verticecommon, openvswitch-common, openvswitch-switch" --before-install ./preinst --after-install ./postinst --before-remove ./prerm --deb-upstart ./etc/init/megamdocker  --license "Apache V2" --category "infrastructure" --vendor "Megam Systems" --maintainer "Raj Thilak <rajthilak@megam.io>, Yeshwanth Kumar <getyesh@megam.io>, Ranjitha<ranjithar@megam.io>" --url "http://docs.megam.io/docs/vertice" --description "The agent for containers in a host which provides setting up of an interface
+fpm -s dir -t deb -p "$MEGAM_HOME"  -f  --iteration $3 -n $1 -v $2 -d "verticecommon, openvswitch-common, openvswitch-switch" --before-install ./preinst --after-install ./postinst --before-remove ./prerm --deb-upstart ./etc/init/megamdocker  --license "Apache V2" --category "infrastructure" --vendor "Megam Systems" --maintainer "Megam Maintainer info@megam.io" --url "http://docs.megam.io/docs/vertice" --description "The agent for containers in a host which provides setting up of an interface
   to Swarm for Megam Vertice. This is connected to Megam Swarm
   .
   This provides setting up of Docker as a daemon mode and the required bridge networking

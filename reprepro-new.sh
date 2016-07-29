@@ -94,6 +94,34 @@ mv /var/repo/1.5/ubuntu/14.04/testing /var/www/html/repo/1.5/ubuntu/14.04
 chmod -R ugo+rX /var/www/html/repo/1.5/ubuntu/14.04
 }
 
+function testing3()
+{
+mkdir -p /var/repo/1.5/debian/8.5/testing/conf
+cd /var/repo/1.5/debian/8.5/testing/conf
+cat > distributions <<EOF
+Origin:debian
+Label: debian
+Suite: testing
+Codename: jessie
+Version: 1.5
+Architectures: amd64
+Components: testing
+Description: vertice
+SignWith: 9B46B611
+EOF
+
+cd
+
+find ./jessie -name \*.deb -exec reprepro --ask-passphrase -Vb /var/repo/1.5/debian/8.5/testing includedeb jessie {} \;
+mv $(find /var/www/html/repo/1.5/debian/8.5/testing/pool/testing -name *.deb) /var/www/html/arkave
+rm -r /var/www/html/repo/1.5/debian/8.5/testing
+
+mv /var/repo/1.5/debian/8.5/testing /var/www/html/repo/1.5/debian/8.5
+chmod -R ugo+rX /var/www/html/repo/1.5/debian/8.5
+
+}
+
+
 case $version in
 	1.0)
 		case $distro in
@@ -118,6 +146,13 @@ case $version in
 					;;
 				esac
 			;;
+			debian)
+        case $release in
+            testing)
+            testing3
+            ;;
+      	esac
+      ;
 		esac
 	;;
 esac
