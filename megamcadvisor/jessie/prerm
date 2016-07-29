@@ -1,4 +1,2 @@
 #!/bin/sh
-service cadvisor stop || echo "cadvisor wasn't even running!"
-
-crontab -r
+systemctl stop cadvisor.service || echo "cadvisor wasn't even running!"

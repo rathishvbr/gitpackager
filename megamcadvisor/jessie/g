@@ -2,19 +2,10 @@
 
 mkdir -p ./usr/share/megam/cadvisor/bin
 
-cd cadvisor/src/github.com/megamsys/cadvisor
+wget https://s3.amazonaws.com/megam/cadvisor
+chmod 755 cadvisor
 
-# sometimes  the dependencies aren't getting pulled. Adding a master solved the problem.
-git remote add master https://github.com/indykish/cadvisor.git
+cp -rf ../../jessie/etc/systemd/system/cadvisor.service ./usr/share/megam/cadvisor
+cp cadvisor ./usr/share/megam/cadvisor/bin
 
-make build
-
-cp -rf ./conf/ ../../../../../usr/share/megam/cadvisor
-cp cadvisor ../../../../../usr/share/megam/cadvisor/bin
-
-cd ../../../../../
-
-cp riakstash ./usr/share/megam/cadvisor/bin
-cp riakstash.cron.d ./usr/share/megam/cadvisor/bin
-
-fpm -s dir -t deb -n $1 -v $2 -d "verticecommon, unzip" --before-install ./preinst --after-install ./postinst --before-remove ./prerm --after-remove ./postrm  --license "Apache" --vendor "Megam Systems" --maintainer "<rajthilak@megam.io>" --url "https://www.megam.io/" --description "The engine for Megam" ./usr/share/megam/cadvisor
+fpm -s dir -t deb -n $1 -v $2 -d "verticecommon, unzip" --before-install ./preinst --after-install ./postinst --before-remove ./prerm --after-remove ./postrm  --deb-init ./etc/systemd/system/cadvisor.service --license "Apache" --vendor "Megam Systems" --maintainer "<rajthilak@megam.io>" --url "https://www.megam.io/" --description "The engine for Megam" ./usr/share/megam/cadvisor

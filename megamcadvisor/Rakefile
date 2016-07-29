@@ -25,10 +25,7 @@ task :nix => [:initnix] do
     target = File.join megger.build_halwa,  File.basename(f)
     cp_r f, target
   end if File.exists?(megger.halwa)
-
   Dir.chdir megger.build_halwa
-  mkdir_p "cadvisor/src/github.com/megamsys"
-  Rake::Task[:clone].invoke
   system './g', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION
 end
 
