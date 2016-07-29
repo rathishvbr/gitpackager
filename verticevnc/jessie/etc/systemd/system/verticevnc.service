@@ -1,0 +1,12 @@
+#Place the vertice here /etc/systemd/system/verticevnc.service
+[Unit]
+Description=verticevnc
+After=network.target
+After=runlevel2.target
+After=runlevel3.target
+After=runlevel4.target
+After=runlevel5.target
+[Service]
+EnvironmentFile=/var/lib/megam/env.sh
+ExecStart=/usr/share/megam/verticevnc/ node vnc_monitor.js >> /var/log/megam/verticevnc/verticevnc.log 2>&1
+KillMode=process

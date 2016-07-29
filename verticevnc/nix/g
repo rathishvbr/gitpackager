@@ -1,6 +1,7 @@
 #!/bin/sh
+mkdir -p ./usr/share/megam/verticevnc/
 
-cd usr/share/megam/verticevnc
+cd ./usr/share/megam/verticevnc
 
 npm install
 

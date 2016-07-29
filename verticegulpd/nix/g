@@ -6,7 +6,6 @@ cd gulp/src/github.com/megamsys/gulp
 #if the upstream, master remote is not set, then the builds will not go thru.
 git remote add master https://github.com/megamsys/gulp.git
 
-
 make build
 
 cp -rf ./conf/ ../../../../../usr/share/megam/verticegulpd

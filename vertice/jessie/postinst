@@ -2,11 +2,7 @@
 
 mkdir -p /var/lib/megam/vertice
 
-#initctl reload-configuration
-
 cp /usr/share/megam/vertice/conf/vertice.conf /var/lib/megam/vertice/vertice.conf
-
-#service vertice start || echo "vertice could not be started. Try manually with service vertice start"
 
 mv /etc/init.d/vertice.service /etc/systemd/system/
 
