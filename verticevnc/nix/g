@@ -7,10 +7,5 @@ npm install
 
 cd ../../../../
 
-fpm -s dir -t deb -p "$MEGAM_HOME"  -f  --iteration $3  -n $1 -v $2 -d "nodejs-legacy" --before-install ./preinst --after-install ./postinst --before-remove  ./prerm --after-remove ./postrm --deb-upstart ./etc/init/verticevnc --license "Apache V2" --vendor "Megam Systems" --category "infrastructure" --maintainer "Thomas Alrin<thomasalrin@megam.io>, Raj Thilak <rajthilak@megam.io>, Kishorekumar Neelamegam<nkishore@megam.io>, Ranjitha<ranjithar@megam.io>, Vijaykanth<mvijaykanth@megam.io>" --url "http://docs.megam.io/docs/vertice" --description "The userinterface using Nodejs which provides the one click launcher for
- Megam Vertice. This is connected to the Vertice gateway (API server) only
- .
- This provides a marketplace, ability to manage storage like S3 utilizing ceph storage, launch
- application, vms, containers (docker), stream logs and monitor and bill them.
- .
- This package contains an awesome userinterface based on Ruby on Rails for Megam Vertice." ./usr/share/megam/verticevnc
+fpm -s dir -t deb -p "$MEGAM_HOME"  -f  --iteration $3  -n $1 -v $2 -d "nodejs-legacy" --before-install ./preinst --after-install ./postinst --before-remove  ./prerm --after-remove ./postrm --deb-upstart ./etc/init/verticevnc --license "Apache V2" --vendor "Megam Systems" --category "infrastructure" --maintainer "Megam Maintainer info@megam.io" --url "http://docs.megam.io" --description "Description:
+This package contains a nodejs based server that is the core engine for Megam Verticevnc." ./usr/share/megam/verticevnc
