@@ -2,7 +2,7 @@
 
 Gitpackager helps to build our packages for `Megam Vertice` using Rakefiles.
 
-## Dist Packages
+##Package Tree
 
 ![Packages tree](https://github.com/megamsys/packager/blob/master/images/autopackages.png)
 
