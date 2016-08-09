@@ -94,7 +94,7 @@ put <PACKAGE_NAME>
 
 Push your packages in ~/trusty folder
 
-./dist-repos.sh release=testing dist=trusty version=1.5
+./distrepos.sh release=testing dist=trusty version=1.5
 
 ```
 

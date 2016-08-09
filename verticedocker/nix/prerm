@@ -1,2 +1,2 @@
 #!/bin/sh
-service megamdocker stop || echo "megamdocker wasn't even running!"
+service verticedocker stop || echo "verticedocker wasn't even running!"
