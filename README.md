@@ -4,31 +4,31 @@ Gitpackager helps to build our packages for `Megam Vertice` using Rakefiles.
 
 ## Dist Packages
 
-![Trusty](https://github.com/megamsys/packager/blob/master/images/distpackages.png)
+![Packages tree](https://github.com/megamsys/packager/blob/master/images/autopackages.png)
 
-## Habitat Plans (WIP)
+1. Ubuntu 14.04, 16.04
+2. Debian jessie
+3. CentOS 7
 
-[Plans](https://github.com/megamsys/habitat_plans)
+## Docker Images (WIP)
+
+[Habitat.sh Plans](https://github.com/megamsys/habitat_plans)
 
 
 ## Prereqs
 
-- Ubuntu 14 or 16
+- Ubuntu 14.04 or 16.04
 - Ruby 2.3.x via [rvm](http://devcenter.megam.io/2015/03/03/megam_install_ruby/)
 - OpenJDK8
 - Golang [1.7](https://golang.org/dl/)
-- set GOPATH like the following example
 
 
 ## Using Gitpackager
 
-We build packages for the following flavors.
-
-1. Ubuntu 14, 16
-2. Debian jessie
-3. CentOS 7
 
 ### Before you start
+
+#### Setup GOPATH
 
 ```
 
@@ -44,42 +44,41 @@ sudo apt-get install bzr
 
 ```
 
-- sbt [0.13.11](http://devcenter.megam.io/2015/03/16/setting-up-scala-sbt-play-akka/)
+#### sbt [0.13.11](http://devcenter.megam.io/2015/03/16/setting-up-scala-sbt-play-akka/)
 
-- Tweak the `version.rb` global variable
+#### Tweak the `version.rb` global variable
 
-- Common files are under *nix* folder
+#### Common files are under *nix* folder
 
 - Every flavor has a `folder` named with the distro name(`jessie, centos`).
 
-- Tweak the `config.rb`
+#### Tweak the `config.rb`
+
 
 ### Let us build our first package `verticecommon` for dist: trusty
 
-
-1. Go into the directory of *verticecommon*
+1. Go to the directory of *verticecommon*
 
 ```
 
-cd packager/verticecommon
+cd gitpackager/verticecommon
 
 rake trusty
 
 ```
 
-### Let us build another ruby package `verticenilavu` for dist: jessie
+### Let us build another ruby-on-rails package `verticenilavu` for dist: jessie
 
-2. Go into the directory of *verticenilavu*
+2. Go to the directory of *verticenilavu*
 
 ```
-cd verticenilavu
+cd gitpackager/verticenilavu
 
 rake jessie
 
 ```
 
 Similarly other packages can be built.
-
 
 ### sftp packages into get.megam.io server.
 
