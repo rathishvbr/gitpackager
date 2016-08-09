@@ -1,5 +1,5 @@
 [Unit]
-Description=Init script for nilavu
+Description=Vertice Nilavu Service
 After=network.target
 After=runlevel2.target
 After=runlevel3.target

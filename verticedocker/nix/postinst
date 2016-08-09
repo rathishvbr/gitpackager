@@ -2,14 +2,14 @@
 
 # we create an openvswitch bridge named "megdock"
 openvswitch_bridge() {
-mkdir -p /var/lib/megam/megamdocker
+mkdir -p /var/lib/megam/verticedocker
 
 ovs-vsctl add-br megdock
 
-echo "[megamdocker] created openvswitch bridge : megdock"  >> /var/log/upstart/megamdocker.log
+echo "[verticedocker] created openvswitch bridge : megdock"  >> /var/log/upstart/verticedocker.log
 
-cp /usr/share/megam/megamdocker/bin/pipework /var/lib/megam/gulp/
-echo "[megamdocker] copied pipework into megam_home"  >> /var/log/upstart/megamdocker.log
+cp /usr/share/megam/verticedocker/bin/pipework /var/lib/megam/gulp/
+echo "[verticedocker] copied pipework into megam_home"  >> /var/log/upstart/verticedocker.log
 }
 
 docker_upstart() {
@@ -23,7 +23,7 @@ docker_upstart() {
 		ipaddr=${ipaddr%%/*} && \
 		break
 	done < /proc/net/route
-  echo "[megamdocker] starting docker in detached mode at $ipaddr:2375" >> /var/log/upstart/megamdocker.log
+  echo "[verticedocker] starting docker in detached mode at $ipaddr:2375" >> /var/log/upstart/verticedocker.log
 
 cat > /etc/init/dockerservice.conf <<EOF
 description "Docker cluster scheduler for baremetal (https://console.megam.io)"
@@ -41,7 +41,7 @@ script
   exec docker -H tcp://$ipaddr:2375 -d  >> /var/log/megam/dockerservice.log 2>&1
 end script
 post-start script
-    PID=`status megamdocker | egrep -oi '([0-9]+)$' | head -n1`
+    PID=`status verticedocker | egrep -oi '([0-9]+)$' | head -n1`
     echo $PID > /var/run/megam/dockerservice.pid
 end script
 EOF
@@ -53,5 +53,5 @@ EOF
 docker_upstart
 openvswitch_bridge
 
-## voila start the service now (megamdocker)
-service megamdocker start || echo "megamdocker could not be started. Try manually with service megamdocker start"
+## voila start the service now (verticedocker)
+service verticedocker start || echo "verticedocker could not be started. Try manually with service verticedocker start"
