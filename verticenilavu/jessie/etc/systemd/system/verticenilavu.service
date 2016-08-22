@@ -1,4 +1,3 @@
-#Place the megam nilavu here /etc/systemd/system/verticenilavu.service
 [Unit]
 Description=Megam nilavu
 After=network.target

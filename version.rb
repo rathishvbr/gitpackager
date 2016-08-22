@@ -1,6 +1,6 @@
 module MegamPkg
   class Ger
     VERSION = "1.5"
-    ITERATION = "2"
+    ITERATION = "3"
   end
 end

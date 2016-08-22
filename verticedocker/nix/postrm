@@ -1,0 +1,13 @@
+#!/bin/sh
+
+if [ -d "/usr/share/megam/verticedocker" ]; then
+  rm -r /usr/share/megam/verticedocker
+fi
+
+if [ -d "/var/lib/megam/verticedocker" ]; then
+  rm -r /var/lib/megam/verticedocker
+fi
+
+if [ -d "/var/log/megam/verticedocker" ]; then
+  rm -r /var/log/megam/verticedocker
+fi

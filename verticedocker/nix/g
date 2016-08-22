@@ -1,0 +1,25 @@
+#!/bin/bash
+mkdir -p ./usr/share/megam/verticedocker/bin
+
+cd gulp/src/github.com/megamsys/gulp
+
+#if the upstream, master remote is not set, then the builds will not go thru.
+git remote add master https://github.com/megamsys/gulp.git
+
+make build
+
+cp -rf ./conf/ ../../../../../usr/share/megam/verticedocker
+cp gulpc ../../../../../usr/share/megam/verticedocker/bin
+
+cd ../../../../../
+
+cp pipework ./usr/share/megam/verticedocker/bin
+
+fpm -s dir -t deb -p "$MEGAM_HOME"  -f  --iteration $3 -n $1 -v $2 -d "verticecommon" --before-install ./preinst --after-install ./postinst --before-remove ./prerm --deb-upstart ./etc/init/verticedocker  --license "Apache V2" --category "infrastructure" --vendor "Megam Systems" --maintainer "Megam Maintainer info@megam.io" --url "http://docs.megam.io" --description "The agent for containers in a host which provides setting up of an interface
+  to Swarm for Megam Vertice. This is connected to Vertice Swarm
+  .
+  This provides setting up of Docker as a daemon mode and the required bridge networking
+  using LinuxBridge thereby the host can be orchestrated by Megam swarm
+  .
+  This package contains setting up Docker in daemon mode, Linux bridge setup for Megam Vertice
+" ./usr/share/megam/verticedocker

@@ -1,7 +1,7 @@
 #!/bin/sh
 mkdir -p ./usr/share/megam/nsqd/
 
-wget -r -c -O nsqd.tar.gz https://s3.amazonaws.com/bitly-downloads/nsq/nsq-0.3.7.linux-amd64.go1.6.tar.gz
+wget -r -c -O nsqd.tar.gz https://s3.amazonaws.com/bitly-downloads/nsq/nsq-0.3.8.linux-amd64.go1.6.2.tar.gz
 
 tar -xvf nsqd.tar.gz -C ./usr/share/megam/nsqd/ --strip-components=1 && rm nsqd.tar.gz
 

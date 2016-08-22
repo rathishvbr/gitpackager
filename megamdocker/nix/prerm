@@ -1,2 +1,0 @@
-#!/bin/sh
-service megamdocker stop || echo "megamdocker wasn't even running!"
