@@ -1,5 +1,5 @@
 [Unit]
-Description=Megam nsqlookup
+Description=Vertice nsqlookup
 After=network.target
 After=runlevel2.target
 After=runlevel3.target

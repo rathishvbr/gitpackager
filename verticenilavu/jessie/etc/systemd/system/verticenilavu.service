@@ -1,5 +1,5 @@
 [Unit]
-Description=Megam nilavu
+Description=Vertice Portal
 After=network.target
 After=runlevel2.target
 After=runlevel3.target

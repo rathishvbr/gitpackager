@@ -14,7 +14,7 @@ cp vertice ../../../../../usr/share/megam/vertice/bin
 
 cd ../../../../../
 
-fpm -s dir -t rpm  -p "$MEGAM_HOME"  -f  --iteration $3 -n $1 -v $2 -d "verticecommon" --before-install ./preinst --after-install ./postinst --before-upgrade ./preupgrd --before-remove ./prerm --rpm-init ./etc/etc/systemd/system/verticenilavu.service --license "Apache V2" --vendor "Megam Systems" --category "infrastructure" --maintainer "Megam Maintainer info@megam.io" --url "http://docs.megam.io" --description "Description: Omnischeduler engine for Megam Vertice which provides scheduling
+fpm -s dir -t rpm  -p "$MEGAM_HOME"  -f  --iteration $3 -n $1 -v $2 -d "verticecommon" --before-install ./preinst --after-install ./postinst --before-remove ./prerm --rpm-init ./etc/systemd/system/vertice.service --license "Apache V2" --vendor "Megam Systems" --category "infrastructure" --maintainer "Megam Maintainer info@megam.io" --url "http://docs.megam.io" --description "Description: Omnischeduler engine for Megam Vertice which provides scheduling
 function for Megam Vertice. This is the core engine that works on top of a
 messaging layer Nsqd (nsq.io) and connects to an opensource database
 ScyllaDB 1.x or compatible cassandra 3.x.
@@ -23,4 +23,4 @@ This is the core engine that provides real time log streaming, processing reques
 sent from Vertice gateway, processing events for billing, user alerts and integration
 to billing systems like WHMCS.
 .
-This package contains a golang based server that is the core engine for Megam Vertice." ./usr/share/megam/verticenilavu
+This package contains a golang based server that is the core engine for Megam Vertice." ./usr/share/megam/vertice

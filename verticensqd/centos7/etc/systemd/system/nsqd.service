@@ -1,10 +1,11 @@
 [Unit]
-Description=Megam nsqd
+Description=Vertice nsqd
 After=network.target
 After=runlevel2.target
 After=runlevel3.target
 After=runlevel4.target
 After=runlevel5.target
 [Service]
-ExecStart=/usr/share/megam/nsqd/bin/nsqd --lookupd-tcp-address=127.0.0.1:4160
+EnvironmentFile=/var/lib/megam/env.sh
+ExecStart=/usr/share/megam/nsqd/bin/nsqd --lookupd-tcp-address=$MEGAM_NSLOOKUPD_IP:4160 -data-path=/var/lib/megam/vertice/nsqd
 KillMode=process

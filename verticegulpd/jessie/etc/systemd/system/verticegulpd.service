@@ -1,6 +1,6 @@
 #Place the megam gulpd here /etc/systemd/system/verticegulpd.service
 [Unit]
-Description=Megam Gulp daemon
+Description=Vertice Gulpd Agent
 After=network.target
 After=runlevel2.target
 After=runlevel3.target

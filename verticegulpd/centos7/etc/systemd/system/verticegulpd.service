@@ -1,5 +1,5 @@
 [Unit]
-Description=Megam Gulp daemon
+Description=Vertice Gulpd Agent
 After=local-fs.target network.target
 Requires=network.target
 Wants=local-fs.target
