@@ -1,5 +1,5 @@
 # Configuration Upstart file for Nsqd
-description "Upstart script for nsqdadmin web UI"
+description "Upstart script for nsqdadmin"
 
 # When to start the service
 start on runlevel [2345]
@@ -36,4 +36,3 @@ end script
 post-stop script
     rm -f /var/run/megam/nsqadmin.pid
 end script
-

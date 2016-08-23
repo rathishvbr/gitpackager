@@ -1,6 +1,5 @@
 #!/bin/sh
 
-
 cd vertice_gateway
 sbt clean
 sbt dist:clean

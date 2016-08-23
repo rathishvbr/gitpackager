@@ -1,5 +1,5 @@
 [Unit]
-Description=Megam Vertice engine
+Description=Megam Vertice scheduler
 After=network.target
 After=runlevel2.target
 After=runlevel3.target

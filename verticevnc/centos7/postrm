@@ -1,0 +1,13 @@
+#!/bin/sh
+
+if [ -d "/usr/share/megam/verticevnc" ]; then
+  rm -r /usr/share/megam/verticevnc
+fi
+
+if [ -d "/var/lib/megam/verticevnc" ]; then
+  rm -r /var/lib/megam/verticevnc
+fi
+
+if [ -d "/var/log/megam/verticevnc" ]; then
+  rm -r /var/log/megam/verticevnc
+fi

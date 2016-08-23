@@ -53,7 +53,7 @@ end
 task :clone do
   if !File.exists? 'vertice/src/github.com/megamsys/vertice/'
    Dir.chdir 'vertice/src/github.com/megamsys'
-   system "git clone " + MegamPkg::Ger::CONFIG[:git]
+   system "git clone -b #{MegamPkg::Ger::CONFIG[:branch]} " + MegamPkg::Ger::CONFIG[:git]
  end
  Dir.chdir '../../../../'
 end

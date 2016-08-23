@@ -1,5 +1,5 @@
 [Unit]
-Description=Megam Node daemon
+Description=Vertice CAdvisor Daemon
 After=local-fs.target network.target
 Requires=network.target
 Wants=local-fs.target
@@ -12,4 +12,3 @@ RestartSec=42s
 
 [Install]
 WantedBy=multi-user.target
-
