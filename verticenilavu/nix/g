@@ -8,7 +8,7 @@ bundle install
 
 cd ../../../..
 
-fpm -s dir -t deb -p "$MEGAM_HOME"  -f  --iteration $3  -n $1 -v $2 -d "verticecommon,git-core,curl,bundler,rake,zlib1g-dev,build-essential,libssl-dev,libreadline-dev,libyaml-dev, libsqlite3-dev,sqlite3,libxml2-dev,libxslt1-dev,libcurl4-openssl-dev,python-software-properties,ruby2.3.1,ruby2.3.1-dev,wbritish,wamerican" --before-install ./preinst --after-install ./postinst --before-upgrade ./preupgrd --before-remove ./prerm --deb-upstart ./etc/init/verticenilavu --license "Apache V2" --vendor "Megam Systems" --category "infrastructure" --maintainer "Megam Maintainer info@megam.io" --url "http://docs.megam.io" --description "The userinterface using Ruby on Rails which provides the one click launcher for
+fpm -s dir -t deb -p "$MEGAM_HOME"  -f  --iteration $3  -n $1 -v $2 -d "verticecommon,git-core,curl,bundler,rake,zlib1g-dev,build-essential,libssl-dev,libreadline-dev,libyaml-dev, libsqlite3-dev,sqlite3,libxml2-dev,libxslt1-dev,libcurl4-openssl-dev,python-software-properties,ruby2.3,ruby2.3-dev,wbritish,wamerican" --before-install ./preinst --after-install ./postinst --before-upgrade ./preupgrd --before-remove ./prerm --deb-upstart ./etc/init/verticenilavu --license "Apache V2" --vendor "Megam Systems" --category "infrastructure" --maintainer "Megam Maintainer info@megam.io" --url "http://docs.megam.io" --description "The userinterface using Ruby on Rails which provides the one click launcher for
  Megam Vertice. This is connected to the Vertice gateway (API server) only
  .
  This provides a marketplace, ability to manage storage like S3 utilizing ceph storage, launch

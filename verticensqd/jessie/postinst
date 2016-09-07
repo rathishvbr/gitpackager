@@ -15,13 +15,8 @@ chmod 755 /etc/systemd/system/nsqlookupd.service
 chmod 755 /etc/systemd/system/nsqadmin.service
 mkdir /var/lib/megam/nsqd
 mv /etc/init.d/nsqd /etc/systemd/system/nsqd.service
-
-cat > /var/lib/megam/env.sh <<EOF
-MEGAM_HOME='/var/lib/megam/'
-MEGAM_NSLOOKUPD_IP="$ipaddr"
-EOF
-
-chmod 755 /var/lib/megam/env.sh
+sed -i 's/lookupd-tcp-address=localhost:4160/lookupd-tcp-address='$ipaddr':4160/g' /etc/systemd/system/nsqd.service
+sed -i 's/lookupd-http-address=localhost:4161/lookupd-http-address='$ipaddr':4161/g' /etc/systemd/system/nsqadmin.service
 
 #initctl reload-configuration
-echo "nsqd not yet started. Try manually 'service nsqd start'"
+echo "nsqd not yet started. Try manually 'service nsqd start or systemctl nsqd start'"
