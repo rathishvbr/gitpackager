@@ -1,5 +1,5 @@
 [Unit]
-Description=Vertice Portal
+Description=Megam nilavu
 After=network.target
 After=runlevel2.target
 After=runlevel3.target
@@ -7,8 +7,8 @@ After=runlevel4.target
 After=runlevel5.target
 [Service]
 Type=forking
-EnvironmentFile=/var/lib/megam/env.sh
-ExecStart=/usr/local/bin/bundle exec passenger start -a 127.0.0.1 -p 8080 -d -e production
-ExecStopPost=/usr/local/bin/passenger stop --pid-file passenger.8080.pid
 WorkingDirectory=/usr/share/megam/verticenilavu
+EnvironmentFile=/var/lib/megam/env.sh
+ExecStart=/usr/local/bin/bundle exec passenger start -a 127.0.0.1 -p 8080  -d -e development
+ExecStopPost=/usr/local/bin/passenger stop --pid-file passenger.8080.pid
 KillMode=mixed
