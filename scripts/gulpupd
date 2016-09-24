@@ -25,7 +25,7 @@ set -o errexit
 ## -- default variables
 DEFAULT_URL_PREFIX="https://s3.amazonaws.com/vertice"
 
-gup_dir="/home/ram/bin/verticegulpd"
+gup_dir="/usr/share/megam/verticegulpd"
 
 gup_archive_dir="$gup_dir/backup"
 
