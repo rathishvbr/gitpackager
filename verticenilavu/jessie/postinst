@@ -6,11 +6,13 @@ mkdir -p /var/log/megam/verticenilavu
 rm /usr/local/bin/ruby
 rm /usr/local/bin/gem
 echo 'gem: --no-document' >> /usr/local/etc/gemrc
-mkdir /src && cd /src
+mkdir -p /src
+cd /src
 git clone https://github.com/sstephenson/ruby-build.git
 cd /src/ruby-build
 ./install.sh
-cd / && rm -rf /src/ruby-build
+cd /
+rm -rf /src/ruby-build
 ruby-build 2.3.1 /usr/local
 
 gem install bundler
@@ -58,7 +60,8 @@ mv /var/lib/megam/rsyslog /etc/service/rsyslog/run
 
 ### Install jmealloc
 
-mkdir /jemalloc && cd /jemalloc
+mkdir -p /jemalloc
+cd /jemalloc
 wget http://www.canonware.com/download/jemalloc/jemalloc-3.6.0.tar.bz2
 tar -xjf jemalloc-3.6.0.tar.bz2
 cd jemalloc-3.6.0

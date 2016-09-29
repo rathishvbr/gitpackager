@@ -7,7 +7,7 @@ while [ "$count" -ne "$t" ];
   echo -n "Do u want to continue the set new configuration file  [Y/N] :"
   read x
   if [ $x = y ]; then
-   cp /var/www/verticenilavu/config/nilavu.yml /var/lib/megam/nilavu.yml
+   cp /var/www/verticenilavu/config/nilavu.conf /var/lib/megam/nilavu.conf
    echo "new configureation file copied...."
    break
   fi

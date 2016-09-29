@@ -3,6 +3,6 @@
         # redis
         # postgres
         cd  /var/www/nilavu
-        export MEGAM_HOME=/root/code/megam
+        export MEGAM_HOME=/var/lib/megam
         export RAILS_ENV=production
         LD_PRELOAD=/usr/lib/libjemalloc.so.1 bundle exec config/unicorn_launcher -E production
