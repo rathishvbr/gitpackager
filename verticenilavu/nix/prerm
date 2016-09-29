@@ -1,2 +1,2 @@
 #!/bin/sh
-service verticenilavu stop || echo "verticenilavu wasn't even running!"
+sv stop unicorn|| echo "verticenilavu wasn't even running!"

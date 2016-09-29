@@ -1,14 +1,8 @@
-[Unit]
-Description=Megam nilavu
-After=network.target
-After=runlevel2.target
-After=runlevel3.target
-After=runlevel4.target
-After=runlevel5.target
-[Service]
-Type=forking
-WorkingDirectory=/usr/share/megam/verticenilavu
-EnvironmentFile=/var/lib/megam/env.sh
-ExecStart=/usr/local/bin/bundle exec passenger start -a 127.0.0.1 -p 8080  -d -e development
-ExecStopPost=/usr/local/bin/passenger stop --pid-file passenger.8080.pid
-KillMode=mixed
+#!/bin/bash
+        exec 2>&1
+        # redis
+        # postgres
+        cd  /var/www/nilavu
+        export MEGAM_HOME=/root/code/megam
+        export RAILS_ENV=production
+        LD_PRELOAD=/usr/lib/libjemalloc.so.1 bundle exec config/unicorn_launcher -E production

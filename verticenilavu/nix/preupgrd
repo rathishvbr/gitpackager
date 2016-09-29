@@ -6,7 +6,7 @@ do
   echo -n "Do u want to upgrade for new configuration file  [Y/N] :"
   read x
   if [ $x = 'y' ]; then
-   cp /usr/share/megam/verticenilavu/config/nilavu.conf /var/lib/megam/nilavu.conf
+   cp /var/www/verticenilavu/config/nilavu.conf /var/lib/megam/nilavu.conf
    echo "new configuration file was succesfully copied...."
    break
   elif [$x = 'n' ]; then

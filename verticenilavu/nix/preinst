@@ -1,4 +1,4 @@
 #!/bin/sh
 # this will have nothing.
 
-mkdir -p /usr/share/megam
+mkdir -p /var/www
