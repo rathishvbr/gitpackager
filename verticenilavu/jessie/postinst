@@ -27,36 +27,25 @@ rm -fr /tmp/*
 
 #runit prepare
 cd /
-apt-get -y install runit monit socat
+apt-get -y install runit
 mkdir -p /etc/runit/1.d
-apt-get clean
 rm -f /etc/apt/apt.conf.d/40proxy
 locale-gen en_US
-apt-get install -y nodejs npm
 npm install uglify-js -g
 npm install svgo -g
 
-cd /var/lib/megam
-wget https://raw.githubusercontent.com/discourse/discourse_docker/master/image/base/runit-1
-wget https://raw.githubusercontent.com/discourse/discourse_docker/master/image/base/runit-1.d-00-fix-var-logs
-wget https://raw.githubusercontent.com/discourse/discourse_docker/master/image/base/runit-1.d-cleanup-pids
-wget https://raw.githubusercontent.com/discourse/discourse_docker/master/image/base/runit-2
-wget https://raw.githubusercontent.com/discourse/discourse_docker/master/image/base/runit-3
-wget https://raw.githubusercontent.com/discourse/discourse_docker/master/image/base/boot
-wget https://raw.githubusercontent.com/discourse/discourse_docker/master/image/base/cron
-wget https://raw.githubusercontent.com/discourse/discourse_docker/master/image/base/rsyslog
-
+cd /var/www/verticenilavu/base
 mkdir -p /etc/runit/3.d
-mv /var/lib/megam/runit-1 /etc/runit/1
-mv /var/lib/megam/runit-1.d-cleanup-pids /etc/runit/1.d/cleanup-pids
-mv /var/lib/megam/runit-1.d-00-fix-var-logs /etc/runit/1.d/00-fix-var-logs
-mv /var/lib/megam/runit-2 /etc/runit/2
-mv /var/lib/megam/runit-3 /etc/runit/3
-mv /var/lib/megam/boot /sbin/boot
+mv runit-1 /etc/runit/1
+mv runit-1.d-cleanup-pids /etc/runit/1.d/cleanup-pids
+mv runit-1.d-00-fix-var-logs /etc/runit/1.d/00-fix-var-logs
+mv runit-2 /etc/runit/2
+mv runit-3 /etc/runit/3
+mv boot /sbin/boot
 mkdir -p /etc/service/cron
 mkdir -p /etc/service/rsyslog
-mv /var/lib/megam/cron /etc/service/cron/run
-mv /var/lib/megam/rsyslog /etc/service/rsyslog/run
+mv cron /etc/service/cron/run
+mv rsyslog /etc/service/rsyslog/run
 
 ### Install jmealloc
 
@@ -71,8 +60,7 @@ mv lib/libjemalloc.so.1 /usr/lib
 cd / && rm -rf /jemalloc
 
 ###Install nginx
-cd /var/lib/megam
-wget https://raw.githubusercontent.com/discourse/discourse_docker/master/image/base/install-nginx
+cd /var/www/verticenilavu/base
 chmod 755 install-nginx
 ./install-nginx
 mv install-nginx /tmp/install-nginx
