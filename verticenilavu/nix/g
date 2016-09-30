@@ -1,17 +1,19 @@
 #!/bin/sh
 
-cd usr/share/megam/verticenilavu
+cd var/www/verticenilavu
 
 bundle update
 
-bundle install
+bundle install --deployment --without test --without development
 
-cd ../../../..
+cp -R ../../../../../base ./
 
-fpm -s dir -t deb -p "$MEGAM_HOME"  -f  --iteration $3  -n $1 -v $2 -d "verticecommon,git-core,curl,bundler,rake,zlib1g-dev,build-essential,libssl-dev,libreadline-dev,libyaml-dev, libsqlite3-dev,sqlite3,libxml2-dev,libxslt1-dev,libcurl4-openssl-dev,python-software-properties,ruby2.3,ruby2.3-dev,wbritish,wamerican" --before-install ./preinst --after-install ./postinst --before-upgrade ./preupgrd --before-remove ./prerm --deb-upstart ./etc/init/verticenilavu --license "Apache V2" --vendor "Megam Systems" --category "infrastructure" --maintainer "Megam Maintainer info@megam.io" --url "http://docs.megam.io" --description "The userinterface using Ruby on Rails which provides the one click launcher for
+cd ../../..
+
+fpm -s dir -t deb -p "$MEGAM_HOME"  -f  --iteration $3  -n $1 -v $2 -d "verticecommon,git-core,curl,rake,zlib1g-dev,build-essential,libssl-dev,libreadline-dev,libyaml-dev, libsqlite3-dev,sqlite3,libxml2-dev,libxslt1-dev,libcurl4-openssl-dev,python-software-properties,language-pack-en, cron, anacron, psmisc, gawk, parallel,git, wget, rsyslog, whois,wbritish,wamerican" --before-install ./preinst --after-install ./postinst --before-upgrade ./preupgrd --before-remove ./prerm --deb-upstart ./etc/init/verticenilavu --license "Apache V2" --vendor "Megam Systems" --category "infrastructure" --maintainer "Megam Maintainer info@megam.io" --url "http://docs.megam.io" --description "The userinterface using Ruby on Rails which provides the one click launcher for
  Megam Vertice. This is connected to the Vertice gateway (API server) only
  .
  This provides a marketplace, ability to manage storage like S3 utilizing ceph storage, launch
  application, vms, containers (docker), stream logs and monitor and bill them.
  .
- This package contains an awesome userinterface based on Ruby on Rails for Megam Vertice." ./usr/share/megam/verticenilavu
+ This package contains an awesome userinterface based on Ruby on Rails for Megam Vertice." ./var/www/verticenilavu
