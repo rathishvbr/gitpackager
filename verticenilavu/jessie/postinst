@@ -27,7 +27,6 @@ rm -fr /tmp/*
 
 #runit prepare
 cd /
-apt-get -y install runit
 mkdir -p /etc/runit/1.d
 rm -f /etc/apt/apt.conf.d/40proxy
 locale-gen en_US
