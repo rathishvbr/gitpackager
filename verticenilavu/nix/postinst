@@ -12,7 +12,7 @@ git clone https://github.com/sstephenson/ruby-build.git
 cd /src/ruby-build
 ./install.sh
 cd /
- rm -rf /src/ruby-build
+rm -rf /src/ruby-build
 ruby-build 2.3.1 /usr/local
 
 gem install bundler
@@ -56,14 +56,17 @@ cd jemalloc-3.6.0
 ./configure
 make
 mv lib/libjemalloc.so.1 /usr/lib
-cd /
-rm -rf /jemalloc
+cd / && rm -rf /jemalloc
 
 ###Install nginx
 cd /var/www/verticenilavu/base
 chmod 755 install-nginx
 ./install-nginx
 mv install-nginx /tmp/install-nginx
+
+###letsencrypt
+mv letsencrypt  /var/www/verticenilavu/bin
+
 ##copy config file
 cp /var/www/verticenilavu/config/nilavu.conf /var/lib/megam/nilavu.conf
 cp /var/www/verticenilavu/config/site_settings.yml /var/lib/megam/site_settings.yml
@@ -100,10 +103,9 @@ cat > /etc/service/nginx/run <<EOF
 EOF
 chmod 755 /etc/service/nginx/run
 
-
 cd /var/www/verticenilavu/
 bundle install --deployment --without test --without development
+export MEGAM_HOME=/var/lib/megam
 RAILS_ENV=production bundle exec rake assets:precompile
 
-sv start unicorn
-sv start nginx
+echo "manually start sv start unicorn and sv start nginx"

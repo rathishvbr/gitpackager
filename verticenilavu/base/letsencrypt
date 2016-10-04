@@ -1,0 +1,77 @@
+#!/bin/bash
+
+sudo apt-get install git bc wget curl
+
+#clone repo
+cd /tmp/
+git clone https://github.com/Neilpang/acme.sh.git
+cd acme.sh/
+sudo ./acme.sh --install
+
+#Create /.well-known/acme-challenge/ directory
+
+mkdir -p /var/www/html
+
+mkdir -vp /var/www/html/.well-known/acme-challenge/
+
+chown -R www-data:www-data /var/www/html/.well-known/acme-challenge/
+
+chmod -R 0555 /var/www/html/.well-known/acme-challenge/
+
+##Create directory to store SSL certicate and directoryname is yourdomainname (for example google.com)
+
+mkdir -p /etc/nginx/ssl/<yourdomainname>/
+
+##Generate your dhparam.pem file
+
+cd /etc/nginx/ssl/<yourdomainname>/
+
+openssl dhparam -out dhparams.pem 4096
+
+###Issue a certificate for your domain
+
+acme.sh --issue -w /var/www/html -d <yourdomainname>  -k 4096
+
+###Configure TLS/SSL on Nginx web Server
+
+mkdir -p /var/log/nginx/<yourdomainname>
+
+###Edit nginx.conf or /etc/nginx/sites-available/default as follows:
+
+server {
+    #------- Start SSL config with http2 support ----#
+    listen <ip>:443 http2;
+    server_name <yourdomainname>;
+    ssl on;
+    ssl_certificate /etc/nginx/ssl/<yourdomainname>/<yourdomainname>;
+    ssl_certificate_key /etc/nginx/ssl/<yourdomainname>/<yourdomainname>;
+    ssl_session_timeout 30m;
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:ECDH+3DES:DH+3DES:RSA+AESGCM:RSA+AES:RSA+3DES:!aNULL:!MD5:!DSS;
+    ssl_session_cache shared:SSL:10m;
+    ssl_dhparam /etc/nginx/ssl/<yourdomainname>/dhparams.pem;
+    ssl_prefer_server_ciphers on;
+
+    ## Improves TTFB by using a smaller SSL buffer than the nginx default
+    ssl_buffer_size 8k;
+
+    ## Enables OCSP stapling
+    ssl_stapling on;
+    resolver 8.8.8.8;
+    ssl_stapling_verify on;
+
+    ## Send header to tell the browser to prefer https to http traffic
+    add_header Strict-Transport-Security max-age=31536000;
+
+    ## SSL logs ##
+    access_log /var/log/nginx/<yourdomainname>/ssl_access.log;
+    error_log /var/log/nginx/<yourdomainname>/ssl_error.log;
+    #-------- END SSL config -------##
+
+    # Add rest of your config below like document path and more ##
+}
+
+
+####Install the issued certificate to Nginx web server
+
+acme.sh --installcert -d <yourdomainname> --keypath /etc/nginx/ssl/<yourdomainname>/<yourdomainname>.key --fullchainpath /etc/nginx/ssl/<yourdomainname>/<yourdomainname>.cer --reloadCmd 'systemctl reload nginx'
