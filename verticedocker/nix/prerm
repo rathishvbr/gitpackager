@@ -1,2 +1,0 @@
-#!/bin/sh
-service verticedocker stop || echo "verticedocker wasn't even running!"

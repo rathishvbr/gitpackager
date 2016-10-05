@@ -12,6 +12,12 @@ cp -rf ./conf/ ../../../../../usr/share/megam/verticegulpd
 
 cp gulpd ../../../../../usr/share/megam/verticegulpd/bin
 
+cat > VERSION << EOF
+git_version=`git rev-parse HEAD`
+git_branch=1.5
+EOF
+cp VERSION ../../../../../usr/share/megam/verticegulpd
+
 cd ../../../../../
 
 

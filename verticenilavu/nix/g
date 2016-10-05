@@ -3,6 +3,7 @@
 cd var/www/verticenilavu
 
 cp -R ../../../../../base ./
+
 cat > VERSION << EOF
 git_version=`git rev-parse HEAD`
 git_branch=`git branch`
