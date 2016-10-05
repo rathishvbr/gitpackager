@@ -66,6 +66,7 @@ mv install-nginx /tmp/install-nginx
 
 ###letsencrypt
 mv letsencrypt  /var/www/verticenilavu/bin
+chmod 755 /var/www/verticenilavu/bin/letsencrypt
 
 ##copy config file
 cp /var/www/verticenilavu/config/nilavu.conf /var/lib/megam/nilavu.conf
