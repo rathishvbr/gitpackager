@@ -177,16 +177,16 @@ the build type package will be pushed to get.megam.io or to a S3 bucket.
 
     Examples of converting an upstream version tag to an gitpackager tag sequence:
 
-    | upstream tag     | gitpackager tag sequence                    |
-    |------------------|---------------------------------------------|
-    | `v1.5.0.rc1`     | `1.5.0.rc1.0+me.0`, `1.5.0.rc1+me.1`, `...` |
-    | `v1.5.0`         | `1.5.0+me.0`, `1.5.0+ce.1`, `..  .`         |
-    | `v1.7-ee`        | `1.7+ee.0`, `1.7+ee.1`, `...`               |
-    | `v2.0.rc1-ee`    | `2.0+rc1.ee.0`, `2.0+rc1.ee.1`, `...`       |
-    | `v2.0.0-ee`      | `2.0+ee.0`, `2.0+ee.1`, `...`               |
-    | `v2.0.0-ee`      | `2.0+ee.0`, `2.0+ee.1`, `...`               |
+| upstream tag     | gitpackager tag sequence                    |
+|------------------|---------------------------------------------|
+| `v1.5.0.rc1`     | `1.5.0.rc1.0+me.0`, `1.5.0.rc1+me.1`, `...` |
+| `v1.5.0`         | `1.5.0+me.0`, `1.5.0+ce.1`, `..  .`         |
+| `v1.7-ee`        | `1.7+ee.0`, `1.7+ee.1`, `...`               |
+| `v2.0.rc1-ee`    | `2.0+rc1.ee.0`, `2.0+rc1.ee.1`, `...`       |
+| `v2.0.0-ee`      | `2.0+ee.0`, `2.0+ee.1`, `...`               |
+| `v2.0.0-ee`      | `2.0+ee.0`, `2.0+ee.1`, `...`               |
 
-  
+
 5. Push the branch and the tag to github.com:
 
     ```shell
@@ -197,7 +197,7 @@ the build type package will be pushed to get.megam.io or to a S3 bucket.
 
 ### Publishing the packages
 
-You can track the progress of package building on [gitlab.org].
+You can track the progress of package building on [gitlab.org/megamsys/gitpackager].
 They are pushed to [get.megam.io repositories](https://get.megam.io) automatically after
 successful builds.
 
@@ -206,7 +206,7 @@ successful builds.
 [get.megam.io repositories]: https://get.megam.io
 
 
-## Type the url `https://get.megam.io`  You'll see the refreshed packages
+### Type the url `https://get.megam.io`  You'll see the refreshed packages
 
 [Coming  - soon : Build status via Android app]
 
