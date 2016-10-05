@@ -11,6 +11,11 @@ make build
 
 cp -rf ./conf/ ../../../../../usr/share/megam/vertice
 cp vertice ../../../../../usr/share/megam/vertice/bin
+cat > VERSION << EOF
+git_version=`git rev-parse HEAD`
+git_branch="1.5"
+EOF
+cp VERSION ../../../../../usr/share/megam/vertice
 
 cd ../../../../../
 

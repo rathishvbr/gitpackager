@@ -2,28 +2,10 @@
 
 mkdir -p /var/log/megam/verticenilavu
 
-#ruby change
-rm /usr/local/bin/ruby
-rm /usr/local/bin/gem
-echo 'gem: --no-document' >> /usr/local/etc/gemrc
-mkdir -p /src
-cd /src
-git clone https://github.com/sstephenson/ruby-build.git
-cd /src/ruby-build
-./install.sh
-cd /
-rm -rf /src/ruby-build
-ruby-build 2.3.1 /usr/local
-
-gem install bundler
-rm -rf /usr/local/share/ri/2.3.0/system
-
-#Cleanup file
-rm -fr /usr/share/man
-rm -fr /usr/share/doc
-rm -fr /usr/local/share/doc
-rm -fr /usr/local/share/ruby-build
-rm -fr /tmp/*
+rm /usr/bin/ruby
+rm /usr/bin/gem
+ln -s /usr/bin/ruby2.3 /usr/bin/ruby
+ln -s /usr/bin/gem2.3 /usr/bin/gem
 
 #runit prepare
 cd /
@@ -100,10 +82,11 @@ cat > /etc/service/nginx/run <<EOF
 EOF
 chmod 755 /etc/service/nginx/run
 
+gem install bundler
 
 cd /var/www/verticenilavu/
 bundle install --deployment --without test --without development
+export MEGAM_HOME=/var/lib/megam
 RAILS_ENV=production bundle exec rake assets:precompile
 
-sv start unicorn
-sv start nginx
+echo "manually start sv start unicorn and sv start nginx"
