@@ -205,10 +205,11 @@ successful builds.
 [gitlab runner]: https://gitlab.com/gitlab-org/gitlab-ci-multi-runner
 [get.megam.io repositories]: https://get.megam.io
 
+We have notifiers to slack channel [#releng]
 
 ### Type the url `https://get.megam.io`  You'll see the refreshed packages
 
-[Coming  - soon : Build status via Android app]
+[Coming  - soon : Notifiers via Android app]
 
 
 # License

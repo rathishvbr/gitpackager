@@ -1,0 +1,196 @@
+stages:
+  - package
+  - notification_fail
+  - add_to_version_server
+  - extra
+  - notification_fail
+
+before_script:
+  - echo $NIGHTLY
+  - mkdir -p ~/.ssh
+  - mkdir -p ~/.aws
+  - mkdir -p cache
+  - bundle install -j $(nproc) --binstubs --path gems
+
+# Runs on build.megam.io
+.branch_template: &branch_build
+  stage: package
+  script:
+    - echo "$DEV_GITLAB_SSH_KEY" > ~/.ssh/id_rsa
+    - ssh-keyscan -H dev.gitlab.org > ~/.ssh/known_hosts
+    - chmod -R 0600 ~/.ssh/
+    - echo -e "[default]\naws_access_key_id = $AWS_ACCESS_KEY_ID \naws_secret_access_key = $AWS_SECRET_ACCESS_KEY" > ~/.aws/config
+    - make populate_cache
+    - make restore_cache_bundle
+    - make test
+    - make pack_cache_bundle
+    - rm -rf /var/cache/omnibus/pkg
+  tags:
+  - docker-builder
+  only:
+    - branches@gitlab/omnibus-gitlab
+
+.rpi_branch_template: &rpi_branch_build
+  stage: extra
+  script:
+    - echo "$DEV_GITLAB_SSH_KEY" > ~/.ssh/id_rsa
+    - ssh-keyscan -H dev.gitlab.org > ~/.ssh/known_hosts
+    - chmod -R 0600 ~/.ssh/
+    - echo -e "[default]\naws_access_key_id = $AWS_ACCESS_KEY_ID \naws_secret_access_key = $AWS_SECRET_ACCESS_KEY" > ~/.aws/config
+    - make populate_cache
+    - make restore_cache_bundle
+    - if ./support/is_gitlab_ee.sh; then exit 0; else make test;fi
+    - make pack_cache_bundle
+    - rm -rf /var/cache/omnibus/pkg
+  tags:
+  - docker-rpi-builder
+  only:
+  - branches@gitlab/omnibus-gitlab
+
+.tag_template: &tag_build
+  stage: package
+  script:
+    - echo "$DEV_GITLAB_SSH_KEY" > ~/.ssh/id_rsa
+    - ssh-keyscan -H dev.gitlab.org > ~/.ssh/known_hosts
+    - chmod -R 0600 ~/.ssh/
+    - echo -e "[default]\naws_access_key_id = $AWS_ACCESS_KEY_ID \naws_secret_access_key = $AWS_SECRET_ACCESS_KEY" > ~/.aws/config
+    - make populate_cache
+    - make restore_cache_bundle
+    - make do_release
+    - make pack_cache_bundle
+    - rm -rf /var/cache/omnibus/pkg
+  tags:
+  - docker-builder
+  only:
+    - tags@gitlab/omnibus-gitlab
+
+.rpi_tag_template: &rpi_tag_build
+  stage: extra
+  script:
+    - echo "$DEV_GITLAB_SSH_KEY" > ~/.ssh/id_rsa
+    - ssh-keyscan -H dev.gitlab.org > ~/.ssh/known_hosts
+    - chmod -R 0600 ~/.ssh/
+    - echo -e "[default]\naws_access_key_id = $AWS_ACCESS_KEY_ID \naws_secret_access_key = $AWS_SECRET_ACCESS_KEY" > ~/.aws/config
+    - make populate_cache
+    - make restore_cache_bundle
+    - if ./support/is_gitlab_ee.sh; then exit 0; else make do_rpi2_release;fi
+    - make pack_cache_bundle
+    - rm -rf /var/cache/omnibus/pkg
+  tags:
+  - docker-rpi-builder
+  only:
+    - tags@gitlab/omnibus-gitlab
+
+Docker master:
+  stage: extra
+  script:
+  - make do_docker_master
+  tags:
+  - docker-build
+  only:
+    - branches@gitlab/omnibus-gitlab
+
+Docker:
+  stage: extra
+  script:
+  - make do_docker_release
+  tags:
+  - docker-build
+  only:
+    - tags@gitlab/omnibus-gitlab
+
+
+# dev.gitlab.org only
+Ubuntu 14.04:
+  image: "dev.gitlab.org:5005/cookbooks/gitlab-omnibus-builder:trusty"
+  cache:
+    key: "Ubuntu 14.04 branch"
+    paths:
+    - cache
+    - gems
+  <<: *tag_build
+Ubuntu 16.04:
+  image: "dev.gitlab.org:5005/cookbooks/gitlab-omnibus-builder:xenial"
+  cache:
+    key: "Ubuntu 16.04 branch"
+    paths:
+    - cache
+    - gems
+  <<: *tag_build
+Debian 7:
+  image: "dev.gitlab.org:5005/cookbooks/gitlab-omnibus-builder:wheezy"
+  cache:
+    key: "Debian 7 branch"
+    paths:
+    - cache
+    - gems
+  <<: *tag_build
+Debian 8:
+  image: "dev.gitlab.org:5005/cookbooks/gitlab-omnibus-builder:jessie"
+  cache:
+    key: "Debian 8 branch"
+    paths:
+    - cache
+    - gems
+  <<: *tag_build
+Centos 7:
+  image: "dev.gitlab.org:5005/cookbooks/gitlab-omnibus-builder:centos7"
+  cache:
+    key: "Centos 7 branch"
+    paths:
+    - cache
+    - gems
+  <<: *tag_build
+
+Ubuntu 14.04 branch:
+  image: "dev.gitlab.org:5005/cookbooks/gitlab-omnibus-builder:trusty"
+  cache:
+    key: "$CI_BUILD_NAME"
+    paths:
+    - cache
+    - gems
+  <<: *branch_build
+Ubuntu 16.04 branch:
+  image: "dev.gitlab.org:5005/cookbooks/gitlab-omnibus-builder:xenial"
+  cache:
+    key: "$CI_BUILD_NAME"
+    paths:
+    - cache
+    - gems
+  <<: *branch_build
+Debian 8 branch:
+  image: "dev.gitlab.org:5005/cookbooks/gitlab-omnibus-builder:jessie"
+  cache:
+    key: "$CI_BUILD_NAME"
+    paths:
+    - cache
+    - gems
+  <<: *branch_build
+CentOS 6 branch:
+  image: "dev.gitlab.org:5005/cookbooks/gitlab-omnibus-builder:centos6"
+  cache:
+    key: "$CI_BUILD_NAME"
+    paths:
+    - cache
+    - gems
+  <<: *branch_build
+CentOS 7 branch:
+  image: "dev.gitlab.org:5005/cookbooks/gitlab-omnibus-builder:centos7"
+  cache:
+    key: "$CI_BUILD_NAME"
+    paths:
+    - cache
+    - gems
+  <<: *branch_build
+
+notify:slack-fail:
+  before_script: # Nothing
+    - apk update && apk add git curl bash
+  image: "alpine"
+  stage: notification_fail
+  script:
+    - ./support/notify_slack.sh "#releng" "(╯°□°)╯︵┻━┻  Build on \`$CI_BUILD_REF_NAME\` failed! Commit \`$(git log -1 --oneline)\` See <https://github.com/megamsys/gitpackager/commit/"$CI_BUILD_REF"/builds>"
+  when: on_failure
+  only:
+    - master
+    - tags@gitlab/omnibus-gitlab
