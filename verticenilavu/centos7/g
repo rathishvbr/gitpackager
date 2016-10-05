@@ -2,11 +2,12 @@
 
 cd usr/share/megam/verticenilavu
 
-bundle update
-
-bundle install
-
 cd ../../../..
+cat > VERSION << EOF
+git_version=`git rev-parse HEAD`
+git_branch=1.5
+EOF
+cp VERSION ../../../../../usr/share/megam/verticenilavu
 
 fpm -s dir -t rpm  -p "$MEGAM_HOME"  -f  --iteration $3 -n $1 -v $2 -d "verticecommon,git-core,curl,rake,zlib-devel,zlib,readline-devel,libyaml-devel,libxml2-devel,openssl-devel,ruby,ruby-devel" --before-install ./preinst --after-install ./postinst --before-upgrade ./preupgrd --before-remove ./prerm --rpm-init ./etc/systemd/system/verticenilavu.service --license "Apache V2" --vendor "Megam Systems" --category "infrastructure" --maintainer "Megam Maintainer info@megam.io" --url " http://docs.megam.io/docs/vertice" --description "The userinterface using Ruby on Rails which provides the one click launcher for
  Megam Vertice. This is connected to the Vertice gateway (API server) only
