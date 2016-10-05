@@ -1,7 +1,5 @@
 #!/usr/bin/ruby
 
-#//we have create log file /var/log/one/vertice_error.log with permission on oneadmin:oneadmin 755
-
 ONE_LOCATION=ENV["ONE_LOCATION"]
 
 if !ONE_LOCATION
@@ -49,8 +47,8 @@ TEMPLATE = ARGV[1]
 STATE  = ARGV[2]
 STATUS = ARGV[3]
 
-if TEMPLATE.nil? && HOST_ID.nil?
-    log_error("Exiting due to Template is  nil.")
+if TEMPLATE.nil? && HOST_ID.nil? && STATE.nil? && STATUS.nil?
+    log_error("Exiting due to parameter is  nil.")
     exit -1
 end
 
@@ -58,14 +56,6 @@ content = TEMPLATE
 s  = Base64.decode64(content.inspect)
 
 KEYS = Hash[*File.read(CONFIG_FILE).split(/[= \n]+/)]
-
-STATE  = ARGV[1]
-STATUS = ARGV[2]
-
-if STATE.nil? && STATUS.nil?
-    log_error("Exiting due to parameter is  nil.")
-    exit -1
-end
 
 
 @doc  = Nokogiri::XML(s) 
@@ -93,7 +83,7 @@ rescue Exception => e
   exit -1
 end
 
-log "Hook vertice #{STATE}  #{STATUS} finished:"
+log "Hook - vertice #{STATE}  #{STATUS} finished:"
 
 
 
