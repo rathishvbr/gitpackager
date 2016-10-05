@@ -75,11 +75,6 @@ generally useful outside of this environment.
 There are `ve:deb_all` and `ve:rpm_all` tasks, which build packages against all
 shipped debian/redhat targets.
 
-## `:remote:` tasks
-There are also sub-namespaces of `:pl` and `:pe` that are
-worth noting. First, the `:remote` namespace. Tasks under `:remote` perform
-builds remotely on internal builders from your local workstation. How they
-work:
 
 # Vertice release process
 
