@@ -27,6 +27,7 @@ mkdir -p /etc/service/cron
 mkdir -p /etc/service/rsyslog
 mv cron /etc/service/cron/run
 mv rsyslog /etc/service/rsyslog/run
+mv nginx.conf /etc/nginx/nginx.conf
 
 ### Install jmealloc
 
@@ -52,7 +53,6 @@ cp /var/www/verticenilavu/config/site_settings.yml /var/lib/megam/site_settings.
 cp /var/www/verticenilavu/config/regions.yml /var/lib/megam/regions.yml
 cp /var/www/verticenilavu/config/nginx.conf /etc/nginx/conf.d/
 mv /etc/nginx/conf.d/nginx.conf /etc/nginx/conf.d/nilavu.conf
-rm /etc/nginx/sites-enabled/default
 mkdir -p /var/nginx/cache
 
 cat > /etc/runit/3.d/01-nginx <<EOF
