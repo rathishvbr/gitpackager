@@ -2,10 +2,6 @@
 
 cd usr/share/megam/verticenilavu
 
-bundle update
-
-bundle install
-
 cd ../../../..
 cat > VERSION << EOF
 git_version=`git rev-parse HEAD`

@@ -2,12 +2,15 @@
 
 mkdir -p /var/log/megam/verticenilavu
 
+
+## Symbolic link to ruby2.3 to default /usr/bin/ruby
 rm /usr/bin/ruby
 rm /usr/bin/gem
+
 ln -s /usr/bin/ruby2.3 /usr/bin/ruby
 ln -s /usr/bin/gem2.3 /usr/bin/gem
 
-#runit prepare
+## runit preparation
 cd /
 mkdir -p /etc/runit/1.d
 rm -f /etc/apt/apt.conf.d/40proxy
@@ -47,6 +50,9 @@ chmod 755 install-nginx
 ./install-nginx
 mv install-nginx /tmp/install-nginx
 
+###letsencrypt
+mv letsencrypt  /var/www/verticenilavu/bin
+chmod 755 /var/www/verticenilavu/bin/letsencrypt
 ##copy config file
 cp /var/www/verticenilavu/config/nilavu.conf /var/lib/megam/nilavu.conf
 cp /var/www/verticenilavu/config/site_settings.yml /var/lib/megam/site_settings.yml
@@ -57,14 +63,14 @@ mkdir -p /var/nginx/cache
 
 cat > /etc/runit/3.d/01-nginx <<EOF
 #!/bin/bash
-       sv stop nginx
+sv stop nginx
 EOF
 
 chmod 755 /etc/runit/3.d/01-nginx
 
 cat > /etc/runit/3.d/02-unicorn <<EOF
 #!/bin/bash
-       sv stop unicorn
+sv stop unicorn
 EOF
 
 chmod 755 /etc/runit/3.d/02-unicorn
@@ -84,9 +90,13 @@ chmod 755 /etc/service/nginx/run
 
 gem install bundler
 
+
 cd /var/www/verticenilavu/
+
 bundle install --deployment --without test --without development
+
 export MEGAM_HOME=/var/lib/megam
+
 RAILS_ENV=production bundle exec rake assets:precompile
 
-echo "manually start sv start unicorn and sv start nginx"
+echo "sv start unicorn and sv start nginx"
