@@ -1,5 +1,22 @@
 #!/usr/bin/ruby
 
+
+##############################################################################
+
+# Script to implement post sync notification to vertice
+#   One of the  following actions must happen
+
+#           SUSPEND
+#           DESTROY
+#           BOOT
+#           POWER_OFF
+
+#   Additional flags
+#           The status flag that vertice needs to be updated shall be
+#           sent as an argument
+
+##############################################################################
+
 ONE_LOCATION=ENV["ONE_LOCATION"]
 
 if !ONE_LOCATION
@@ -12,10 +29,8 @@ end
 
 require 'nokogiri'
 require 'base64'
-require 'open3'
-require 'rexml/document'
-
 require 'megam_api'
+
 ################################################################################
 # logs
 ################################################################################
@@ -74,7 +89,7 @@ KEYS["org_id"] = @doc.xpath("//ORG_ID").text  #//gateway has change to get from 
 # Main
 ################################################################################
 
-log "Hook - vertice #{STATE}  #{STATUS} stated:"
+log "Hook - vertice #{STATE}  #{STATUS} started:"
 
 begin
    m  = Megam::Assembly.update(KEYS)
