@@ -58,20 +58,19 @@ Hook Manager configuration is set in /etc/one/oned.conf.
 <p>Or an more advanced example:</p></br>
 <i>
 &nbsp;&nbsp; VM_HOOK = [</br>
-&nbsp;&nbsp;&nbsp;&nbsp;name      = "vertice_hook", </br>
+&nbsp;&nbsp;&nbsp;&nbsp;   name      = "vertice_hook", </br>
 &nbsp;&nbsp;&nbsp;&nbsp;   on        = "CUSTOM",</br>
 &nbsp;&nbsp;&nbsp;&nbsp;   state     = "ACTIVE",</br>
 &nbsp;&nbsp;&nbsp;&nbsp;   lcm_state = "SHUTDOWN_POWEROFF",</br>
 &nbsp;&nbsp;&nbsp;&nbsp;   command   = "post_vertice_sync.rb",</br>
    arguments = "$ID $TEMPLATE $PREV_STATE $PREV_LCM_STATE" ]</br>
 </i>
-
+</br>
 <p>NOTE:  once you have made change in /etc/one/oned.conf, you should restart OpenNebula</p>
 
 put your script file post_vertice_sync.rb in /var/lib/one/remotes/hooks
 
-put your configuration file master_key in /var/lib/megam/ that contains </br></br>
-
+put your configuration file master_key in /var/lib/megam/ that contains </br>
 &nbsp;&nbsp; &nbsp;&nbsp; <i> masterkey = 8db82e5d344740b20ed53b8eb672aa7ca0744cfb63368140b06409e1f994ee3f</i> </br>
 &nbsp;&nbsp; &nbsp;&nbsp; <i> host = http://192.168.0.100:9000/v2 </i> </br>
 
