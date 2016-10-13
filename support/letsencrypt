@@ -45,8 +45,8 @@ echo "Usage:  letsencrypt[OPTION]"
   echo
   echo "Options:"
   echo " --install  <domainame> <domainip>"
-  echo "--remove <domainname>"
-  echo "--autorenew  <domainname>"
+  echo "--remove  <domainname>"
+  echo "--autorenew <domainname>"
   echo "--help"
   echo
 }

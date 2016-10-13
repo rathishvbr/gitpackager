@@ -47,32 +47,30 @@ Hook Manager configuration is set in /etc/one/oned.conf.
 </ul>
 </li>
 </ul>
-<p>The following is an example of a hook tied to the POWEROFF state of a VM:</p>
-<i>
-&nbsp;&nbsp;VM_HOOK = [</br>
-&nbsp;&nbsp;&nbsp;&nbsp;     name      = "notify_done",</br>
-&nbsp;&nbsp;&nbsp;&nbsp;     on        = "DONE",</br>
-&nbsp;&nbsp;&nbsp;&nbsp;     command   = "notify.rb",</br>
-&nbsp;&nbsp;&nbsp;&nbsp;     arguments = "$ID $TEMPLATE remove destoryed" ]</br>
-</i></br>
-<p>Or an more advanced example:</p></br>
-<i>
-&nbsp;&nbsp; VM_HOOK = [</br>
-&nbsp;&nbsp;&nbsp;&nbsp;   name      = "vertice_hook", </br>
-&nbsp;&nbsp;&nbsp;&nbsp;   on        = "CUSTOM",</br>
-&nbsp;&nbsp;&nbsp;&nbsp;   state     = "ACTIVE",</br>
-&nbsp;&nbsp;&nbsp;&nbsp;   lcm_state = "SHUTDOWN_POWEROFF",</br>
-&nbsp;&nbsp;&nbsp;&nbsp;   command   = "post_vertice_sync.rb",</br>
-   arguments = "$ID $TEMPLATE $PREV_STATE $PREV_LCM_STATE" ]</br>
-</i>
-</br>
-<p>NOTE:  once you have made change in /etc/one/oned.conf, you should restart OpenNebula</p>
+<p>The following is an example of a hook tied to the DONE state of a VM:</p>
+
+VM_HOOK = [
+  name      = "vertice_hook",
+  on        = "CUSTOM",
+  state     = "ACTIVE",
+  lcm_state = "BOOT",
+  command   = "post_vertice_sync.rb",
+  arguments = "$ID $TEMPLATE $PREV_STATE $PREV_LCM_STATE" ]
 
 put your script file post_vertice_sync.rb in /var/lib/one/remotes/hooks
 
-put your configuration file master_key in /var/lib/megam/ that contains </br>
-&nbsp;&nbsp; &nbsp;&nbsp; <i> masterkey = 8db82e5d344740b20ed53b8eb672aa7ca0744cfb63368140b06409e1f994ee3f</i> </br>
-&nbsp;&nbsp; &nbsp;&nbsp; <i> host = http://192.168.0.100:9000/v2 </i> </br>
-
-
 ## letsencrypt
+
+LetsEncrypt is a certificate authority that  provides free X.509 certificates for Transport Layer Security (TLS) encryption via an automated process designed to eliminate the current complex process of manual creation, validation, signing, installation, and renewal of certificates for secure websites.
+
+```bash
+
+# install the letsencrypt certificate
+letsencrypt --install  <domainame> <domainip>
+# remove the letsencrypt certificate
+letsencrypt --remove <domainname>
+
+# renewal the letsencrypt certificate
+letsencrypt --autorenew <domainname>
+
+````
