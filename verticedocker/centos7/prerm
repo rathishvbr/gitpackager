@@ -1,3 +1,0 @@
-#!/bin/sh
-
-systemctl stop verticegulpd || echo "verticegulpd wasn't even running!" >/dev/stdout
