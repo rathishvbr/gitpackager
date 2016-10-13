@@ -47,16 +47,30 @@ Hook Manager configuration is set in /etc/one/oned.conf.
 </ul>
 </li>
 </ul>
-<p>The following is an example of a hook tied to the DONE state of a VM:</p>
-
-VM_HOOK = [
-  name      = "vertice_hook",
-  on        = "CUSTOM",
-  state     = "ACTIVE",
-  lcm_state = "BOOT",
-  command   = "post_vertice_sync.rb",
-  arguments = "$ID $TEMPLATE $PREV_STATE $PREV_LCM_STATE" ]
+<p>The following is an example of a hook tied to the POWEROFF state of a VM:</p>
+<i>VM_HOOK = [</br>
+     name      = "notify_done",</br>
+     on        = "DONE",</br>
+     command   = "notify.rb",</br>
+     arguments = "$ID $TEMPLATE remove destoryed" ]</br>
+</i></br>
+<p>Or an more advanced example:</p></br>
+<i>
+VM_HOOK = [</br>
+   name      = "vertice_hook", </br>
+   on        = "CUSTOM",</br>
+   state     = "ACTIVE",</br>
+   lcm_state = "SHUTDOWN_POWEROFF",</br>
+   command   = "post_vertice_sync.rb",</br>
+   arguments = "$ID $TEMPLATE $PREV_STATE $PREV_LCM_STATE" ]</br>
+</i>
+once you have made change in /etc/one/oned.conf, you should restart OpenNebula
 
 put your script file post_vertice_sync.rb in /var/lib/one/remotes/hooks
+
+put your configuration file /var/lib/megam/master_key as below
+&nbsp;&nbsp;  <i> masterkey = 8db82e5d344740b20ed53b8eb672aa7ca0744cfb63368140b06409e1f994ee3f</i> </br>
+&nbsp;&nbsp;  <i> host = http://192.168.0.100:9000/v2 </i> </br>
+
 
 ## letsencrypt
