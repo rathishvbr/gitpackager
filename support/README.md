@@ -63,6 +63,9 @@ put your script file post_vertice_sync.rb in /var/lib/one/remotes/hooks
 
 LetsEncrypt is a certificate authority that  provides free X.509 certificates for Transport Layer Security (TLS) encryption via an automated process designed to eliminate the current complex process of manual creation, validation, signing, installation, and renewal of certificates for secure websites.
 
+The letsencrypt file set in /usr/bin/letsencrypt
+This file has the permission in 0755 ie chmod 0755 /usr/bin/letsencrypt
+
 ```bash
 
 # install the letsencrypt certificate
