@@ -11,4 +11,4 @@ sbt clean
 sbt dist:clean
 sbt compile
 sbt stage
-sbt debian:package-bin
+sbt rpm:packageBin
