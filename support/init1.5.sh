@@ -512,8 +512,8 @@ cat >$CONF  <<'EOF'
 
   [meta]
     user = "root"
-    nsqd = ["192.168.0.118:4150"]
-    scylla = ["192.168.0.116"]
+    nsqd = ["localhost:4150"]
+    scylla = ["localhost"]
     scylla_keyspace = "vertice"
     scylla_username = "dmVydGFkbWlu"
     scylla_password = "dmVydGFkbWlu"

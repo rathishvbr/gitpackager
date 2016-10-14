@@ -74,5 +74,10 @@ put your configuration file master_key in /var/lib/megam/ that contains </br>
 &nbsp;&nbsp; &nbsp;&nbsp; <i> masterkey = 8db82e5d344740b20ed53b8eb672aa7ca0744cfb63368140b06409e1f994ee3f</i> </br>
 &nbsp;&nbsp; &nbsp;&nbsp; <i> host = http://192.168.0.100:9000/v2 </i> </br>
 
+## init1.5.sh
+
+The init1.5.sh script helps to updates latest version of gulpd daemon and gulp.conf file into virtual machine. Replace nsqd and scylla ipaddress from localhost to server ipaddress in this file.
+
+Put init1.5.sh script file into your OpenNebula template FILES location and change file mode to 0755. This file will executed when Virtual Machine booting on OpenNebula.
 
 ## letsencrypt
