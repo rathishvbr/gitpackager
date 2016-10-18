@@ -2,11 +2,7 @@
 
 ## init1.5.sh
 
-The init1.5.sh script helps to update latest version of our cloud agent(`gulpd`) and its configuration(`gulp.conf`) file in the virtual machine auto-magically. 
-
-Replace nsqd and scylla ipaddress from localhost to server ipaddress in this file.
-
-Put init1.5.sh script file into your OpenNebula template FILES location and change file mode to 0755. 
+The init1.5.sh script helps to update latest version of our cloud agent(`gulpd`) and its configuration(`gulp.conf`) file in the virtual machine images that `MegamVertice` provides auto-magically. 
 
 ## To use the init1.5.sh
 
@@ -27,19 +23,31 @@ chmod 755 init1.5.sh
 
 ```
 
-
 ```
 
 ## In the template update
 
 `FILES locatio`
 
+## In the template update nsqd and cassandra ipaddress
 
-The `init1.5.sh` will executed when virtual machine boots.
+The `init1.5.sh` is preconfigured to assume that the `nsqd` and `cassandra` ip address are available locally.
 
-Internally the script uses, 
 
-### gulpupd
+## In the template update gulpupd
+
+The `init1.5.sh` is preconfigured to assume you are running `testing` and `1.5` version of repository.
+
+
+
+
+The `init1.5.sh` will executed when every the  virtual machine boots.
+
+
+
+### internally we use, gulpupd
+
+This script is bundled into `init1.5.sh` as OpenNebula wants the script to be in-line and loads the full script as base64 into its memory. Hence the below copy is already there for you in `init1.5.sh`
 
 The gulpupd script helps customers to keep the shipped images Up-to-date with the latest version of
 vertice agent (gulpd)
