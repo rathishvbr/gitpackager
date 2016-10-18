@@ -19,30 +19,97 @@ chmod 755 init1.5.sh
 
 ```
 
-## Use this template
-
-```
-
-```
-
-## In the template update
-
-`FILES locatio`
-
 ## In the template update nsqd and cassandra ipaddress
 
-The `init1.5.sh` is preconfigured to assume that the `nsqd` and `cassandra` ip address are available locally.
+The `init1.5.sh` is preconfigured to assume that the `nsqd` and `scylla` ip address are available locally.
+
+```
+  ### Welcome to the Gulpd configuration file.
+  ###
+  ### [meta]
+  ###
+  ### Controls the parameters for the Raft consensus group that stores metadata
+  ### about the gulp.
+  ###
+  [meta]
+    user = "root"
+    nsqd = ["localhost:4150"]
+    scylla = ["localhost"]
+    scylla_keyspace = "vertice"
+    scylla_username = "dmVydGFkbWlu"
+    scylla_password = "dmVydGFkbWlu"
+
+```
+
+The scylla_username and scylla_password is `base64` encoded for `vertadmin`
 
 
-## In the template update gulpupd
+## In the template update gulpupd to use the correct repo
 
 The `init1.5.sh` is preconfigured to assume you are running `testing` and `1.5` version of repository.
 
+You can search and change the below lines.
 
+This is needed to get timely updates on fixes to our `cloud agent(gulpd)` posted periodically in S3.
 
+The supported branches are `testing, stable`.
 
-The `init1.5.sh` will executed when every the  virtual machine boots.
+```
 
+true "${version:=1.5}"
+true "${branch:=testing}"
+
+```
+
+## Use this common template
+
+Please use the usual process to create a template in OpenNebula and its beyond the scope of this doc. 
+
+Make sure that the `Files = "/vertice/init1.5.sh` is configured correctly.
+
+```
+CONTEXT = [
+ FILES = "/vertice/init1.5.sh",
+ NETWORK = "YES",
+ NODE_NAME = "$NAME",
+ SET_HOSTNAME = "$NAME",
+ SSH_PUBLIC_KEY = " " ]
+ CPU = "0.5"
+ CPU_COST = "5"
+ NAME = "megam"
+ DESCRIPTION = "common template for all images"
+ DISK = [
+ IMAGE = "megam",
+ IMAGE_UNAME = "oneadmin" ]
+ GRAPHICS = [
+ LISTEN = "0.0.0.0",
+ TYPE = "VNC" ]
+ MEMORY = "1024"
+ MEMORY_COST = "10"
+ NIC = [
+ NETWORK = "ipv4-pri",
+ NETWORK_UNAME = "oneadmin" ]
+ OS = [
+ ARCH = "x86_64" ]
+ SCHED_REQUIREMENTS = "CLUSTER_ID=\"100\""
+ VCPU = "1"
+
+```
+
+This template when invoked by vertice, we configure the following parameters automatically to correct behaviour as chosen by the user and in configuration files like `vertice.conf`
+
+```
+CPU = "0.5"
+NAME = "megam"
+DISK = [
+ IMAGE = "megam"]
+MEMORY = "1024"
+NIC = [
+ NETWORK = "ipv4-pri",
+ NETWORK_UNAME = "oneadmin" ]
+```
+
+The `init1.5.sh` will be executed when ever the  virtual machine boots.
 
 
 ### internally we use, gulpupd
@@ -50,7 +117,7 @@ The `init1.5.sh` will executed when every the  virtual machine boots.
 This script is bundled into `init1.5.sh` as OpenNebula wants the script to be in-line and loads the full script as base64 into its memory. Hence the below copy is already there for you in `init1.5.sh`
 
 The gulpupd script helps customers to keep the shipped images Up-to-date with the latest version of
-vertice agent (gulpd)
+our cloud agent (gulpd)
 
 ```bash
 
@@ -61,8 +128,6 @@ gulpupd --version 1.5 --branch testing
 gulpupd --version 1.5 --branch stable
 
 ````
-
-
 
 ## hook_vertice.rb
 
@@ -110,7 +175,7 @@ VM_HOOK = [
 
 ```
 
-wget 
+wget https://raw.githubusercontent.com/megamsys/gitpackager/master/support/hook_vertice.rb
 
 cp hook_vertice.rb /var/lib/one/remotes/hooks
 
@@ -122,15 +187,22 @@ chown oneadmin:oneadmin hook_vertice.rb
 
 ## letsencrypt
 
-LetsEncrypt is a certificate authority that  provides free X.509 certificates for Transport Layer Security (TLS) encryption via an automated process designed to eliminate the current complex process of manual creation, validation, signing, installation, and renewal of certificates for secure websites.
+LetsEncrypt is a certificate authority that  provides free X.509 certificates via an automated process.
 
-The letsencrypt file set in /usr/bin/letsencrypt
-This file has the permission in 0755 ie chmod 0755 /usr/bin/letsencrypt
+We provide a LetsEncrypt wrapper shell script which can be downloaded into any directory.
+
+Please make sure you have a valid `public domain` and `public ip address`. 
+
 
 ```bash
 
+wget https://raw.githubusercontent.com/megamsys/gitpackager/master/support/letsencrypt
+
+chmod 0755 letsencrypt
+
 # install the letsencrypt certificate
 letsencrypt --install  <domainame> <domainip>
+
 # remove the letsencrypt certificate
 letsencrypt --remove <domainname>
 
