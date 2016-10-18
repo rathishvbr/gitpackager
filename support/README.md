@@ -1,6 +1,45 @@
 # Support scripts
 
-## gulpupd
+## init1.5.sh
+
+The init1.5.sh script helps to update latest version of our cloud agent(`gulpd`) and its configuration(`gulp.conf`) file in the virtual machine auto-magically. 
+
+Replace nsqd and scylla ipaddress from localhost to server ipaddress in this file.
+
+Put init1.5.sh script file into your OpenNebula template FILES location and change file mode to 0755. 
+
+## To use the init1.5.sh
+
+```bash
+
+cd /
+
+mkdir vertice
+
+wget https://raw.githubusercontent.com/megamsys/gitpackager/master/support/init1.5.sh
+
+chmod 755 init1.5.sh
+
+
+```
+
+## Use this template
+
+```
+
+
+```
+
+## In the template update
+
+`FILES locatio`
+
+
+The `init1.5.sh` will executed when virtual machine boots.
+
+Internally the script uses, 
+
+### gulpupd
 
 The gulpupd script helps customers to keep the shipped images Up-to-date with the latest version of
 vertice agent (gulpd)
@@ -16,25 +55,47 @@ gulpupd --version 1.5 --branch stable
 ````
 
 
+
 ## hook_vertice.rb
 
 hook_vertice.rb triggers MegamVertice when the virtual machine hits the following states. 
 
-`delete`, `suspend`, poweroff`, ` `
+`delete`, `suspend`, `poweroff`, `boot_suspend`
 
-## To use the hook_vertice
+## To use the hook_vertice.rb
 
 1. In your OpenNebula installation, edit the `/etc/one/oned.conf` with the following
 
 ```
 VM_HOOK = [
-  name      = "hook_vertice",
-  on        = "CUSTOM",
-  state     = "ACTIVE",
-  lcm_state = "SHUTDOWN_POWEROFF",
-  command   = "hook_vertice.rb",
-  arguments = "$ID $TEMPLATE STOPPED STOPPED" ]
+ name      = "poweroff_hook",
+ on        = "CUSTOM",
+ state     = "ACTIVE",
+ lcm_state = "SHUTDOWN_POWEROFF",
+ command   = "hook_vertice.rb",
+ arguments = "$ID $TEMPLATE poweroff stopped" ]
 
+VM_HOOK = [
+ name      = "delete_hook",
+ on        = "DONE",
+ command   = "hook_vertice.rb",
+ arguments = "$ID $TEMPLATE destroyed destroyed" ]
+
+VM_HOOK = [
+ name      = "suspend_hook",
+ on        = "CUSTOM",
+ state     = "SUSPENDED",
+ lcm_state = "LCM_INIT",
+ command   = "hook_vertice.rb",
+ arguments = "$ID $TEMPLATE suspended suspended" ]
+
+VM_HOOK = [
+ name      = "boot_suspend_hook",
+ on        = "CUSTOM",
+ state     = "BOOT_SUSPENDED",
+ lcm_state = "RUNNING",
+ command   = "hook_vertice.rb",
+ arguments = "$ID $TEMPLATE running running" ]
 ```
 
 2. Copy the `hook_vertice.rb` file into the location `/var/lib/one/remotes/hooks`
@@ -50,12 +111,6 @@ chmod 755 hook_vertice.rb
 chown oneadmin:oneadmin hook_vertice.rb
 
 ```
-
-## init1.5.sh
-
-The init1.5.sh script helps to updates latest version of gulpd daemon and gulp.conf file into virtual machine. Replace nsqd and scylla ipaddress from localhost to server ipaddress in this file.
-
-Put init1.5.sh script file into your OpenNebula template FILES location and change file mode to 0755. This file will executed when Virtual Machine booting on OpenNebula.
 
 ## letsencrypt
 
