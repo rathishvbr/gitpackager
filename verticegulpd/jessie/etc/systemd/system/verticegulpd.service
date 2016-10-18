@@ -8,5 +8,5 @@ After=runlevel4.target
 After=runlevel5.target
 [Service]
 EnvironmentFile=/var/lib/megam/env.sh
-ExecStart=/usr/share/megam/verticegulpd/bin/gulpd -v start --config /var/lib/megam/gulp/gulpd.conf
+ExecStart=/usr/share/megam/verticegulpd/bin/gulpd start --config /var/lib/megam/gulp/gulpd.conf
 KillMode=process

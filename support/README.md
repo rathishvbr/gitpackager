@@ -51,6 +51,11 @@ chown oneadmin:oneadmin hook_vertice.rb
 
 ```
 
+## init1.5.sh
+
+The init1.5.sh script helps to updates latest version of gulpd daemon and gulp.conf file into virtual machine. Replace nsqd and scylla ipaddress from localhost to server ipaddress in this file.
+
+Put init1.5.sh script file into your OpenNebula template FILES location and change file mode to 0755. This file will executed when Virtual Machine booting on OpenNebula.
 
 ## letsencrypt
 
