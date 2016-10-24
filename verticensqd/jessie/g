@@ -8,4 +8,4 @@ tar -xvf nsqd.tar.gz -C ./usr/share/megam/nsqd/ --strip-components=1 && rm nsqd.
 cp ./etc/systemd/system/nsqlookupd ./usr/share/megam/nsqd/
 cp ./etc/systemd/system/nsqadmin ./usr/share/megam/nsqd/
 
-fpm -s dir -t deb  -p "$MEGAM_HOME"  -f  --iteration $3 -n $1 -v $2 --before-install ./preinst --after-install ./postinst --before-remove ./prerm --deb-init ./etc/systemd/system/nsqd --license "Apache V2" --vendor "Megam Systems" --category "infrastructure"  --maintainer "Megam Maintainer info@megam.io" --url "https://www.megam.io" --description "Nsq messaging for Megam Vertice" ./usr/share/megam/nsqd/
+fpm -s dir -t deb  -f  --iteration $3 -n $1 -v $2 --before-install ./preinst --after-install ./postinst --before-remove ./prerm --deb-init ./etc/systemd/system/nsqd --license "Apache V2" --vendor "Megam Systems" --category "infrastructure"  --maintainer "Megam Maintainer info@megam.io" --url "https://www.megam.io" --description "Nsq messaging for Megam Vertice" ./usr/share/megam/nsqd/
