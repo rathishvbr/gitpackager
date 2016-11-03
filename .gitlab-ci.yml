@@ -1,196 +1,273 @@
 stages:
-  - package
-  - notification_fail
-  - add_to_version_server
-  - extra
-  - notification_fail
+  - trusty_nsq
+  - trusty_nilavu
+  - trusty_cadvisor
+  - trusty_gateway
+  - trusty_vertice
+  - trusty_gulp
+  - trusty_vnc
+  - trusty_common
+  - trusty_deploy
+  - trusty_notification_slack
+  - jessie_nsq
+  - jessie_nilavu
+  - jessie_cadvisor
+  - jessie_gateway
+  - jessie_vertice
+  - jessie_gulp
+  - jessie_vnc
+  - jessie_common
+  - jessie_deploy
+  - jessie_notification_slack
 
-before_script:
-  - echo $NIGHTLY
-  - mkdir -p ~/.ssh
-  - mkdir -p ~/.aws
-  - mkdir -p cache
-  - bundle install -j $(nproc) --binstubs --path gems
-
-# Runs on build.megam.io
-.branch_template: &branch_build
-  stage: package
+Ubuntu 14.04 verticensqd:
+  stage: trusty_nsq
   script:
-    - echo "$DEV_GITLAB_SSH_KEY" > ~/.ssh/id_rsa
-    - ssh-keyscan -H dev.gitlab.org > ~/.ssh/known_hosts
-    - chmod -R 0600 ~/.ssh/
-    - echo -e "[default]\naws_access_key_id = $AWS_ACCESS_KEY_ID \naws_secret_access_key = $AWS_SECRET_ACCESS_KEY" > ~/.aws/config
-    - make populate_cache
-    - make restore_cache_bundle
-    - make test
-    - make pack_cache_bundle
-    - rm -rf /var/cache/omnibus/pkg
-  tags:
-  - docker-builder
+    - echo "$USER"
+    - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticensqd
+    - rake clean
+    - rake trusty
+    - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticensqd/build/trusty/*.deb /home/megdc/testing-1.5
+  allow_failure: true
   only:
-    - branches@gitlab/omnibus-gitlab
+    - 1.5.0-rc1
 
-.rpi_branch_template: &rpi_branch_build
-  stage: extra
+Ubuntu 14.04 verticenilavu:
+  stage: trusty_nilavu
   script:
-    - echo "$DEV_GITLAB_SSH_KEY" > ~/.ssh/id_rsa
-    - ssh-keyscan -H dev.gitlab.org > ~/.ssh/known_hosts
-    - chmod -R 0600 ~/.ssh/
-    - echo -e "[default]\naws_access_key_id = $AWS_ACCESS_KEY_ID \naws_secret_access_key = $AWS_SECRET_ACCESS_KEY" > ~/.aws/config
-    - make populate_cache
-    - make restore_cache_bundle
-    - if ./support/is_gitlab_ee.sh; then exit 0; else make test;fi
-    - make pack_cache_bundle
-    - rm -rf /var/cache/omnibus/pkg
-  tags:
-  - docker-rpi-builder
+    - echo "$USER"
+    - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticenilavu
+    - rake clean
+    - rake trusty
+    - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticenilavu/build/trusty/*.deb /home/megdc/testing-1.5
   only:
-  - branches@gitlab/omnibus-gitlab
+    - 1.5.0-rc1
+  allow_failure: true
 
-.tag_template: &tag_build
-  stage: package
+
+Ubuntu 14.04 verticecadvisor:
+  stage: trusty_cadvisor
   script:
-    - echo "$DEV_GITLAB_SSH_KEY" > ~/.ssh/id_rsa
-    - ssh-keyscan -H dev.gitlab.org > ~/.ssh/known_hosts
-    - chmod -R 0600 ~/.ssh/
-    - echo -e "[default]\naws_access_key_id = $AWS_ACCESS_KEY_ID \naws_secret_access_key = $AWS_SECRET_ACCESS_KEY" > ~/.aws/config
-    - make populate_cache
-    - make restore_cache_bundle
-    - make do_release
-    - make pack_cache_bundle
-    - rm -rf /var/cache/omnibus/pkg
-  tags:
-  - docker-builder
+    - echo "$USER"
+    - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticecadvisor
+    - rake clean
+    - rake trusty
+    - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticecadvisor/build/trusty/*.deb /home/megdc/testing-1.5
   only:
-    - tags@gitlab/omnibus-gitlab
+    - 1.5.0-rc1
+  allow_failure: true
 
-.rpi_tag_template: &rpi_tag_build
-  stage: extra
+Ubuntu 14.04 verticegateway:
+  stage: trusty_gateway
   script:
-    - echo "$DEV_GITLAB_SSH_KEY" > ~/.ssh/id_rsa
-    - ssh-keyscan -H dev.gitlab.org > ~/.ssh/known_hosts
-    - chmod -R 0600 ~/.ssh/
-    - echo -e "[default]\naws_access_key_id = $AWS_ACCESS_KEY_ID \naws_secret_access_key = $AWS_SECRET_ACCESS_KEY" > ~/.aws/config
-    - make populate_cache
-    - make restore_cache_bundle
-    - if ./support/is_gitlab_ee.sh; then exit 0; else make do_rpi2_release;fi
-    - make pack_cache_bundle
-    - rm -rf /var/cache/omnibus/pkg
-  tags:
-  - docker-rpi-builder
+    - echo "$USER"
+    - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticegateway
+    - rake clean
+    - rake trusty
+    - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticegateway/build/trusty/vertice_gateway/target/*.deb /home/megdc/testing-1.5
   only:
-    - tags@gitlab/omnibus-gitlab
+    - 1.5.0-rc1
+  allow_failure: true
 
-Docker master:
-  stage: extra
+Ubuntu 14.04 vertice:
+  stage: trusty_vertice
+  before_script:
+    - echo "$USER"
+    - export GOPATH=/home/gitlab-runner/.go
+    - export GOROOT=/home/gitlab-runner/software/go
+    - export PATH="$PATH:$HOME/.rvm/bin:$GOROOT/bin:$GOPATH/bin"
   script:
-  - make do_docker_master
-  tags:
-  - docker-build
+    - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/vertice
+    - rake clean
+    - echo "$USER"
+    - rake trusty
+    - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/vertice/build/trusty/*.deb /home/megdc/testing-1.5
   only:
-    - branches@gitlab/omnibus-gitlab
+    - 1.5.0-rc1
+  allow_failure: true
 
-Docker:
-  stage: extra
+Ubuntu 14.04 verticegulpd:
+  stage: trusty_gulp
+  before_script:
+    - echo "$USER"
+    - export GOPATH=/home/gitlab-runner/.go
+    - export GOROOT=/home/gitlab-runner/software/go
+    - export PATH="$PATH:$HOME/.rvm/bin:$GOROOT/bin:$GOPATH/bin"
   script:
-  - make do_docker_release
-  tags:
-  - docker-build
+    - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticegulpd
+    - rake clean
+    - echo "$USER"
+    - rake trusty
+    - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticegulpd/build/trusty/*.deb /home/megdc/testing-1.5
   only:
-    - tags@gitlab/omnibus-gitlab
+    - 1.5.0-rc1
+  allow_failure: true
 
-
-# dev.gitlab.org only
-Ubuntu 14.04:
-  image: "dev.gitlab.org:5005/cookbooks/gitlab-omnibus-builder:trusty"
-  cache:
-    key: "Ubuntu 14.04 branch"
-    paths:
-    - cache
-    - gems
-  <<: *tag_build
-Ubuntu 16.04:
-  image: "dev.gitlab.org:5005/cookbooks/gitlab-omnibus-builder:xenial"
-  cache:
-    key: "Ubuntu 16.04 branch"
-    paths:
-    - cache
-    - gems
-  <<: *tag_build
-Debian 7:
-  image: "dev.gitlab.org:5005/cookbooks/gitlab-omnibus-builder:wheezy"
-  cache:
-    key: "Debian 7 branch"
-    paths:
-    - cache
-    - gems
-  <<: *tag_build
-Debian 8:
-  image: "dev.gitlab.org:5005/cookbooks/gitlab-omnibus-builder:jessie"
-  cache:
-    key: "Debian 8 branch"
-    paths:
-    - cache
-    - gems
-  <<: *tag_build
-Centos 7:
-  image: "dev.gitlab.org:5005/cookbooks/gitlab-omnibus-builder:centos7"
-  cache:
-    key: "Centos 7 branch"
-    paths:
-    - cache
-    - gems
-  <<: *tag_build
-
-Ubuntu 14.04 branch:
-  image: "dev.gitlab.org:5005/cookbooks/gitlab-omnibus-builder:trusty"
-  cache:
-    key: "$CI_BUILD_NAME"
-    paths:
-    - cache
-    - gems
-  <<: *branch_build
-Ubuntu 16.04 branch:
-  image: "dev.gitlab.org:5005/cookbooks/gitlab-omnibus-builder:xenial"
-  cache:
-    key: "$CI_BUILD_NAME"
-    paths:
-    - cache
-    - gems
-  <<: *branch_build
-Debian 8 branch:
-  image: "dev.gitlab.org:5005/cookbooks/gitlab-omnibus-builder:jessie"
-  cache:
-    key: "$CI_BUILD_NAME"
-    paths:
-    - cache
-    - gems
-  <<: *branch_build
-CentOS 6 branch:
-  image: "dev.gitlab.org:5005/cookbooks/gitlab-omnibus-builder:centos6"
-  cache:
-    key: "$CI_BUILD_NAME"
-    paths:
-    - cache
-    - gems
-  <<: *branch_build
-CentOS 7 branch:
-  image: "dev.gitlab.org:5005/cookbooks/gitlab-omnibus-builder:centos7"
-  cache:
-    key: "$CI_BUILD_NAME"
-    paths:
-    - cache
-    - gems
-  <<: *branch_build
-
-notify:slack-fail:
-  before_script: # Nothing
-    - apk update && apk add git curl bash
-  image: "alpine"
-  stage: notification_fail
+Ubuntu 14.04 verticevnc:
+  stage: trusty_vnc
   script:
-    - ./support/notify_slack.sh "#releng" "(╯°□°)╯︵┻━┻  Build on \`$CI_BUILD_REF_NAME\` failed! Commit \`$(git log -1 --oneline)\` See <https://github.com/megamsys/gitpackager/commit/"$CI_BUILD_REF"/builds>"
-  when: on_failure
+    - echo "$USER"
+    - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticevnc
+    - rake clean
+    - rake trusty
+    - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticevnc/build/trusty/*.deb /home/megdc/testing-1.5
   only:
-    - master
-    - tags@gitlab/omnibus-gitlab
+    - 1.5.0-rc1
+  allow_failure: true
+
+Ubuntu 14.04 verticecommon:
+  stage: trusty_common
+  script:
+    - echo "$USER"
+    - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticecommon
+    - rake clean
+    - rake trusty
+    - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticecommon/build/trusty/*.deb /home/megdc/testing-1.5
+  only:
+    - 1.5.0-rc1
+  allow_failure: true
+
+Ubuntu 14.04 deploy:
+  stage: trusty_deploy
+  script:
+    - echo "$USER"
+    - cd /home/megdc
+    - ./reprepro-new.sh version=1.5 distro=trusty release=testing
+  allow_failure: true
+
+
+notify:slack:
+  stage: trusty_notification_slack
+  before_script:
+    - sudo apt-get update && sudo apt-get install -y git curl bash
+  script:
+    - ./support/notify_slack "#relengg" "Ubuntu Trusty Build on \`$CI_BUILD_REF_NAME\` success! Commit \`$(git log -1 --oneline)\` See <https://gitlab.com/megamsys/gitpackager/commit/"$CI_BUILD_REF"/builds>"
+  #when: on_success
+  only:
+    - 1.5.0-rc1
+
+Jessie verticensqd:
+  stage: jessie_nsq
+  script:
+    - echo "$USER"
+    - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticensqd
+    - rake clean
+    - rake jessie
+    - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticensqd/build/trusty/*.deb /home/megdc/jessie
+  allow_failure: true
+  only:
+    - 1.5.0-rc1
+
+Jessie verticenilavu:
+  stage: jessie_nilavu
+  script:
+    - echo "$USER"
+    - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticenilavu
+    - rake clean
+    - rake jessie
+    - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticenilavu/build/trusty/*.deb /home/megdc/jessie
+  only:
+    - 1.5.0-rc1
+  allow_failure: true
+
+
+Jessie verticecadvisor:
+  stage: jessie_cadvisor
+  script:
+    - echo "$USER"
+    - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticecadvisor
+    - rake clean
+    - rake jessie
+    - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticecadvisor/build/trusty/*.deb /home/megdc/jessie
+  only:
+    - 1.5.0-rc1
+  allow_failure: true
+
+Jessie verticegateway:
+  stage: jessie_gateway
+  script:
+    - echo "$USER"
+    - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticegateway
+    - rake clean
+    - rake jessie
+    - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticegateway/build/trusty/vertice_gateway/target/*.deb /home/megdc/jessie
+  only:
+    - 1.5.0-rc1
+  allow_failure: true
+
+Jessie vertice:
+  stage: jessie_vertice
+  before_script:
+    - echo "$USER"
+    - export GOPATH=/home/gitlab-runner/.go
+    - export GOROOT=/home/gitlab-runner/software/go
+    - export PATH="$PATH:$HOME/.rvm/bin:$GOROOT/bin:$GOPATH/bin"
+  script:
+    - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/vertice
+    - rake clean
+    - echo "$USER"
+    - rake jessie
+    - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/vertice/build/trusty/*.deb /home/megdc/jessie
+  only:
+    - 1.5.0-rc1
+  allow_failure: true
+
+Jessie verticegulpd:
+  stage: jessie_gulp
+  before_script:
+    - echo "$USER"
+    - export GOPATH=/home/gitlab-runner/.go
+    - export GOROOT=/home/gitlab-runner/software/go
+    - export PATH="$PATH:$HOME/.rvm/bin:$GOROOT/bin:$GOPATH/bin"
+  script:
+    - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticegulpd
+    - rake clean
+    - echo "$USER"
+    - rake jessie
+    - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticegulpd/build/trusty/*.deb /home/megdc/jessie
+  only:
+    - 1.5.0-rc1
+  allow_failure: true
+
+Jessie verticevnc:
+  stage: jessie_vnc
+  script:
+    - echo "$USER"
+    - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticevnc
+    - rake clean
+    - rake jessie
+    - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticevnc/build/trusty/*.deb /home/megdc/jessie
+  only:
+    - 1.5.0-rc1
+  allow_failure: true
+
+Jessie verticecommon:
+  stage: jessie_common
+  script:
+    - echo "$USER"
+    - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticecommon
+    - rake clean
+    - rake jessie
+    - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticecommon/build/trusty/*.deb /home/megdc/jessie
+  only:
+    - 1.5.0-rc1
+  allow_failure: true
+
+Jessie deploy:
+  stage: jessie_deploy
+  script:
+    - echo "$USER"
+    - cd /home/megdc
+    - ./reprepro-new.sh version=1.5 distro=jessie release=testing
+  allow_failure: true
+
+
+Jessie notify:slack:
+  stage: jessie_notification_slack
+  before_script:
+    - sudo apt-get update && sudo apt-get install -y git curl bash
+  script:
+    - ./support/notify_slack "#relengg" "Jessie  Build on \`$CI_BUILD_REF_NAME\` success! Commit \`$(git log -1 --oneline)\` See <https://gitlab.com/megamsys/gitpackager/commit/"$CI_BUILD_REF"/builds>"
+  #when: on_success
+  only:
+    - 1.5.0-rc1
