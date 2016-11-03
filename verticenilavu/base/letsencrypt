@@ -33,10 +33,18 @@ fi
 }
 
 clone() {
-cd /tmp/
-git clone https://github.com/Neilpang/acme.sh.git
-cd acme.sh/
-sudo ./acme.sh --install
+ user=`echo "$USER"`
+  if [ "$user" = "root" ];  then
+   cd /tmp/
+   git clone https://github.com/Neilpang/acme.sh.git
+   cd acme.sh/
+   sudo ./acme.sh --install
+   source ~/.bashrc
+  else
+   echo "error! you are not root user"
+   exit 0
+  fi
+
 }
 
 usage() {
@@ -44,7 +52,7 @@ usage() {
 echo "Usage:  letsencrypt[OPTION]"
   echo
   echo "Options:"
-  echo " --install  <domainame> <domainip>"
+  echo " --install  <domainame> "
   echo "--remove <domainname>"
   echo "--autorenew  <domainname>"
   echo "--help"
@@ -60,7 +68,6 @@ while [ "$1" != "" ];
     case "$token" in
       (--install)
         domainname="$1"
-        domainip="$2"
         main_install
         shift
         ;;
@@ -108,8 +115,6 @@ install_cert() {
 
 cd /etc/nginx/ssl/$domainname/
 
-source ~/.bashrc
-
 openssl dhparam -out dhparams.pem 4096
 
 ln -s /root/.acme.sh/acme.sh /usr/bin/acme.sh
@@ -117,44 +122,6 @@ ln -s /root/.acme.sh/acme.sh /usr/bin/acme.sh
 acme.sh --issue -w /var/www/html -d ${domainname}  -k 4096
 
 mkdir -p /var/log/nginx/$domainname
-
-cp /etc/nginx/sites-available/default /etc/nginx/sites-available/nginxcopy
-
-cat >> /etc/nginx/sites-available/default  <<EOF
-server {
-    #------- Start SSL config with http2 support ----#
-    listen $domainip:443 http2;
-    server_name $domainname;
-    ssl on;
-    ssl_certificate /etc/nginx/ssl/$domainname/$domainname.cer;
-    ssl_certificate_key /etc/nginx/ssl/$domainname/$domainname.key;
-    ssl_session_timeout 30m;
-    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
-    ssl_ciphers ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:ECDH+3DES:DH+3DES:RSA+AESGCM:RSA+AES:RSA+3DES:!aNULL:!MD5:!DSS;
-    ssl_session_cache shared:SSL:10m;
-    ssl_dhparam /etc/nginx/ssl/$domainname/dhparams.pem;
-    ssl_prefer_server_ciphers on;
-
-    ## Improves TTFB by using a smaller SSL buffer than the nginx default
-    ssl_buffer_size 8k;
-
-    ## Enables OCSP stapling
-    ssl_stapling on;
-    resolver 8.8.8.8;
-    ssl_stapling_verify on;
-
-    ## Send header to tell the browser to prefer https to http traffic
-    add_header Strict-Transport-Security max-age=31536000;
-
-    ## SSL logs ##
-    access_log /var/log/nginx/$domainname/ssl_access.log;
-    error_log /var/log/nginx/$domainname/ssl_error.log;
-    #-------- END SSL config -------##
-
-    # Add rest of your config below like document path and more ##
-}
-
-EOF
 
 if [ "$DISTRO" = "Ubuntu" ] || [ "$DISTRO" = "Debian" ]
 then
@@ -182,8 +149,6 @@ remove_cert() {
 rm -rf $acme_remove
 rm -rf /etc/nginx/ssl/$domainname
 rm -rf /var/log/nginx/$domainname
-cp /etc/nginx/sites-available/default /etc/nginx/sites-available/sslbk
-mv /etc/nginx/sites-available/nginxcopy /etc/nginx/sites-available/default
 }
 
 auto_renew() {
