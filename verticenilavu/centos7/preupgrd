@@ -1,23 +1,20 @@
 #!/bin/sh
 count="0";
-while [ "$count" -le 3 ];
-do
+t="3";
+while [ "$count" -ne "$t" ];
+ do
   count=`expr $count + 1`
-  echo -n "Do u want to upgrade for new configuration file  [Y/N] :"
+  echo -n "Do u want to continue the set new configuration file  [Y/N] :"
   read x
-  if [ $x = 'y' ]; then
-   cp /usr/share/megam/verticenilavu/config/nilavu.yml /var/lib/megam/nilavu.yml
-   echo "new configuration file was succesfully copied...."
+  if [ $x = y ]; then
+   cp /var/www/verticenilavu/config/nilavu.conf /var/lib/megam/nilavu.conf
+   echo "new configureation file copied...."
    break
-  elif [$x = 'n' ]; then
-     echo "Ok. You can work with old configuration file"
+  fi
+  if [ "$count" -eq "3" ]; then
+     echo "more than three attempt,so it keep the old configuration file"
      break
   else
-     if [ "$count" -eq "3" ]; then
-      echo "more than three attempt,so it keeps the old configuration file"
-      break
-     else
-      echo "enter valid input "
-     fi
+     echo "enter valid input "
   fi
 done

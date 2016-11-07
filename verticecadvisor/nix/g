@@ -1,5 +1,4 @@
 #!/bin/bash
-
 mkdir -p ./usr/share/megam/cadvisor/bin
 
 wget https://s3.amazonaws.com/megam/cadvisor
