@@ -1,12 +1,8 @@
-[Unit]
-Description=Vertice Portal
-After=network.target
-After=runlevel2.target
-After=runlevel3.target
-After=runlevel4.target
-After=runlevel5.target
-[Service]
-EnvironmentFile=/var/lib/megam/env.sh
-WorkingDirectory=/usr/share/megam/verticenilavu/
-ExecStart=/bin/bundle exec /usr/local/bin/passenger start -a 127.0.0.1 -p 8080 -d -e production
-KillMode=process
+#!/bin/bash
+        exec 2>&1
+        # redis
+        # postgres
+        cd  /var/www/verticenilavu
+        export MEGAM_HOME=/var/lib/megam
+        export RAILS_ENV=production
+        LD_PRELOAD=/usr/lib/libjemalloc.so.1 exec bundle exec config/unicorn_launcher -E production -c config/unicorn.conf.rb

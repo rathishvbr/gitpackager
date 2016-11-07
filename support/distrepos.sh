@@ -1,4 +1,10 @@
-service apache2 start
+# To Run the script
+# ./reprepro.sh version=1.0 distro=trusty release=stable
+# ./reprepro.sh version=1.0 distro=trusty release=testing
+# ./reprepro.sh version=1.5 distro=trusty release=testing
+# ./reprepro.sh version=1.5 distro=trusty release=stable
+# ./reprepro.sh version=1.5 distro=debian release=testing
+# ./reprepro.sh version=1.5 distro=debian release=stable
 
 for i in "$@"
 do
@@ -70,6 +76,31 @@ chmod -R ugo+rX /var/www/html/repo/1.0/ubuntu/14.04
 
 }
 
+
+function stable2()
+{
+mkdir -p /var/repo/1.5/ubuntu/14.04/stable/conf
+cd /var/repo/1.5/ubuntu/14.04/stable/conf
+cat > distributions <<EOF
+Origin: ubuntu
+Label: ubuntu
+Suite: stable
+Codename: trusty
+Version: 1.5
+Architectures: amd64
+Components: stable
+Description: vertice
+SignWith: 9B46B611
+EOF
+
+cd
+find ./stable1.5 -name \*.deb -exec reprepro --ask-passphrase -Vb /var/repo/1.5/ubuntu/14.04/stable includedeb trusty {} \;
+mv $(find /var/www/html/repo/1.5/ubuntu/14.04/stable/pool/stable -name *.deb) /var/www/html/arkave
+rm -r /var/www/html/repo/1.5/ubuntu/14.04/stable
+
+mv /var/repo/1.5/ubuntu/14.04/stable /var/www/html/repo/1.5/ubuntu/14.04
+chmod -R ugo+rX /var/www/html/repo/1.5/ubuntu/14.04
+}
 function testing2()
 {
 mkdir -p /var/repo/1.5/ubuntu/14.04/testing/conf
@@ -96,13 +127,14 @@ chmod -R ugo+rX /var/www/html/repo/1.5/ubuntu/14.04
 
 function testing3()
 {
-mkdir -p /var/repo/1.5/debian/8.5/testing/conf
-cd /var/repo/1.5/debian/8.5/testing/conf
+mkdir -p /var/repo/1.5/ubuntu/16.04/testing/conf
+cd /var/repo/1.5/ubuntu/16.04/testing/conf
+pwd
 cat > distributions <<EOF
-Origin:debian
-Label: debian
+Origin: ubuntu
+Label: ubuntu
 Suite: testing
-Codename: jessie
+Codename: xenial
 Version: 1.5
 Architectures: amd64
 Components: testing
@@ -112,15 +144,41 @@ EOF
 
 cd
 
-find ./jessie -name \*.deb -exec reprepro --ask-passphrase -Vb /var/repo/1.5/debian/8.5/testing includedeb jessie {} \;
-mv $(find /var/www/html/repo/1.5/debian/8.5/testing/pool/testing -name *.deb) /var/www/html/arkave
-rm -r /var/www/html/repo/1.5/debian/8.5/testing
+find ./ubuntu_16.04 -name \*.deb -exec reprepro --ask-passphrase -Vb /var/repo/1.5/ubuntu/16.04/testing includedeb xenial {} \;
+mv $(find /var/www/html/repo/1.5/ubuntu/16.04/testing/pool/testing -name *.deb) /var/www/html/arkave
+rm -r /var/www/html/repo/1.5/ubuntu/16.04/testing
 
-mv /var/repo/1.5/debian/8.5/testing /var/www/html/repo/1.5/debian/8.5
-chmod -R ugo+rX /var/www/html/repo/1.5/debian/8.5
-
+mv /var/repo/1.5/ubuntu/16.04/testing /var/www/html/repo/1.5/ubuntu/16.04
+chmod -R ugo+rX /var/www/html/repo/1.5/ubuntu/16.04
 }
 
+function stable3()
+{
+mkdir -p /var/repo/1.5/ubuntu/16.04/stable/conf
+cd /var/repo/1.5/ubuntu/16.04/stable/conf
+pwd
+cat > distributions <<EOF
+Origin: ubuntu
+Label: ubuntu
+Suite: stable
+Codename: xenial
+Version: 1.5
+Architectures: amd64
+Components: stable
+Description: vertice
+SignWith: 9B46B611
+EOF
+
+cd
+
+find ./ubuntu_16.04 -name \*.deb -exec reprepro --ask-passphrase -Vb /var/repo/1.5/ubuntu/16.04/stable includedeb xenial {} \;
+mv $(find /var/www/html/repo/1.5/ubuntu/16.04/stable/pool/stable -name *.deb) /var/www/html/arkave
+rm -r /var/www/html/repo/1.5/ubuntu/16.04/stable
+
+mv /var/repo/1.5/ubuntu/16.04/stable /var/www/html/repo/1.5/ubuntu/16.04
+chmod -R ugo+rX /var/www/html/repo/1.5/ubuntu/16.04
+
+}
 
 case $version in
 	1.0)
@@ -144,15 +202,21 @@ case $version in
 					testing)
 					testing2
 					;;
+					stable)
+					stable2
+					;;
 				esac
 			;;
-			debian)
-        case $release in
-            testing)
-            testing3
-            ;;
-      	esac
-      ;
+			xenial)
+			      	case $release in
+		        		testing)
+			        	testing3
+			                ;;
+					stable)
+					stable3
+					;;
+      				esac
+			;;
 		esac
 	;;
 esac
