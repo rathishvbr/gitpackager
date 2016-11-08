@@ -117,7 +117,7 @@ cd /etc/nginx/ssl/$domainname/
 
 openssl dhparam -out dhparams.pem 4096
 
-ln -s /root/.acme.sh/acme.sh /usr/bin/acme.sh
+ln -s $HOME/.acme.sh/acme.sh /usr/bin/acme.sh
 
 acme.sh --issue -w /var/www/html -d ${domainname}  -k 4096
 

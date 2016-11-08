@@ -2,7 +2,7 @@
 
 ## init1.5.sh
 
-The init1.5.sh script helps to update latest version of our cloud agent(`gulpd`) and its configuration(`gulp.conf`) file in the virtual machine images that `MegamVertice` provides auto-magically. 
+The init1.5.sh script helps to update latest version of our cloud agent(`gulpd`) and its configuration(`gulp.conf`) file in the virtual machine images that `MegamVertice` provides auto-magically.
 
 ## To use the init1.5.sh
 
@@ -43,6 +43,25 @@ The `init1.5.sh` is preconfigured to assume that the `nsqd` and `scylla` ip addr
 
 The scylla_username and scylla_password is `base64` encoded for `vertadmin`
 
+## Support for RDNS
+
+  The RDNS is  the resolution of an IP address to its designated domain name.
+
+  In the opennebula template add the following
+
+  ```
+    DNS_HOSTNAME = "YES"
+  ```  
+ If the expected hostname is not set in the vm to check in the terminal
+
+```
+    host <ip>
+```
+
+The resolvable names of these name servers should be in the NS resource records of the zone.
+
+Resolving an IP address uses the pointer DNS record type (PTR record)       
+
 
 ## In the template update gulpupd to use the correct repo
 
@@ -63,7 +82,7 @@ true "${branch:=testing}"
 
 ## Use this common template
 
-Please use the usual process to create a template in OpenNebula and its beyond the scope of this doc. 
+Please use the usual process to create a template in OpenNebula and its beyond the scope of this doc.
 
 Make sure that the `Files = "/vertice/init1.5.sh` is configured correctly.
 
@@ -131,7 +150,7 @@ gulpupd --version 1.5 --branch stable
 
 ## hook_vertice.rb
 
-hook_vertice.rb triggers MegamVertice when the virtual machine hits the following states. 
+hook_vertice.rb triggers MegamVertice when the virtual machine hits the following states.
 
 `delete`, `suspend`, `poweroff`, `boot_suspend`
 
@@ -191,7 +210,7 @@ LetsEncrypt is a certificate authority that  provides free X.509 certificates vi
 
 We provide a LetsEncrypt wrapper shell script which can be downloaded into any directory.
 
-Please make sure you have a valid `public domain` and `public ip address`. 
+Please make sure you have a valid `public domain` and `public ip address`.
 
 
 ```bash
