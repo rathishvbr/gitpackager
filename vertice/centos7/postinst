@@ -4,6 +4,8 @@ mkdir -p /var/lib/megam/vertice
 
 cp /usr/share/megam/vertice/conf/vertice.conf /var/lib/megam/vertice/vertice.conf
 
+mv /etc/rc.d/init.d/vertice.service /etc/systemd/system/
+
 cat >> /var/lib/megam/env.sh << EOF
 MEGAM_HOME='/var/lib/megam/'
 EOF

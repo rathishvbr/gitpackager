@@ -6,5 +6,6 @@ After=runlevel3.target
 After=runlevel4.target
 After=runlevel5.target
 [Service]
+EnvironmentFile=/var/lib/megam/env.sh
 ExecStart=/usr/share/megam/vertice/bin/vertice -v start
 KillMode=process
