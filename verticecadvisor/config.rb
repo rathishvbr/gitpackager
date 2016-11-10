@@ -1,4 +1,4 @@
-module MegamPkg
+module Pkg
   class Ger
     attr_accessor :halwa, :build_halwa
     CONFIG =  { os: %w(trusty jessie centos7), branch: 'master', name: 'verticecadvisor', :git => "https://github.com/megamsys/cadvisor.git" }

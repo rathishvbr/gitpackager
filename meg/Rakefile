@@ -1,7 +1,7 @@
 require "rake"
 require "../../version.rb"
 require "./config.rb"
-puts ">> ------------- [#{MegamPkg::Ger::CONFIG[:name]} #{MegamPkg::Ger::VERSION}]"
+puts ">> ------------- [#{Pkg::Ger::CONFIG[:name]} #{Pkg::Ger::VERSION}]"
 task :default => :nix
 
 build_dir ="build"
@@ -14,7 +14,7 @@ task :clean do
 end
 
 task :nix => [:initnix_setup, :clone] do
-  system './g', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION
+  system './g', Pkg::Ger::CONFIG[:name], Pkg::Ger::VERSION
 end
 
 task :initnix_setup do
@@ -30,6 +30,6 @@ end
 
 task :clone do
   if !File.exists? 'meg'
-   system "git clone " + MegamPkg::Ger::CONFIG[:git]
+   system "git clone " + Pkg::Ger::CONFIG[:git]
  end
 end

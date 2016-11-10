@@ -204,6 +204,24 @@ chown oneadmin:oneadmin hook_vertice.rb
 
 ```
 
+## MegamVerice WHMCS Addon
+
+1. Copy the post_billing_transaction_hook in to directory /var/www/html/whmcs/include/hooks
+
+```bash
+
+$ cd /var/www/html/whmcs/include/hooks
+
+$ wget https://raw.githubusercontent.com/megamsys/gitpackager/master/support/post_billing_transaction_hook
+
+$ sudo service apache2 restart
+
+```
+
+2.  Change the script to point to your gateway
+
+3.
+
 ## letsencrypt
 
 LetsEncrypt is a certificate authority that  provides free X.509 certificates via an automated process.

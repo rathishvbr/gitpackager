@@ -1,9 +1,9 @@
 require 'rake'
 require '../version.rb'
 require './config.rb'
-puts ">> ------------- [#{MegamPkg::Ger::CONFIG[:name]} #{MegamPkg::Ger::VERSION} #{MegamPkg::Ger::ITERATION}]"
+puts ">> ------------- [#{Pkg::Ger::CONFIG[:name]} #{Pkg::Ger::VERSION} #{Pkg::Ger::ITERATION}]"
 
-megger = MegamPkg::Ger.new
+megger = Pkg::Ger.new
 
 nix_dir = 'nix'
 build_dir = 'build'
@@ -29,7 +29,7 @@ task nix: [:initnix] do
   Dir.chdir megger.build_halwa
   mkdir_p 'var/www'
   Rake::Task[:clone].invoke
-  system './g', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION, MegamPkg::Ger::ITERATION
+  system './g', Pkg::Ger::CONFIG[:name], Pkg::Ger::VERSION, Pkg::Ger::ITERATION
 end
 
 task :trusty do
@@ -53,7 +53,7 @@ end
 task :clone do
   unless File.exist? 'nilavu/'
     Dir.chdir 'var/www'
-    system "git clone -b #{MegamPkg::Ger::CONFIG[:branch]} https://gitlab.com/megamsys/nilavu.git verticenilavu"
+    system "git clone -b #{Pkg::Ger::CONFIG[:branch]} https://gitlab.com/megamsys/nilavu.git verticenilavu"
  end
   Dir.chdir 'verticenilavu/config'
   #File.write("nilavu.yml",File.open("nilavu.yml",&:read).gsub("build.date",Time.new.strftime("%Y-%m-%d %H:%M:%S")))

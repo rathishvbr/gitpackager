@@ -1,9 +1,9 @@
 require "rake"
 require "../version.rb"
 require "./config.rb"
-puts ">> ------------- [#{MegamPkg::Ger::CONFIG[:name]} #{MegamPkg::Ger::VERSION} #{MegamPkg::Ger::ITERATION}]"
+puts ">> ------------- [#{Pkg::Ger::CONFIG[:name]} #{Pkg::Ger::VERSION} #{Pkg::Ger::ITERATION}]"
 
-megger = MegamPkg::Ger.new
+megger = Pkg::Ger.new
 
 nix_dir="nix"
 build_dir ="build"
@@ -26,7 +26,7 @@ task :nix => [:initnix] do
   end if File.exists?(megger.halwa)
 
   Dir.chdir megger.build_halwa
-  system './g', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION, MegamPkg::Ger::ITERATION
+  system './g', Pkg::Ger::CONFIG[:name], Pkg::Ger::VERSION, Pkg::Ger::ITERATION
 end
 
 task :trusty   do

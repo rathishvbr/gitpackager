@@ -1,7 +1,0 @@
-#!/bin/sh
-
-
-mkdir -p ./usr/share/megam
-
-fpm -s dir -t deb  -f  --iteration $3 -n $1 -v $2 --after-install ./postinst --after-remove ./postrm --license "Apache V2" --vendor "Megam Systems" --category "infrastructure" --maintainer "Megam Maintainer info@megam.io" --url "http://docs.megam.io" --description "This is an empty package that creates the group and user, and a bunch of directories
-for Megam Vertice. " ./usr/share/megam
