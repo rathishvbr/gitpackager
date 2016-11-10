@@ -1,4 +1,4 @@
-module MegamPkg
+module Pkg
   class Ger
   CONFIG =  {:os => ['nix', 'apple'],
         :name => "meg",

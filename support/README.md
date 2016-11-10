@@ -2,7 +2,7 @@
 
 ## init1.5.sh
 
-The init1.5.sh script helps to update latest version of our cloud agent(`gulpd`) and its configuration(`gulp.conf`) file in the virtual machine images that `MegamVertice` provides auto-magically. 
+The init1.5.sh script helps to update latest version of our cloud agent(`gulpd`) and its configuration(`gulp.conf`) file in the virtual machine images that `MegamVertice` provides auto-magically.
 
 ## To use the init1.5.sh
 
@@ -63,7 +63,7 @@ true "${branch:=testing}"
 
 ## Use this common template
 
-Please use the usual process to create a template in OpenNebula and its beyond the scope of this doc. 
+Please use the usual process to create a template in OpenNebula and its beyond the scope of this doc.
 
 Make sure that the `Files = "/vertice/init1.5.sh` is configured correctly.
 
@@ -131,7 +131,7 @@ gulpupd --version 1.5 --branch stable
 
 ## hook_vertice.rb
 
-hook_vertice.rb triggers MegamVertice when the virtual machine hits the following states. 
+hook_vertice.rb triggers MegamVertice when the virtual machine hits the following states.
 
 `delete`, `suspend`, `poweroff`, `boot_suspend`
 
@@ -185,13 +185,31 @@ chown oneadmin:oneadmin hook_vertice.rb
 
 ```
 
+## MegamVerice WHMCS Addon
+
+1. Copy the post_billing_transaction_hook in to directory /var/www/html/whmcs/include/hooks
+
+```bash
+
+$ cd /var/www/html/whmcs/include/hooks
+
+$ wget https://raw.githubusercontent.com/megamsys/gitpackager/master/support/post_billing_transaction_hook
+
+$ sudo service apache2 restart
+
+```
+
+2.  Change the script to point to your gateway
+
+3.
+
 ## letsencrypt
 
 LetsEncrypt is a certificate authority that  provides free X.509 certificates via an automated process.
 
 We provide a LetsEncrypt wrapper shell script which can be downloaded into any directory.
 
-Please make sure you have a valid `public domain` and `public ip address`. 
+Please make sure you have a valid `public domain` and `public ip address`.
 
 
 ```bash

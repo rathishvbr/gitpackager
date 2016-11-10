@@ -1,9 +1,9 @@
 require "rake"
 require "../version.rb"
 require "./config.rb"
-puts ">> ------------- [#{MegamPkg::Ger::CONFIG[:name]} #{MegamPkg::Ger::VERSION}]"
+puts ">> ------------- [#{Pkg::Ger::CONFIG[:name]} #{Pkg::Ger::VERSION}]"
 
-megger = MegamPkg::Ger.new
+megger = Pkg::Ger.new
 
 nix_dir="nix"
 build_dir ="build"
@@ -26,7 +26,7 @@ task :nix => [:initnix] do
     cp_r f, target
   end if File.exists?(megger.halwa)
   Dir.chdir megger.build_halwa
-  system './g', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION
+  system './g', Pkg::Ger::CONFIG[:name], Pkg::Ger::VERSION
 end
 
 task :trusty   do
@@ -51,8 +51,8 @@ end
 task :clone do
   if !File.exists? 'cadvisor/src/github.com/megamsys/cadvisor/'
    Dir.chdir 'cadvisor/src/github.com/megamsys'
-   #system "git clone -b #{MegamPkg::Ger::CONFIG[:branch]} " + MegamPkg::Ger::CONFIG[:git]
-   system "git clone " + MegamPkg::Ger::CONFIG[:git]
+   #system "git clone -b #{Pkg::Ger::CONFIG[:branch]} " + Pkg::Ger::CONFIG[:git]
+   system "git clone " + Pkg::Ger::CONFIG[:git]
 
  end
  Dir.chdir '../../../../'
