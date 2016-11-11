@@ -2,11 +2,11 @@
 
 mkdir -p /var/lib/megam/verticevnc
 
-cd /var/megam/
+cd /var/lib/megam/
 
 
   wget http://nodejs.org/dist/v0.10.30/node-v0.10.30.tar.gz
-  tar xzvf node-v* && cd node-v*tar xzvf node-v* && cd node-v*
+  tar xvzf node-v* && cd node-v*tar xzvf node-v* && cd node-v*
   sudo yum install gcc gcc-c++
  ./configure
   make
