@@ -1,12 +1,7 @@
 require "rake"
-require "../version.rb"
 require "./config.rb"
-puts ">> ------------- [#{MegamPkg::Ger::CONFIG[:name]} #{MegamPkg::Ger::VERSION} #{MegamPkg::Ger::ITERATION}]"
 
-megger = MegamPkg::Ger.new
-
-nix_dir="nix"
-build_dir ="build"
+megger = Pkg::Ger.new
 
 task :default => :trusty
 
@@ -29,7 +24,7 @@ task :nix => [:initnix] do
   Dir.chdir megger.build_halwa
   mkdir_p "gulp/src/github.com/megamsys"
   Rake::Task[:clone].invoke
-  system './g', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION, MegamPkg::Ger::ITERATION
+  system './g', Pkg::Ger::CONFIG[:name], Pkg::Ger::VERSION, Pkg::Ger::ITERATION
 end
 
 task :trusty   do
@@ -54,8 +49,8 @@ end
 task :clone do
   if !File.exists? 'gulp/src/github.com/megamsys/gulp/'
    Dir.chdir 'gulp/src/github.com/megamsys'
-   #system "git clone -b #{MegamPkg::Ger::CONFIG[:branch]} " + MegamPkg::Ger::CONFIG[:git]
-   system "git clone " + MegamPkg::Ger::CONFIG[:git]
+   #system "git clone -b #{Pkg::Ger::CONFIG[:branch]} " + Pkg::Ger::CONFIG[:git]
+   system "git clone " + Pkg::Ger::CONFIG[:git]
 
  end
  Dir.chdir '../../../../'

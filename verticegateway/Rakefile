@@ -1,9 +1,9 @@
 require "rake"
 require "../version.rb"
 require "./config.rb"
-puts ">> ------------- [#{MegamPkg::Ger::CONFIG[:name]} #{MegamPkg::Ger::VERSION}]"
+puts ">> ------------- [#{Pkg::Ger::CONFIG[:name]} #{Pkg::Ger::VERSION}]"
 
-megger = MegamPkg::Ger.new
+megger = Pkg::Ger.new
 
 nix_dir="nix"
 build_dir ="build"
@@ -28,7 +28,7 @@ task :nix => [:initnix] do
 
   Dir.chdir megger.build_halwa
   Rake::Task[:clone].invoke
-  system './g', MegamPkg::Ger::CONFIG[:name], MegamPkg::Ger::VERSION
+  system './g', Pkg::Ger::CONFIG[:name], Pkg::Ger::VERSION
 end
 
 task :trusty   do
@@ -51,7 +51,7 @@ end
 
 task :clone do
   if !File.exists? 'vertice_gateway/'
-  system "git clone -b #{MegamPkg::Ger::CONFIG[:branch]} https://github.com/megamsys/vertice_gateway.git"
+  system "git clone -b #{Pkg::Ger::CONFIG[:branch]} https://github.com/megamsys/vertice_gateway.git"
  end
  File.write("./vertice_gateway/conf/gateway.conf",File.open("./vertice_gateway/conf/gateway.conf",&:read).gsub("build.date",Time.new.strftime("%Y-%m-%d %H:%M:%S")))
 end

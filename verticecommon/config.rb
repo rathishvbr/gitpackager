@@ -1,10 +1,36 @@
-module MegamPkg
-  class Ger
-    attr_accessor :halwa, :build_halwa
-    CONFIG =  { os: %w(trusty jessie centos7), branch: '1.5', name: 'verticecommon' }
+require "../version.rb"
+require "colorize"
 
-    def os_ok!(build_os)
-      raise "--- You have two horns. \nUnsupported os: #{build_os}" unless CONFIG[:os].include? build_os
+module Pkg
+    class Config
+        include Pkg::Version
+
+        PACKAGE = {
+            package: 'verticecommon',
+            description: %Q[This is an empty package that creates the group and user, and the
+              base directories  for #{BASIC[:product]}.],
+            category: 'infrastructure'
+        }
+
+        puts "=> Packaging: [#{PACKAGE[:package]} #{BASIC[:version]}:#{BASIC[:iteration]}]".colorize(:green).bold
+
+        ## just a hack call to version's distro
+        ## I don't think this is correct as every config.rb will have that.
+        def self.setup_distro(os)
+            Pkg::Version.distro(os)
+        end
+
+        def self.build_dir
+          Pkg::Version::BUILD
+        end
+
+        def self.distro_dir
+            Pkg::Version.distro_dir
+        end
+
+        def self.distro_build_dir
+            Pkg::Version.distro_build_dir
+        end
+
     end
-  end
 end
