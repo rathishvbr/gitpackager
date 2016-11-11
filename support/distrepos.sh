@@ -122,7 +122,7 @@ Version: $version
 Architectures: amd64
 Components: $release
 Description: vertice
-#SignWith: 9B46B611
+SignWith: 9B46B611
 EOF
 
 }
@@ -132,7 +132,7 @@ packagerepo() {
 mkdir -p $REPO_ROUTE_DIR
 cd
 
-find $PACKAGE_ROUTE_DIR/$release-$distro -name \*.deb -exec reprepro  -Vb $PACKAGE_ROUTE_DIR includedeb $distroname {} \;
+find $PACKAGE_ROUTE_DIR/$release-$distro -name \*.deb -exec reprepro --ask-passphrase -Vb $PACKAGE_ROUTE_DIR includedeb $distroname {} \;
 mv $(find $REPO_ROUTE_DIR/pool/$release -name *.deb) $arkave
 rm -r $REPO_ROUTE_DIR
 
