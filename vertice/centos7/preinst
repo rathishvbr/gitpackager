@@ -1,9 +1,0 @@
-#!/bin/sh
-
-mkdir -p /var/run/megam/vertice
-
-echo "127.0.0.1  `hostname`" >> /etc/hosts
-
-mkdir -p /var/log/megam/vertice
-
-

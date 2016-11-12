@@ -1,6 +1,9 @@
+require '../tools.rb'
+
 module Pkg
     module Version
-        attr_accessor :os
+
+        ### DOWNSTREAM FORKS: Please configure (STEPS 1, 2, 3) to whitelable builds
 
         ## check if  colorize gem is installed.
         unless Gem::Specification::find_all_by_name('colorize').any?
@@ -9,55 +12,55 @@ module Pkg
             exit
         end
 
+        #Pkg::Tools.check?
+
         ## All of these can be loaded using a YAMLLoader (build_data.yml)
         ## Default operation system supported
         SUPPORTED_OS =  { os: %w(trusty xenial centos7)}
 
-        ### HOME and the build directory
-        HOME   = "/usr/share/megam"
-        BUILD  = "build"
+        ## STEP 1: Configure directories
+        # change the name to your own downstream fork.
+        # eg:
+        # HOME    = "/usr/share/detio"
+        # LIBHOME = "/var/lib/detio"
+        # LOGHOME = "/var/log/detio"
+        # RUNHOME = "/var/run/detio"
+        HOME     = "/usr/share/megam"
+        LIBHOME  = "/var/lib/megam"
+        LOGHOME  = "/var/log/megam"
+        RUNHOME  = "/var/run/megam"
 
-        # basic fields used across the packager
-        # change the name to your own downstream fork. eg: virtengine
+        # STEP 2: Configure basic fields used across the packager
+        # change the name to your own downstream fork.
+        # eg:
+        # origin: virtengine
+        # product: VirtEngine
+        # product_prefix: virtengine
         BASIC = {
-            product:    "MegamVertice".freeze,
-            version:    "1.5".freeze,
-            iteration:  "3".freeze,
-            license:    "MIT".freeze,
-            home:       "#{HOME}",
-            vendor:     "Megam Systems".freeze,
-            maintainer: "Megam Humans <humans@megam.io>".freeze,
-            url:        "https://docs.megam.io".freeze
+            origin:         "megam",
+            product:        "MegamVertice".freeze,
+            product_prefix: "vertice".freeze,
+            version:        "1.5".freeze,
+            iteration:      "4".freeze,
+            license:        "MIT".freeze,
+            home:           "#{HOME}",
+            libhome:        "#{LIBHOME}",
+            loghome:        "#{LOGHOME}",
+            runhome:        "#{RUNHOME}",
+            vendor:         "Megam Systems".freeze,
+            maintainer:     "Megam Humans <humans@megam.io>".freeze,
+            url:            "https://docs.megam.io".freeze
         }
 
-        # short package names.
-        # change the name to your own downstream fork. eg: virtenginecommon
-        COMMON    = "verticecommon".freeze
-        NILAVU    = "verticenilavu".freeze
-        GATEWAY   = "verticegateway".freeze
-        NSQD      = "verticensqd".freeze
-        VERTICE   = "vertice".freeze
-        GULPD     = "verticegulpd".freeze
-        VNC       = "verticevnc".freeze
+        # *OPTIONAL*
+        # STEP 3: Configure packages names to your choice
+        COMMON    = BASIC[:product_prefix] + "common".freeze
+        NILAVU    = BASIC[:product_prefix] + "nilavu".freeze
+        GATEWAY   = BASIC[:product_prefix] + "gateway".freeze
+        NSQD      = BASIC[:product_prefix] + "nsqd".freeze
+        VERTICE   = BASIC[:product_prefix].freeze
+        GULPD     = BASIC[:product_prefix] + "gulpd".freeze
+        VNC       = BASIC[:product_prefix] + "vnc".freeze
 
-        # set the ditro and the distro build directory if its the supported os.
-        def self.distro(os)
-            @os = os
-        end
-
-        def self.distro_dir
-          @os
-        end
-
-        def self.distro_build_dir
-            (BUILD + "/" + self.distro_dir) if self.supported_os?
-        end
-
-        private
-
-        def self.supported_os?
-            raise "=> Unsupported OS: #{@os}" unless SUPPORTED_OS[:os].include? @os
-            true
-        end
     end
 end

@@ -1,9 +1,0 @@
-#!/bin/bash
-
-mkdir -p /var/lib/megam/vertice
-
-cp /usr/share/megam/vertice/conf/vertice.conf /var/lib/megam/vertice/vertice.conf
-
-initctl reload-configuration
-
-service vertice start || echo "vertice could not be started. Try manually with service vertice start"

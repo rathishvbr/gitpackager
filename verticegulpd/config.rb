@@ -2,24 +2,34 @@ require "../version.rb"
 require "colorize"
 
 module Pkg
-  class Config
-    include  Pkg::Version
+    class Config
+        include Pkg::Version
 
-    attr_accessor :halwa, :build_halwa
+        ### DOWNSTREAM FORKS: Please configure (git:, git_org:, systemd_service:, upstart_service:) to whitelable builds
 
-    CONFIG =  { os: %w(trusty xenial centos7),
-                branch: 'master',
-                git: "https://github.com/megamsys/gulp.git" }
+        PACKAGE = {
+            package: GULPD,
+            description: %Q[Description: Agent which provides instrumentation,
+            provisioning, realtime log streaming, events handling functions for #{BASIC[:product]}.
+            Works on top of a messaging layer NSQ (nsq.io) with interface to an opensource database
+            cassandra 3.7 or ScyllaDB 1.x.],
+            category: 'infrastructure',
+            dependencies: "#{Pkg::Version::COMMON}",
 
-    PRODUCT = {
-      name: GULPD,
-      description: ""
-    }
+            #The git config differs for each of the project, hence we have them in the individual confs.
+            #git_org is needed as golang uses namespace during compiling
+            git: 'https://github.com/megamsys/gulp.git',
+            git_org: 'github.com/megamsys',
+            branch: '1.5',
 
-    puts "=> Packaging: [#{PRODUCT[:name]} #{VERSION}:#{ITERATION}]".colorize(:blue)
+            #The service name to start
+            systemd_service: 'verticegulpd.service',
+            upstart_service: 'verticegulpd',
+            #Turn this flag on if you don't want to upload to cloud storage like S3
+            skip_upload: false
+          }.freeze
 
-    def os_ok!(build_os)
-      raise "--- You have two horns. \nUnsupported os: #{build_os}" unless CONFIG[:os].include? build_os
+          puts "=> Packaging: [#{PACKAGE[:package]} #{BASIC[:version]}:#{BASIC[:iteration]}]".colorize(:green).bold
+
     end
-  end
 end

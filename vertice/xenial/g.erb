@@ -1,0 +1,34 @@
+#!/bin/bash
+
+<%= @package_dir = @basic[:home]/@package[:package] %>
+
+<%= @package_bin_dir = @package_dir/bin  %>
+
+mkdir -p .<%= @package_bin_dir %>
+
+cd <%= @package_dir/src/@package[:git_org]/vertice %>
+
+# sometimes  the dependencies aren't getting pulled. Adding a master solved the problem.
+git remote add master https://github.com/indykish/vertice.git
+make build
+
+cp -rf ./conf/ ../../../../../<%= @package_dir %>
+
+mv  vertice <%=@package[:package] %>
+
+cp <%=@package[:package] %> ../../../../../<%= @package_bin_dir %>
+
+cat > VERSION << EOF
+git_version=`git rev-parse HEAD`
+git_branch="1.5"
+EOF
+
+cp VERSION ../../../../../<%= @package_dir %>
+
+cd ../../../../../
+
+fpm -s dir -t deb  -f  --iteration <%= @basic[:iteration] %> -n <%= @package[:package] %> \
+ -v <%= @basic[:version] %>  -d "<%= @package[:dependencies] %> " --after-install ./postinst --after-remove ./postrm  \
+ --deb-systemd ./etc/systemd/system/<%= @package[:systemd_service] %> --license "<%= @basic[:license] %>" \
+ --vendor "<%= @basic[:vendor] %>" --category "<%= @package[:category] %>" --maintainer "<%= @basic[:maintainer] %>" \
+ --url "<%= @basic[:url] %>" --description "<%= @package[:description] %>"  .<%= @package_dir %>
