@@ -23,7 +23,7 @@ module Pkg
 
         def save(target)
             File.open(target, 'w+') do |f|
-                puts "   ✔ #{f.path}".colorize(:yellow)
+                puts "   ✔ #{f.path}".colorize(:blue)
                 f.write(render)
             end
         end

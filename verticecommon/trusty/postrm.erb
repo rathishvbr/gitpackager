@@ -1,0 +1,16 @@
+#!/bin/sh
+
+set -e
+
+MEGAMHOME=<%= @basic[:libhome] %>
+MEGAM_INSTALLHOME=<%= @basic[:home] %>
+
+if [ "$1" = "purge" ]; then
+    dpkg-statoverride --remove $MEGAMHOME || true
+    dpkg-statoverride --remove $MEGAM_INSTALLHOME || true
+
+    rm -rf $MEGAM_INSTALLHOME 2>/dev/null || true
+    rm -rf $MEGAMHOME 2>/dev/null || true
+    rm -rf  <%= @basic[:runhome] %>
+    rm -rf  <%= @basic[:loghome] %>
+fi

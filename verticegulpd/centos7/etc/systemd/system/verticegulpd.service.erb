@@ -1,0 +1,17 @@
+[Unit]
+Description=<%= @package[:package] %> Agent
+After=local-fs.target network.target
+Requires=network.target
+Wants=local-fs.target
+
+[Service]
+User=root
+Group=root
+EnvironmentFile=<%= @basic[:libhome] %>/env.sh
+ExecStart=<%= @basic[:home] %>/<%= @package[:package] %>/bin/<%= @package[:package] %>  start --config <%= @basic[:libhome] %>/gulp/gulpd.conf
+KillMode=process
+Restart=on-failure
+RestartSec=42s
+
+[Install]
+WantedBy=multi-user.target

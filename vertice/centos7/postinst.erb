@@ -1,0 +1,15 @@
+#!/bin/bash
+
+mkdir -p <%= @basic[:libhome] %>/<%= @package[:package] %>
+
+cp <%= @basic[:home] %>/<%= @package[:package] %>/conf/<%= @package[:package] %>.conf <%= @basic[:libhome] %>/<%= @package[:package] %>/<%= @package[:package] %>.conf
+
+cat >> <%= @basic[:libhome] %>/env.sh << EOF
+MEGAM_HOME='<%= @basic[:libhome] %>'
+EOF
+
+chmod 0755 <%= @basic[:libhome] %>/env.sh
+
+systemctl enable <%= @package[:systemd_service] %>
+
+systemctl start <%= @package[:systemd_service] %>

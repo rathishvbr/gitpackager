@@ -1,29 +1,30 @@
+require "../version.rb"
+require "colorize"
+
 module Pkg
-    class Ger
-        attr_accessor :halwa, :build_halwa
-        CONFIG =  { os: %w(trusty jessie centos7), branch: '1.5', git: 'https://github.com/megamsys/vertice.git' }.freeze
+    class Config
+        include Pkg::Version
 
-        PRODUCT = {
-            name: 'vertice',
-            description: '
-            Description: Omnischeduler engine for Megam Vertice which provides scheduling
-            function for MegamVertice. This is the core engine that works on top of a
-            messaging layer Nsqd (nsq.io) and connects to an opensource database
-            ScyllaDB 1.x or compatible cassandra 3.x.
-            .
-            This is the core engine that provides real time log streaming, processing requests
-            sent from Vertice gateway, processing events for billing, user alerts and integration
-            to billing systems like WHMCS.
-            .
-            This package contains a golang based server that is the core engine for MegamVertice.
-            ',
-            
-            dependencies: 'verticecommon, unzip'
+        PACKAGE = {
+            package: VERTICE,
+            description: %Q[Description: Core engine which provides scheduling,
+            provisioning, realtime log streaming, events handling functions for #{BASIC[:product]}.
+            Works on top of a messaging layer NSQ (nsq.io) with interface to an opensource database
+            cassandra 3.7 or ScyllaDB 1.x.],
+            category: 'infrastructure',
+            dependencies: "#{Pkg::Version::COMMON}",
+            #The git config differs for each of the project, hence we have them in the individual confs.
+            #git_org is needed as golang uses namespace during compiling
+            git: 'https://github.com/megamsys/vertice.git',
+            git_org: 'github.com/megamsys',
+            branch: '1.5',
 
-        }.freeze
+            #The service name to start
+            systemd_service: 'vertice.service',
+            upstart_service: 'vertice'
+          }.freeze
 
-        def os_ok!(build_os)
-            raise "--- You have two horns. \nUnsupported os: #{build_os}" unless CONFIG[:os].include? build_os
-        end
+          puts "=> Packaging: [#{PACKAGE[:package]} #{BASIC[:version]}:#{BASIC[:iteration]}]".colorize(:green).bold
+
     end
 end

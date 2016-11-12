@@ -1,0 +1,9 @@
+#!/bin/bash
+
+mkdir -p <%= @basic[:libhome] %>/<%= @package[:package] %>
+
+cp <%= @basic[:home] %>/<%= @package[:package] %>/conf/<%= @package[:package] %>.conf <%= @basic[:libhome] %>/<%= @package[:package] %>/<%= @package[:package] %>.conf
+
+initctl reload-configuration
+
+service <%= @package[:package] %> start || echo "<%= @package[:package] %> could not be started. Try manually with service <%= @package[:package] %> start"
