@@ -1,0 +1,17 @@
+#!/bin/sh
+
+cd <%= @package[:package] %>
+
+cat > VERSION <<EOF
+git_version=`git rev-parse HEAD`
+git_branch=1.5
+EOF
+
+cp VERSION conf
+cp db/base.cql conf
+
+sbt clean
+sbt dist:clean
+sbt compile
+sbt stage
+sbt rpm:packageBin

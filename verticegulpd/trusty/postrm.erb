@@ -1,20 +1,17 @@
 #!/bin/sh
 
-if [ -d "/usr/share/megam/verticegulpd" ]; then
-  rm -r /usr/share/megam/verticegulpd
+if [ -d "<%= @basic[:home] %>/<%= @package[:package] %>" ]; then
+  rm -r <%= @basic[:home] %>/<%= @package[:pacakge] %>
 fi
 
-if [ -d "/var/lib/megam/verticegulpd" ]; then
-  rm -r /var/lib/megam/verticegulpd
+if [ -d "<%= @basic[:libhome] %>/<%= @package[:package] %>" ]; then
+  rm -r <%= @basic[:libhome] %>/<%= @package[:pacakge] %>
 fi
 
-if [ -d "/var/log/megam/verticegulpd" ]; then
-  rm -r /var/log/megam/verticegulpd
-fi
-if [ -f "/var/log/megam/verticegulpd.pid" ]; then
-  rm /var/log/megam/verticegulpd.pid
+if [ -d "<%= @basic[:loghome] %>/<%= @package[:package] %>" ]; then
+  rm -r <%= @basic[:loghome] %>/<%= @package[:package] %>
 fi
 
-if [ -f "/etc/init/verticegulpd.conf" ]; then
-  rm /etc/init/verticegulpd.conf
+if [ -d "<%= @basic[:runhome] %>/<%= @package[:package] %>" ]; then
+  rm -r <%= @basic[:runhome] %>/<%= @package[:package] %>
 fi

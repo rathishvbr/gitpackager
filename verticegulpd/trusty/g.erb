@@ -1,9 +1,3 @@
-cd ../../../../gulp/src/github.com/megamsys/gulp
-
-cd ../../../../../
-
-=-------------------
-
 #!/bin/bash
 
 <%= @package_dir = @basic[:home]/@package[:package] %>
@@ -43,8 +37,10 @@ tar -zcvpf <%= @package[:package] %>.tar.gz bin conf VERSION
 
 cd ../../../../
 
-fpm -s dir -t deb  -f  --iteration <%= @basic[:iteration] %> -n <%= @package[:package] %> \
- -v <%= @basic[:version] %>  -d "<%= @package[:dependencies] %> " --after-install ./postinst --after-remove ./postrm  \
- --deb-upstart ./etc/init/<%= @package[:upstart_service] %> --license "<%= @basic[:license] %>" \
- --vendor "<%= @basic[:vendor] %>" --category "<%= @package[:category] %>" --maintainer "<%= @basic[:maintainer] %>" \
- --url "<%= @basic[:url] %>" --description "<%= @package[:description] %>"  .<%= @package_dir %>
+fpm -s dir -t deb  -f  --iteration <%= @basic[:iteration] %> -v <%= @basic[:version] %> \
+-n <%= @package[:package] %> -d "<%= @package[:dependencies] %>" \
+--before-install ./preinst --after-install ./postinstall  \
+--after-remove ./prerm  --after-remove ./postrm  \
+--deb-upstart ./etc/init/<%= @package[:upstart_service] %> \
+--license "<%= @basic[:license] %>" --vendor "<%= @basic[:vendor] %>" --category "<%= @package[:category] %>" \
+--maintainer "<%= @basic[:maintainer] %>" --url "<%= @basic[:url] %>" --description "<%= @package[:description] %>"  .<%= @package_dir %>

@@ -1,15 +1,28 @@
+require "../version.rb"
+require "colorize"
+
 module Pkg
-  class Ger
-    attr_accessor :halwa, :build_halwa
-    CONFIG =  { os: %w(trusty jessie centos7), branch: '1.5', name: 'verticegateway' }
+    class Config
+        include Pkg::Version
 
-    PRODUCT = {
-      name: 'verticegateway',
-      description: ""
-    }
+        PACKAGE = {
+            package: GATEWAY,
+            description: %Q[Description: RESTful API gateway using HMAC authentication
+              Vertice gateway connects to an opensource database ScyllaDB or,
+              compatible cassandra 3.x for #{BASIC[:product]}.],
+            category: 'cloud',
 
-    def os_ok!(build_os)
-      raise "--- You have two horns. \nUnsupported os: #{build_os}" unless CONFIG[:os].include? build_os
+            dependencies: "#{Pkg::Version::COMMON}",
+
+            git: 'https://github.com/megamsys/vertice_gateway',
+            branch: '1.5'
+
+            #The service name to start
+            systemd_service: ' #{BASIC[:product].service',
+            upstart_service: ' #{BASIC[:product]'
+          }.freeze
+
+          puts "=> Packaging: [#{PACKAGE[:package]} #{BASIC[:version]}:#{BASIC[:iteration]}]".colorize(:green).bold
+
     end
-  end
 end

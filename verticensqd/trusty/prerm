@@ -1,3 +1,0 @@
-#!/bin/sh
-service nsqd stop || echo "nsqd wasn't even running!"
-service nsqlookupd stop || echo "nsqlookupd wasn't even running!"

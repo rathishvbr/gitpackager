@@ -4,33 +4,56 @@ require 'colorize'
 module Pkg
     class Tools
 
-        ## check if build tools are installed
-        def self.check?
-          `git version 2>&1` ;  result=$?.success? #go version go1.7.3 linux/amd64
-          unless result
-            puts "   ✘ git not installed"
-           exit
-          end
+        ## check if the following build tools are installed
+        ## 1.5 [git, ruby, golang, npm, sbt]
+        ## 2.0 [git, ruby, golang, npm, cargo]
 
-          `go version 2>&1` ;  result=$?.success? #go version go1.7.3 linux/amd64
-          unless result
-            puts "   ✘ golang not installed"
-           exit
-          end
-
-          `ruby -v` ; result =$?.success? #ruby version 2.3.1
-          unless result
-            puts "   ✘ ruby not installed"
-            exit
-          end
+        def check?
+            git
+            ruby
+            golang
+            npm
+            cargo
         end
 
         private
 
-        def compatible_ruby_version?
+        def is_there?(cmd)
+            system cmd; result =$?.success?
         end
 
-        def compatible_golang_version?
+        def git
+            unless is_there?("git version > /dev/null")
+                puts "   ✘ git not installed"
+                exit
+            end
+        end
+
+        def ruby
+            unless is_there?("ruby -v > /dev/null")
+                puts "   ✘ ruby not installed"
+                #exit
+            end
+        end
+
+        def golang
+          unless is_there?("go -v")
+              puts "   ✘ golang not installed"
+          end
+        end
+
+        def npm
+           unless is_there?("npm -v > /dev/null")
+                puts "   ✘ npm not installed"
+                #exit
+            end
+        end
+
+        def cargo
+            unless is_there?("cargo -V > /dev/null")
+                puts "   ✘ cargo not installed"
+                #exit
+            end
         end
     end
 end

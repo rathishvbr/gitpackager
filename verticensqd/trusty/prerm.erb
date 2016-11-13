@@ -1,0 +1,5 @@
+#!/bin/sh
+
+service <%= @package[:upstart_nsqd_service] %> stop || echo "<%= @package[:upstart_nsqd_service] %> not running!"
+
+service <%= @package[:upstart_nsqlookupd_service] %> stop || echo "<%= @package[:upstart_nsqlookupd_service] %> not running!"

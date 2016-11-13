@@ -13,8 +13,8 @@ module Pkg
             provisioning, realtime log streaming, events handling functions for #{BASIC[:product]}.
             Works on top of a messaging layer NSQ (nsq.io) with interface to an opensource database
             cassandra 3.7 or ScyllaDB 1.x.],
-            category: 'infrastructure',
-            dependencies: "#{Pkg::Version::COMMON}",
+            category: 'cloud',
+            dependencies: "#{COMMON}",
 
             #The git config differs for each of the project, hence we have them in the individual confs.
             #git_org is needed as golang uses namespace during compiling
@@ -23,8 +23,8 @@ module Pkg
             branch: '1.5',
 
             #The service name to start
-            systemd_service: 'verticegulpd.service',
-            upstart_service: 'verticegulpd',
+            systemd_service: "#{GULPD}.service",
+            upstart_service: "#{GULPD}",
             #Turn this flag on if you don't want to upload to cloud storage like S3
             skip_upload: false
           }.freeze

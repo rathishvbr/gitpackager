@@ -7,12 +7,12 @@ module Pkg
 
         ## check if  colorize gem is installed.
         unless Gem::Specification::find_all_by_name('colorize').any?
-            puts 'Missing gem: colorize.'
+            puts "   ✘ gem colorize not installed"
             puts 'Run "bundle install"'
             exit
         end
 
-        #Pkg::Tools.check?
+        Pkg::Tools.new.check?
 
         ## All of these can be loaded using a YAMLLoader (build_data.yml)
         ## Default operation system supported
@@ -57,10 +57,10 @@ module Pkg
         COMMON    = BASIC[:product_prefix] + "common".freeze
         NILAVU    = BASIC[:product_prefix] + "nilavu".freeze
         GATEWAY   = BASIC[:product_prefix] + "gateway".freeze
-        NSQD      = BASIC[:product_prefix] + "nsqd".freeze
+        NSQD      = "nsqd".freeze
+        CADVISOR  = "cadvisor".freeze
         VERTICE   = BASIC[:product_prefix].freeze
         GULPD     = BASIC[:product_prefix] + "gulpd".freeze
         VNC       = BASIC[:product_prefix] + "vnc".freeze
-
     end
 end

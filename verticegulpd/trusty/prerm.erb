@@ -1,2 +1,3 @@
 #!/bin/sh
-stop verticegulpd || echo " wasn't even running!"
+
+stop <%= @package[:systemd_service] %> || echo " not running!"

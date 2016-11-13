@@ -2,15 +2,15 @@
 
 set -e
 
-MEGAMHOME=<%= @basic[:libhome] %>
-MEGAM_INSTALLHOME=<%= @basic[:home] %>
+MEGAM_HOME=<%= @basic[:home] %>
+MEGAM_LIBHOME=<%= @basic[:libhome] %>
 
 if [ "$1" = "purge" ]; then
-    dpkg-statoverride --remove $MEGAMHOME || true
-    dpkg-statoverride --remove $MEGAM_INSTALLHOME || true
+    dpkg-statoverride --remove $MEGAM_HOME || true
+    dpkg-statoverride --remove $MEGAM_LIBHOME || true
 
-    rm -rf $MEGAM_INSTALLHOME 2>/dev/null || true
-    rm -rf $MEGAMHOME 2>/dev/null || true
+    rm -rf $MEGAM_LIBHOME 2>/dev/null || true
+    rm -rf $MEGAM_HOME 2>/dev/null || true
     rm -rf  <%= @basic[:runhome] %>
     rm -rf  <%= @basic[:loghome] %>
 fi

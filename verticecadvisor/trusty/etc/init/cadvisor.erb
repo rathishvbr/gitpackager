@@ -1,0 +1,30 @@
+description "<%= @package[:package] %> distributed messaging"
+author "<%= @basic[:author] %>"
+
+# When to start the servicee
+start on runlevel [2345]
+start on (started networking)
+start on (local-filesystems)
+
+# When to stop the service
+stop on runlevel [016]
+stop on (stopping networking)
+stop on (stopped cadvisor)
+
+# Automatically restart process if crashed. Tries 0 times every 60 seconds
+respawn
+respawn limit 0 60
+
+# set the working directory of the job processes
+chdir <%= @basic[:home]/<%= @package[:package] %>
+
+
+script
+  echo "[`date -u +%Y-%m-%dT%T.%3NZ`] (sys) cadvisor starting" >> <%=@basic[:loghome] %>/cadvisor/cadvisor.log
+  exec ./bin/cadvisor -port 9999  >> <%=@basic[:loghome] %>/cadvisor/cadvisor.log 2>&1
+end script
+
+post-start script
+    PID=`status cadvisor | egrep -oi '([0-9]+)$' | head -n1`
+    echo $PID > <%=@basic[:loghome] %>/cadvisor.pid
+end script

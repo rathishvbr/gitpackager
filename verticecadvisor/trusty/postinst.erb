@@ -1,0 +1,7 @@
+#!/bin/bash
+
+mkdir -p <%= @basic[:libhome] %>/<%= @package[:package] %>
+
+initctl reload-configuration
+
+service cadvisor start || echo "cadvisor could not be started. Try manually with service cadvisor start"

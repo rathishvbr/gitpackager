@@ -1,9 +1,0 @@
-[Unit]
-Description=Vertice CAdvisor Daemon
-After=network.target
-After=runlevel2.target
-After=runlevel3.target
-After=runlevel4.target
-After=runlevel5.target
-[Service]
-ExecStart=/usr/share/megam/cadvisor/bin/cadvisor -port 9999
