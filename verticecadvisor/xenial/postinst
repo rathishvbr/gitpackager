@@ -1,8 +1,0 @@
-#!/bin/bash
-
-mkdir -p /var/lib/megam/cadvisor
-
-cp /etc/init.d/cadvisor.service /etc/systemd/system/
-
-systemctl enable cadvisor.service
-systemctl start cadvisor.service

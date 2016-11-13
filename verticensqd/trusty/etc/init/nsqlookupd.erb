@@ -1,0 +1,38 @@
+description "<%= @package[:package] %> distributed messaging"
+author "<%= @basic[:author] %>"
+
+# When to start the service
+start on runlevel [2345]
+start on (started networking)
+
+# When to stop the service
+stop on runlevel [016]
+stop on (stopping networking)
+stop on (stopped nsqd)
+
+# Automatically restart process if crashed. Tries 0 times every 60 seconds
+respawn
+respawn limit 0 60
+
+# set the working directory of the job processes
+chdir <%= @basic[:home]/<%= @package[:package] %>
+
+pre-start script
+ [ -d <%= @basic[:loghome]/<%= @package[:package] %> ] || mkdir -p <%= @basic[:loghome]/<%= @package[:package] %>
+ cd <%=@basic[:libhome] %>
+ ./env.sh
+end script
+
+script
+ exec ./bin/nsqlookupd  >> <%=@basic[:loghome] %>/nsqd/nsqlookupd.log 2>&1
+end script
+
+post-start script
+    PID=`status nsqlookupd | egrep -oi '([0-9]+)$' | head -n1`
+    echo $PID >  <%=@basic[:runhome] %>/nsqd/nsqlookupd.pid
+end script
+
+pre-stop script
+    rm <%=@basic[:runhome] %>/nsqd/nsqlookupd.pid
+    echo "[`date -u +%Y-%m-%dT%T.%3NZ`] (sys) nsqlookupd stopping" >> <%=@basic[:loghome] %>/nsqd/nsqlookupd.log
+end script

@@ -1,9 +1,0 @@
-#!/bin/bash
-
-mkdir -p /var/lib/megam/cadvisor
-
-#cp /usr/share/megam/cadvisor/conf/cadvisor.conf /var/lib/megam/cadvisor/cadvisor.conf
-
-initctl reload-configuration
-
-service cadvisor start || echo "cadvisor could not be started. Try manually with service cadvisor start"

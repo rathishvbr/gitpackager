@@ -1,15 +1,25 @@
+require "../version.rb"
+require "colorize"
+
 module Pkg
-    class Ger
-        attr_accessor :halwa, :build_halwa
-        CONFIG =  { os: %w(trusty jessie centos7), branch: 'master' }.freeze
+    class Config
+        include Pkg::Version
 
-        PRODUCT = {
-            name: 'verticevnc',
-            description: ''
-        }.freeze
+        PACKAGE = {
+            package: VNC,
+            description: %Q[Nodejs based VNC serverfor #{BASIC[:product]}],
 
-        def os_ok!(build_os)
-            raise "--- You have two horns. \nUnsupported os: #{build_os}" unless CONFIG[:os].include? build_os
-        end
+            category: 'cloud',
+            # download the tar binary
+            git: 'https://github.com/megamsys/vnc_server',
+            branch: '1.5',
+
+            #The service name to start
+            systemd_service: "#{VNC}.service",
+            upstart_service: "#{VNC}"
+          }.freeze
+
+          puts "=> Packaging: [#{PACKAGE[:package]} #{BASIC[:version]}:#{BASIC[:iteration]}]".colorize(:green).bold
+
     end
 end

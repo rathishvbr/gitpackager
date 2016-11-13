@@ -1,15 +1,16 @@
 #!/bin/bash
 
-cat > //var/lib/megam/env.sh <<EOF
-initctl set-env MEGAM_HOME='/var/lib/megam'
+mkdir -p <%= @basic[:libhome] %>/<%= @package[:package] %>
+
+cp <%= @basic[:home] %>/<%= @package[:package] %>/conf/<%= @package[:package] %>.conf <%= @basic[:libhome] %>/<%= @package[:package] %>/<%= @package[:package] %>.conf
+
+cat >> <%= @basic[:libhome] %>/env.sh << EOF
+initctl set-env MEGAM_HOME='<%= @basic[:libhome] %>'
+HOST='localhost'
 EOF
-chmod 755 /var/lib/megam/env.sh
 
-
-mkdir -p /var/lib/megam/verticegulpd /var/lib/megam/gulp/
-
- cp /usr/share/megam/verticegulpd/conf/gulpd.conf /var/lib/megam/gulp
+chmod 0755 <%= @basic[:libhome] %>/env.sh
 
 initctl reload-configuration
 
-start verticegulpd   || echo " could not be started. Try manually with service  start"
+start <%= @package[:systemd_service] %>   || echo "<%= @package[:systemd_service] %> could not be started. Try manually with service  start"

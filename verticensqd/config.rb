@@ -1,15 +1,30 @@
+require "../version.rb"
+require "colorize"
+
 module Pkg
-    class Ger
-        attr_accessor :halwa, :build_halwa
-        CONFIG =  { os: %w(trusty jessie centos7) }.freeze
+    class Config
+        include Pkg::Version
 
-        PRODUCT = {
-            name: 'verticensqd',
-            description: ''
-        }.freeze
+        PACKAGE = {
+            package: NSQD,
+            description: %Q[Description: A realtime distributed messaging platform
+            NSQ (nsq.io)  for #{BASIC[:product]}.],
+            category: 'cloud',
 
-        def os_ok!(build_os)
-            raise "--- You have two horns. \nUnsupported os: #{build_os}" unless CONFIG[:os].include? build_os
-        end
+            # download the tar binary
+            tar: 'https://s3.amazonaws.com/bitly-downloads/nsq/nsq-0.3.8.linux-amd64.go1.6.2.tar.gz',
+
+            #The service name to start
+            systemd_nsqd_service: 'nsqd.service',
+            systemd_nsqlookupd_service: 'nsqlookupd.service',
+            systemd_nsqadmin_service: 'nsqadmin.service',
+            
+            upstart_nsqd_service: 'nsqd',
+            upstart_nsqlookupd_service: 'nsqlookupd',
+            upstart_nsqadmin_service: 'nsqadmin'
+          }.freeze
+
+          puts "=> Packaging: [#{PACKAGE[:package]} #{BASIC[:version]}:#{BASIC[:iteration]}]".colorize(:green).bold
+
     end
 end

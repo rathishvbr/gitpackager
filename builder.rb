@@ -20,7 +20,7 @@ module Pkg
         def exec
             make
             clone
-            run
+            #run
         end
 
         private

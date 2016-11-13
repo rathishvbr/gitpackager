@@ -1,9 +1,0 @@
-#!/bin/sh
-
-if [ -d "/usr/share/megam/cadvisor" ]; then
-  rm -r /usr/share/megam/cadvisor
-fi
-
-if [ -d "/var/lib/megam/cadvisor" ]; then
-  rm -r /var/lib/megam/cadvisor
-fi
