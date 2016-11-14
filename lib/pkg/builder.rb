@@ -19,8 +19,8 @@ module Pkg
 
         def exec
             make
-            #clone
-            #run
+            clone
+            run
         end
 
         private
