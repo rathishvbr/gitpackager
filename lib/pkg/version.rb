@@ -1,4 +1,4 @@
-require '../tools.rb'
+require 'pkg/tools'
 
 module Pkg
     module Version

@@ -1,0 +1,6 @@
+---
+packagin_repo: 'testing'
+packaging_release: '1.5.rc0'
+git_release: '1.5'
+packaging_iteration: '4'
+gpg_key: 'B09FFFF34'
