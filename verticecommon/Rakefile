@@ -1,26 +1,19 @@
-## TO-DO so there is nothing significantly different in every Rakefile :) sweet.
-## Maybe we should use thor and auto-generate Rakefile before we build.
-## The tasks get driver from thor
+require File.expand_path(File.join(File.dirname(__FILE__),'..', 'lib', 'pkg.rb'))
 
-require "rake"
-require "./config.rb"
-require "../common.rb"
-require "../builder.rb"
-require "../utils.rb"
-
+require 'pkg/static/data'
 
 task :default => :trusty
 
 task :clean do
-  Pkg::Utils.rmdir(Pkg::Common.build_dir)
+  Pkg::Util::File.rmdir(Pkg::Common.build_dir)
 end
 
 task :initnix do
-  Pkg::Utils.mkdir_p(Pkg::Common.distro_build_dir)
+  Pkg::Util::File.mkdir_p(Pkg::Common.distro_build_dir)
 end
 
 task :nix => [:initnix] do
-  Pkg::Builder.new(Pkg::Common.distro_dir, Pkg::Common.distro_build_dir, Pkg::Config::PACKAGE).exec
+  Pkg::Builder.new(Pkg::Common.distro_dir, Pkg::Common.distro_build_dir, Pkg::Data.COMMON).exec
 end
 
 task :trusty   do

@@ -13,7 +13,7 @@ cp ./etc/systemd/system/nsqadmin.service .<%= @package_dir %>/
 
 fpm -s dir -t rpm -f  --iteration <%= @basic[:iteration] %> -v <%= @basic[:version] %> \
 -n <%= @package[:package] %>  \
---before-install ./preinst --after-install ./postinstall  \
+--before-install ./preinst --after-install ./postinst  \
 --after-remove ./prerm  --after-remove ./postrm  \
 --rpm-init ./etc/systemd/system/<%= @package[:systemd_nsqd_service] %> \
 --license "<%= @basic[:license] %>" --vendor "<%= @basic[:vendor] %>" --category "<%= @package[:category] %>" \
