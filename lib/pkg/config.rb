@@ -77,7 +77,7 @@ module Pkg
                     if File.readable? config
                         self.config_from_yaml(config)
                     else
-                        puts "Skipping load of expected default config #{config}, cannot read file."
+                        puts "   ✘ skip load #{default_build_defaults}".colorize(:red)
                         @project_root = nil
                     end
                 end
