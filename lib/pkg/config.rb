@@ -2,6 +2,7 @@ module Pkg
     class Config
         require 'pkg/config/params.rb'
         require 'yaml'
+        require 'colorize'
 
         class << self
 
@@ -70,20 +71,19 @@ module Pkg
             end
 
             def load_default_configs
-                puts "---- project_root #{@project_root}"
-
                 default_build_defaults = File.join(@project_root, "build_defaults.yaml")
 
                 [default_build_defaults].each do |config|
                     if File.readable? config
                         self.config_from_yaml(config)
                     else
-                        puts "Skipping load of expected default config #{config}, cannot read file."
+                        puts "   ✘ skip load #{default_build_defaults}".colorize(:red)
                         @project_root = nil
                     end
                 end
 
                 if @project_root
+                    puts "   ✔ loaded #{default_build_defaults}".colorize(:blue).bold
                     self.config
                 end
             end
