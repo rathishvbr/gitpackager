@@ -1,2 +1,0 @@
-#!/bin/sh
-systemctl stop vertice.service || echo "vertice wasn't even running!"

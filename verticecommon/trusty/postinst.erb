@@ -1,0 +1,17 @@
+#!/bin/sh
+
+set -e
+
+MEGAM_HOME=<%= @basic[:home] %>
+
+mkdir -p <%= @basic[:home] %>
+mkdir -p <%= @basic[:libhome] %>
+mkdir -p <%= @basic[:loghome] %>
+mkdir -p <%= @basic[:runhome] %>
+
+
+if [ "$1" = "configure" ]; then
+    if ! [ -d "$MEGAM_HOME" ]; then
+        mkdir "$MEGAM_HOME"
+    fi
+fi

@@ -1,59 +1,32 @@
-require "rake"
-require "../version.rb"
-require "./config.rb"
-puts ">> ------------- [#{Pkg::Ger::CONFIG[:name]} #{Pkg::Ger::VERSION} #{Pkg::Ger::ITERATION}]"
+require File.expand_path(File.join(File.dirname(__FILE__),'..', 'lib', 'pkg.rb'))
 
-megger = Pkg::Ger.new
-
-nix_dir="nix"
-build_dir ="build"
+require 'pkg/static/data'
 
 task :default => :trusty
 
 task :clean do
-  rm_rf build_dir
+  Pkg::Util::File.rmdir(Pkg::Common.build_dir)
 end
 
 task :initnix do
-  mkdir_p build_dir
-  mkdir_p megger.build_halwa
+  Pkg::Util::File.mkdir_p(Pkg::Common.distro_build_dir)
 end
 
-#this overrides the nix/ stuff with halwa specific stuff.
 task :nix => [:initnix] do
-  Rake::FileList["#{megger.halwa}" +"/**"].each do |f|
-    target = File.join megger.build_halwa,  File.basename(f)
-    cp_r f, target
-  end if File.exists?(megger.halwa)
-
-  Dir.chdir megger.build_halwa
-  mkdir_p "vertice/src/github.com/megamsys"
-  Rake::Task[:clone].invoke
-  system './g', Pkg::Ger::CONFIG[:name], Pkg::Ger::VERSION, Pkg::Ger::ITERATION
+  Pkg::Builder.new(Pkg::Common.distro_dir, Pkg::Common.distro_build_dir, Pkg::Data.VERTICE).exec
 end
 
 task :trusty   do
-  megger.halwa=nix_dir
-  megger.build_halwa="build/trusty"
+  Pkg::Common.distro("trusty")
+  Rake::Task[:nix].invoke
+end
+
+task :xenial do
+  Pkg::Common.distro("xenial")
   Rake::Task[:nix].invoke
 end
 
 task :centos7 do
-  megger.halwa ="centos7"
-  megger.build_halwa="build/centos7"
+  Pkg::Common.distro("centos7")
   Rake::Task[:nix].invoke
-end
-
-task :jessie do
-  megger.halwa ="jessie"
-  megger.build_halwa="build/jessie"
-  Rake::Task[:nix].invoke
-end
-
-task :clone do
-  if !File.exists? 'vertice/src/github.com/megamsys/vertice/'
-   Dir.chdir 'vertice/src/github.com/megamsys'
-   system "git clone -b #{Pkg::Ger::CONFIG[:branch]} " + Pkg::Ger::CONFIG[:git]
- end
- Dir.chdir '../../../../'
 end

@@ -1,222 +1,155 @@
-# To Run the script
-# ./reprepro.sh version=1.0 distro=trusty release=stable
-# ./reprepro.sh version=1.0 distro=trusty release=testing
-# ./reprepro.sh version=1.5 distro=trusty release=testing
-# ./reprepro.sh version=1.5 distro=trusty release=stable
-# ./reprepro.sh version=1.5 distro=debian release=testing
-# ./reprepro.sh version=1.5 distro=debian release=stable
+## -- default variables
+PACKAGE_ROUTE_DIR=""
+REPO_ROUTE_DIR=""
+BUILD_dir=""
+repo_dir="/var/www/html/repo"
+arkave="/var/www/html/arkave"
 
-for i in "$@"
-do
-case $i in
-	release=*)
-	release="${i#*=}"
-	;;
+parse_params() {
 
-	version=*)
-	version="${i#*=}"
-	;;
+  while
+    (( $# > 0 ))
+  do
+    token="$1"
+    shift
+    case "$token" in
+     (--root)
+        root="$1"
+        if [ -z "$root" ]
+         then
+          usage
+          exit
+        fi
+        shift
+        ;;
+    (--version)
+        version="$1"
+        if [ -z "$version" ]
+        then
+          usage
+          exit
+        fi
+        shift
+        ;;
+    (--distro)
+        distro="$1"
+        if [ -z "$distro" ]
+        then
+        usage
+        exit
+        fi
+        shift
+        ;;
+    (--distroversion)
+        distroversion="$1"
+        if [ -z "$distroversion" ]
+        then
+          usage
+          exit
+        fi
+        shift
+        ;;
+    (--distroname)
+      distroname="$1"
+       if [ -z "$distroname" ]
+       then
+         usage
+         exit
+       fi
+       shift
+        ;;
+    (--release)
+        release="$1"
+        if [ -z "$release" ]
+        then
+         usage
+         exit
+        fi
+        shift
+        ;;
+     (help|usage)
+        usage
+        exit 0
+        ;;
 
-	distro=*)
-	distro="${i#*=}"
-	;;
+      (*)
+        usage
+        exit 1
+        ;;
 
-esac
-done
+    esac
+  done
+}
 
-function stable1()
-{
-mkdir -p /var/repo/1.0/ubuntu/14.04/stable/conf
-cd /var/repo/1.0/ubuntu/14.04/stable/conf
+usage() {
+
+echo "Usage:  distrepo[OPTION]"
+  echo
+  echo "Options:"
+  echo " --root  <root directory> "
+  echo "--version <build version>"
+  echo "--distro  <distribution name>"
+  echo "--distroversion  <distribution version>"
+  echo "--distroname  <distribution name>"
+  echo "--release  <release name>"
+  echo "--help"
+  echo
+}
+
+
+initialize () {
+build="$version/$distro/$distroversion"
+distro_dir="$version/$distro/$distroversion/$release"
+
+PACKAGE_ROUTE_DIR="$root/repo/$distro_dir"
+
+REPO_ROUTE_DIR="$repo_dir/$distro_dir"
+
+BUILD_dir="$repo_dir/$distro_dir"
+}
+
+conf() {
+
+mkdir -p  $PACKAGE_ROUTE_DIR/conf
+cd $PACKAGE_ROUTE_DIR/conf
+
 cat > distributions <<EOF
-Origin: ubuntu
-Label: ubuntu
-Suite: stable
-Codename: trusty
-Version: 1.0
+Origin: $distro
+Label: $distro
+Suite: $release
+Codename: $distroname
+Version: $version
 Architectures: amd64
-Components: stable
+Components: $release
 Description: vertice
 SignWith: 9B46B611
 EOF
 
-cd
-find ./stable -name \*.deb -exec reprepro --ask-passphrase -Vb /var/repo/1.0/ubuntu/14.04/stable includedeb trusty {} \;
-mv $(find /var/www/html/repo/1.0/ubuntu/14.04/stable/pool/stable -name *.deb) /var/www/html/arkave
-rm -r /var/www/html/repo/1.0/ubuntu/14.04/stable
-
-mv /var/repo/1.0/ubuntu/14.04/stable /var/www/html/repo/1.0/ubuntu/14.04
-chmod -R ugo+rX /var/www/html/repo/1.0/ubuntu/14.04
 }
 
-function testing1()
-{
-mkdir -p /var/repo/1.0/ubuntu/14.04/testing/conf
-cd /var/repo/1.0/ubuntu/14.04/testing/conf
-cat > distributions <<EOF
-Origin: ubuntu
-Label: ubuntu
-Suite: stable
-Codename: trusty
-Version: 1.0
-Architectures: amd64
-Components: testing
-Description: vertice
-SignWith: 9B46B611
-EOF
+packagerepo() {
 
+mkdir -p $REPO_ROUTE_DIR
 cd
 
-find ./testing -name \*.deb -exec reprepro --ask-passphrase -Vb /var/repo/1.0/ubuntu/14.04/testing includedeb trusty {} \;
-mv $(find /var/www/html/repo/1.0/ubuntu/14.04/testing/pool/testing -name *.deb) /var/www/html/arkave
-rm -r /var/www/html/repo/1.0/ubuntu/14.04/testing
+find $PACKAGE_ROUTE_DIR/$release-$distro -name \*.deb -exec reprepro --ask-passphrase -Vb $PACKAGE_ROUTE_DIR includedeb $distroname {} \;
+mv $(find $REPO_ROUTE_DIR/pool/$release -name *.deb) $arkave
+rm -r $REPO_ROUTE_DIR
 
-mv /var/repo/1.0/ubuntu/14.04/testing /var/www/html/repo/1.0/ubuntu/14.04
-chmod -R ugo+rX /var/www/html/repo/1.0/ubuntu/14.04
+mkdir  -p $REPO_ROUTE_DIR
 
+cp -R $PACKAGE_ROUTE_DIR/conf $REPO_ROUTE_DIR && rm -R $PACKAGE_ROUTE_DIR/conf
+cp -R  $PACKAGE_ROUTE_DIR/db $REPO_ROUTE_DIR && rm -R $PACKAGE_ROUTE_DIR/db
+cp -R $PACKAGE_ROUTE_DIR/dists $REPO_ROUTE_DIR && rm -R $PACKAGE_ROUTE_DIR/dists
+cp -R  $PACKAGE_ROUTE_DIR/pool $REPO_ROUTE_DIR && rm -R $PACKAGE_ROUTE_DIR/pool
+chmod -R ugo+rX $BUILD_dir
 }
 
-
-function stable2()
-{
-mkdir -p /var/repo/1.5/ubuntu/14.04/stable/conf
-cd /var/repo/1.5/ubuntu/14.04/stable/conf
-cat > distributions <<EOF
-Origin: ubuntu
-Label: ubuntu
-Suite: stable
-Codename: trusty
-Version: 1.5
-Architectures: amd64
-Components: stable
-Description: vertice
-SignWith: 9B46B611
-EOF
-
-cd
-find ./stable1.5 -name \*.deb -exec reprepro --ask-passphrase -Vb /var/repo/1.5/ubuntu/14.04/stable includedeb trusty {} \;
-mv $(find /var/www/html/repo/1.5/ubuntu/14.04/stable/pool/stable -name *.deb) /var/www/html/arkave
-rm -r /var/www/html/repo/1.5/ubuntu/14.04/stable
-
-mv /var/repo/1.5/ubuntu/14.04/stable /var/www/html/repo/1.5/ubuntu/14.04
-chmod -R ugo+rX /var/www/html/repo/1.5/ubuntu/14.04
-}
-function testing2()
-{
-mkdir -p /var/repo/1.5/ubuntu/14.04/testing/conf
-cd /var/repo/1.5/ubuntu/14.04/testing/conf
-cat > distributions << EOF
-Origin: ubuntu
-Label: ubuntu
-Suite: stable
-Codename: trusty
-Version: 1.5
-Architectures: amd64
-Components: testing
-Description: vertice
-SignWith: 9B46B611
-EOF
-
-cd
-find testing-1.5 -name \*.deb -exec reprepro --ask-passphrase -Vb /var/repo/1.5/ubuntu/14.04/testing includedeb trusty {} \;
-mv $(find /var/www/html/repo/1.5/ubuntu/14.04/testing/pool/testing -name *.deb) /var/www/html/arkave
-rm -r /var/www/html/repo/1.5/ubuntu/14.04/testing
-mv /var/repo/1.5/ubuntu/14.04/testing /var/www/html/repo/1.5/ubuntu/14.04
-chmod -R ugo+rX /var/www/html/repo/1.5/ubuntu/14.04
+start() {
+parse_params "$@"
+initialize
+conf
+packagerepo
 }
 
-function testing3()
-{
-mkdir -p /var/repo/1.5/ubuntu/16.04/testing/conf
-cd /var/repo/1.5/ubuntu/16.04/testing/conf
-pwd
-cat > distributions <<EOF
-Origin: ubuntu
-Label: ubuntu
-Suite: testing
-Codename: xenial
-Version: 1.5
-Architectures: amd64
-Components: testing
-Description: vertice
-SignWith: 9B46B611
-EOF
-
-cd
-
-find ./ubuntu_16.04 -name \*.deb -exec reprepro --ask-passphrase -Vb /var/repo/1.5/ubuntu/16.04/testing includedeb xenial {} \;
-mv $(find /var/www/html/repo/1.5/ubuntu/16.04/testing/pool/testing -name *.deb) /var/www/html/arkave
-rm -r /var/www/html/repo/1.5/ubuntu/16.04/testing
-
-mv /var/repo/1.5/ubuntu/16.04/testing /var/www/html/repo/1.5/ubuntu/16.04
-chmod -R ugo+rX /var/www/html/repo/1.5/ubuntu/16.04
-}
-
-function stable3()
-{
-mkdir -p /var/repo/1.5/ubuntu/16.04/stable/conf
-cd /var/repo/1.5/ubuntu/16.04/stable/conf
-pwd
-cat > distributions <<EOF
-Origin: ubuntu
-Label: ubuntu
-Suite: stable
-Codename: xenial
-Version: 1.5
-Architectures: amd64
-Components: stable
-Description: vertice
-SignWith: 9B46B611
-EOF
-
-cd
-
-find ./ubuntu_16.04 -name \*.deb -exec reprepro --ask-passphrase -Vb /var/repo/1.5/ubuntu/16.04/stable includedeb xenial {} \;
-mv $(find /var/www/html/repo/1.5/ubuntu/16.04/stable/pool/stable -name *.deb) /var/www/html/arkave
-rm -r /var/www/html/repo/1.5/ubuntu/16.04/stable
-
-mv /var/repo/1.5/ubuntu/16.04/stable /var/www/html/repo/1.5/ubuntu/16.04
-chmod -R ugo+rX /var/www/html/repo/1.5/ubuntu/16.04
-
-}
-
-case $version in
-	1.0)
-		case $distro in
-			trusty)
-				case $release in
-					stable)
-					stable1
-					;;
-					testing)
-					testing1
-					;;
-				esac
-			;;
-		esac
-	;;
-	1.5)
-		case $distro in
-			trusty)
-				case $release in
-					testing)
-					testing2
-					;;
-					stable)
-					stable2
-					;;
-				esac
-			;;
-			xenial)
-			      	case $release in
-		        		testing)
-			        	testing3
-			                ;;
-					stable)
-					stable3
-					;;
-      				esac
-			;;
-		esac
-	;;
-esac
+start "$@"

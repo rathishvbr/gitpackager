@@ -1,33 +1,32 @@
-require "rake"
-require "./config.rb"
-require "../builder.rb"
+require File.expand_path(File.join(File.dirname(__FILE__),'..', 'lib', 'pkg.rb'))
+
+require 'pkg/static/data'
 
 task :default => :trusty
 
 task :clean do
-  rm_rf Pkg::Config.build_dir
+  Pkg::Util::File.rmdir(Pkg::Common.build_dir)
 end
 
 task :initnix do
-  mkdir_p Pkg::Config.distro_build_dir
+  Pkg::Util::File.mkdir_p(Pkg::Common.distro_build_dir)
 end
 
 task :nix => [:initnix] do
-  Pkg::Builder.new(Pkg::Config.distro_dir, Pkg::Config.distro_build_dir,Pkg::Config::PACKAGE).exec
+  Pkg::Builder.new(Pkg::Common.distro_dir, Pkg::Common.distro_build_dir, Pkg::Data.COMMON).exec
 end
 
 task :trusty   do
-  Pkg::Config.setup_distro("trusty")
-  Rake::Task[:nix].invoke
-end
-
-
-task :centos7 do
-  Pkg::Config.setup_distro("centos7")
+  Pkg::Common.distro("trusty")
   Rake::Task[:nix].invoke
 end
 
 task :xenial do
-  Pkg::Config.setup_distro("xenial")
+  Pkg::Common.distro("xenial")
+  Rake::Task[:nix].invoke
+end
+
+task :centos7 do
+  Pkg::Common.distro("centos7")
   Rake::Task[:nix].invoke
 end

@@ -1,0 +1,4 @@
+#!/bin/sh
+systemctl stop nsqd  || echo "nsqd not running!"
+systemctl stop nsqlookupd || echo "nsqlookupd  not running!"
+systemctl stop nsqadmin || echo "nsqadmin not running!"

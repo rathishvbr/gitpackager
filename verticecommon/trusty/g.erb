@@ -2,4 +2,9 @@
 
 mkdir -p .<%= @basic[:home] %>
 
-fpm -s dir -t deb  -f  --iteration <%= @basic[:iteration] %> -n <%= @package[:package] %> -v <%= @basic[:version] %> --after-install ./postinst --after-remove ./postrm --license "<%= @basic[:license] %>" --vendor "<%= @basic[:vendor] %>" --category "<%= @package[:category] %>" --maintainer "<%= @basic[:maintainer] %>" --url "<%= @basic[:url] %>" --description "<%= @package[:description] %>"  .<%=  @basic[:home] %>
+fpm -s dir -t deb --deb-no-default-config-files -f  --iteration <%= @basic[:iteration] %> -v <%= @basic[:version] %> \
+-n <%= @package[:package] %> \
+--after-install ./postinst  \
+--after-remove ./postrm  \
+--license "<%= @basic[:license] %>" --vendor "<%= @basic[:vendor] %>" --category "<%= @package[:category] %>" \
+--maintainer "<%= @basic[:maintainer] %>" --url "<%= @basic[:url] %>" --description "<%= @package[:description] %>"  .<%=  @basic[:home] %>

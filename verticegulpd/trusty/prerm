@@ -1,2 +1,0 @@
-#!/bin/sh
-stop verticegulpd || echo " wasn't even running!"

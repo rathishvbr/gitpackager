@@ -1,0 +1,14 @@
+[Unit]
+Description=cAdvisor
+After=local-fs.target network.target
+Requires=network.target
+Wants=local-fs.target
+
+[Service]
+ExecStart=<%= @basic[:home] %>/cadvisor/bin/cadvisor -port 9999
+KillMode=process
+Restart=on-failure
+RestartSec=42s
+
+[Install]
+WantedBy=multi-user.target

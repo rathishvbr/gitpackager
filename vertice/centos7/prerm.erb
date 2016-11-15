@@ -1,0 +1,2 @@
+#!/bin/sh
+systemctl stop <%= @package[:systemd_service] %> || echo "<%= @package[:systemd_service] %> not running!"
