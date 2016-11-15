@@ -1,8 +1,19 @@
-#!/bin/bash
+-#!/bin/bash
 
 mkdir -p /var/lib/megam/verticevnc
 
-mv /etc/init.d/verticevnc.service /etc/systemd/system/
+cd /var/lib/megam/
+
+wget http://nodejs.org/dist/v0.10.30/node-v0.10.30.tar.gz
+tar xvzf node-v* && cd node-v*
+ ./configure
+  make
+  sudo make install
+
+rm -rf usr/bin/node
+cp /usr/local/bin/node usr/bin/node
+
+mv /etc/rc.d/init.d/verticevnc.service /etc/systemd/system/
 
 cat >> /var/lib/megam/env.sh << EOF
 MEGAM_HOME='/var/lib/megam/'
