@@ -8,5 +8,5 @@ npm install
 
 cd ../../../..
 
-fpm -s dir -t deb  -p "$MEGAM_HOME" -f --iteration $3 -n $1 -v $2 -d "gcc , gcc-c++, libpng-devel, libpng12.so.0" --before-install ./preinst --after-install ./postinst --before-remove ./prerm --after-remove ./postrm --rpm-init ./etc/systemd/system/verticevnc.service --license "Apache V2" --vendor "Megam Systems" --category "infrastructure" --maintainer "Megam Maintainer info@megam.io" --url "http://docs.megam.io" --description "Description:
+fpm -s dir -t rpm  -f --iteration $3 -n $1 -v $2 -d "gcc, gcc-c++, libpng12, libpng-devel, libpng12.so.0" --before-install ./preinst --after-install ./postinst --before-remove ./prerm --after-remove ./postrm --rpm-init ./etc/systemd/system/verticevnc.service --license "Apache V2" --vendor "Megam Systems" --category "infrastructure" --maintainer "Megam Maintainer info@megam.io" --url "http://docs.megam.io" --description "Description:
 This package contains a nodejs based server that is the core engine for Megam Verticevnc." ./usr/share/megam/verticevnc
