@@ -28,8 +28,10 @@ module Pkg
         def make
             puts "=> 1. Transform: erb - #{@distro_dir}".colorize(:green).bold
             Rake::FileList[@distro_dir + "/**"].each do |f|
+              if File.file?(f)
                 @scripter = Scripter.new(Pkg::Version::BASIC, @package,IO.read(f))
                 @scripter.save(File.join(@distro_build_dir,File.basename(f, '.erb')))
+              end
             end if File.exists?(@distro_dir)
 
             Dir.chdir @distro_build_dir
