@@ -1,30 +1,24 @@
 #!/bin/bash
+mkdir -p .<%= @basic[:home]+"/"+@package[:package]+"/bin" %>
 
-<%= @package_dir = @basic[:home]/@package[:package] %>
-
-<%= @package_bin_dir = @package_dir/bin  %>
-
-mkdir -p .<%= @package_bin_dir %>
-
-cd <%= @package_dir/src/@package[:git_org]/vertice %>
+cd <%= "vertice/src/"+@package[:git_org]+"/vertice" %>
 
 # sometimes  the dependencies aren't getting pulled. Adding a master solved the problem.
 git remote add master https://github.com/indykish/vertice.git
 make build
 
-cp -rf ./conf/ ../../../../../<%= @package_dir %>
+cp -rf ./conf/ ../../../../..<%= @basic[:home]+"/"+@package[:package] %>
 
-mv  vertice <%=@package[:package] %>
-
-cp <%=@package[:package] %> ../../../../../<%= @package_bin_dir %>
+cp <%=@package[:package] %> ../../../../..<%= @basic[:home]+"/"+@package[:package]+"/bin" %>
 
 cat > VERSION << EOF
 git_version=`git rev-parse HEAD`
 git_branch="1.5"
 EOF
 
-cp VERSION ../../../../../<%= @package_dir %>
+cp VERSION ../../../../..<%= @basic[:home]+"/"+@package[:package] %>
 
+mv  ./etc/systemd/system/vertice ./etc/systemd/system/<%= @package[:systemd_service] %>
 cd ../../../../../
 
 fpm -s dir -t rpm  -f  --iteration <%= @basic[:iteration] %> -v <%= @basic[:version] %> \
@@ -33,4 +27,4 @@ fpm -s dir -t rpm  -f  --iteration <%= @basic[:iteration] %> -v <%= @basic[:vers
 --after-remove ./prerm  --after-remove ./postrm  \
 --rpm-init ./etc/systemd/system/<%= @package[:systemd_service] %> \
 --license "<%= @basic[:license] %>" --vendor "<%= @basic[:vendor] %>" --category "<%= @package[:category] %>" \
---maintainer "<%= @basic[:maintainer] %>" --url "<%= @basic[:url] %>" --description "<%= @package[:description] %>"  .<%= @package_dir %>
+--maintainer "<%= @basic[:maintainer] %>" --url "<%= @basic[:url] %>" --description "<%= @package[:description] %>"  .<%= @basic[:home]+"/"+@package[:package] %>

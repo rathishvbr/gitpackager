@@ -6,5 +6,5 @@ After=runlevel3.target
 After=runlevel4.target
 After=runlevel5.target
 [Service]
-WorkingDirectory=/usr/share/megam/verticevnc
+WorkingDirectory=<%= @basic[:home]+"/"+@package[:package] %>
 ExecStart=/usr/bin/node vnc_monitor.js

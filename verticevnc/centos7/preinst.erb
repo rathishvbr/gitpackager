@@ -2,4 +2,4 @@
 
 echo "127.0.0.1  `hostname`" >> /etc/hosts
 
-mkdir -p /var/log/megam/verticevnc
+mkdir -p <%= @basic[:loghome]+"/"+@package[:package] %>

@@ -1,10 +1,8 @@
 #!/bin/sh
 
-<%= @package_dir = @basic[:home]/@package[:package] %>
+mkdir -p .<%= @basic[:home]+"/"+@package[:package] %>
 
-mkdir -p .<%=package_dir %>
-
-cd .<%=package_dir %>
+cd .<%= @basic[:home]+"/"+@package[:package] %>
 
 npm install
 
@@ -16,4 +14,4 @@ fpm -s dir -t deb  -f  --iteration <%= @basic[:iteration] %> -v <%= @basic[:vers
 --after-remove ./prerm  --after-remove ./postrm  \
 --deb-upstart ./etc/init/<%= @package[:upstart_service] %> \
 --license "<%= @basic[:license] %>" --vendor "<%= @basic[:vendor] %>" --category "<%= @package[:category] %>" \
---maintainer "<%= @basic[:maintainer] %>" --url "<%= @basic[:url] %>" --description "<%= @package[:description] %>"  .<%= @package_dir %>
+--maintainer "<%= @basic[:maintainer] %>" --url "<%= @basic[:url] %>" --description "<%= @package[:description] %>"  .<%= @basic[:home]+"/"+@package[:package] %>

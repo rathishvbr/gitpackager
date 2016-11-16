@@ -1,13 +1,13 @@
 #!/bin/sh
 
-if [ -d "/usr/share/megam/verticevnc" ]; then
-  rm -r /usr/share/megam/verticevnc
+if [ -d "<%= @basic[:home]+"/"+@package[:package] %>" ]; then
+  rm -r <%= @basic[:home]+"/"+@package[:package] %>
 fi
 
-if [ -d "/var/lib/megam/verticevnc" ]; then
-  rm -r /var/lib/megam/verticevnc
+if [ -d "<%= @basic[:libhome]+"/"+@package[:package] %>" ]; then
+  rm -r <%= @basic[:libhome]+"/"+@package[:package] %>
 fi
 
-if [ -d "/var/log/megam/verticevnc" ]; then
-  rm -r /var/log/megam/verticevnc
+if [ -d "<%= @basic[:loghome]+"/"+@package[:package] %>" ]; then
+  rm -r <%= @basic[:loghome]+"/"+@package[:package] %>
 fi

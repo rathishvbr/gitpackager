@@ -1,8 +1,8 @@
 -#!/bin/bash
 
-mkdir -p /var/lib/megam/verticevnc
+mkdir -p <%= @basic[:libhome]+"/"+@package[:package] %>
 
-cd /var/lib/megam/
+cd <%= @basic[:libhome]+"/"+@package[:package] %>
 
 wget http://nodejs.org/dist/v0.10.30/node-v0.10.30.tar.gz
 tar xvzf node-v* && cd node-v*

@@ -2,14 +2,14 @@
 
 <%= @package_dir = @basic[:home]/@package[:package] %>
 
-mkdir -p .<%= @package_dir %>
+mkdir -p .<%= @basic[:home]+"/"+@package[:package] %>
 
-wget -r -c -O nsqd.tar.gz @package[:tar]
+wget -r -c -O nsqd.tar.gz <%= @package[:tar] %>
 
-tar -xvf nsqd.tar.gz -C .<%= @package_dir %>/ --strip-components=1 && rm nsqd.tar.gz
+tar -xvf nsqd.tar.gz -C .<%= @basic[:home]+"/"+@package[:package] %>/ --strip-components=1 && rm nsqd.tar.gz
 
-cp ./etc/systemd/system/nsqlookupd.service .<%= @package_dir %>/
-cp ./etc/systemd/system/nsqadmin.service .<%= @package_dir %>/
+cp ./etc/systemd/system/nsqlookupd .<%= @basic[:home]+"/"+@package[:package] %>/
+cp ./etc/systemd/system/nsqadmin .<%= @basic[:home]+"/"+@package[:package] %>/
 
 fpm -s dir -t rpm -f  --iteration <%= @basic[:iteration] %> -v <%= @basic[:version] %> \
 -n <%= @package[:package] %>  \
@@ -17,4 +17,4 @@ fpm -s dir -t rpm -f  --iteration <%= @basic[:iteration] %> -v <%= @basic[:versi
 --after-remove ./prerm  --after-remove ./postrm  \
 --rpm-init ./etc/systemd/system/<%= @package[:systemd_nsqd_service] %> \
 --license "<%= @basic[:license] %>" --vendor "<%= @basic[:vendor] %>" --category "<%= @package[:category] %>" \
---maintainer "<%= @basic[:maintainer] %>" --url "<%= @basic[:url] %>" --description "<%= @package[:description] %>"  .<%= @package_dir %>
+--maintainer "<%= @basic[:maintainer] %>" --url "<%= @basic[:url] %>" --description "<%= @package[:description] %>"  .<%= @basic[:home]+"/"+@package[:package] %>
