@@ -1,3 +1,4 @@
 #!/bin/sh
 
 echo "127.0.0.1  `hostname`" >> /etc/hosts
+mkdir -p <%= @basic[:loghome] %>/<%= @package[:package] %>

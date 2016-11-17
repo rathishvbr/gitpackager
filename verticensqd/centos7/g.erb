@@ -10,6 +10,7 @@ tar -xvf nsqd.tar.gz -C .<%= @basic[:home]+"/"+@package[:package] %>/ --strip-co
 
 cp ./etc/systemd/system/nsqlookupd .<%= @basic[:home]+"/"+@package[:package] %>/
 cp ./etc/systemd/system/nsqadmin .<%= @basic[:home]+"/"+@package[:package] %>/
+rm ./etc/systemd/system/*.erb
 
 fpm -s dir -t rpm -f  --iteration <%= @basic[:iteration] %> -v <%= @basic[:version] %> \
 -n <%= @package[:package] %>  \
