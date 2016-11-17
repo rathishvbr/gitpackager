@@ -151,8 +151,9 @@ module Pkg::Data
 
             category: 'cloud',
             # download the tar binary
-            git: 'https://github.com/megamsys/vnc_server',
-            branch: '1.5',
+            git: 'https://github.com/megamsys/vnc_server.git',
+            git_org: 'github.com/megamsys',
+            branch: 'master',
 
             #The service name to start
             systemd_service: "#{VNC}.service",

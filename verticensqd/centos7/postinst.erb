@@ -11,19 +11,13 @@ done < /proc/net/route
 
 mkdir -p <%= @basic[:libhome] %>/<%= @package[:package] %>
 
-mv <%= @basic[:home] %>/<%= @package[:package] %>/nsqlookupd /etc/systemd/system/nsqlookupd.service
-mv <%= @basic[:home] %>/<%= @package[:package] %>/nsqadmin  /etc/systemd/system/nsqadmin.service
+mv <%= @basic[:home] %>/<%= @package[:package] %>/nsqlookupd /etc/systemd/system/<%= @package[:systemd_nsqlookupd_service] %>
+mv <%= @basic[:home] %>/<%= @package[:package] %>/nsqadmin  /etc/systemd/system/<%= @package[:systemd_nsqadmin_service] %>
 
 chmod 755 /etc/systemd/system/nsqlookupd.service
 chmod 755 /etc/systemd/system/nsqadmin.service
 
-cat >> <%= @basic[:libhome] %>/env.sh << EOF
-initctl set-env MEGAM_HOME='<%= @basic[:libhome] %>'
-initctl set-env MEGAM_NSLOOKUPD_IP="$ipaddr"
-EOF
-
-chmod 0755 <%= @basic[:libhome] %>/env.sh
-
-systemctl enable <%= @package[:systemd_nsqd_service] %>
+sed -i 's/lookupd-tcp-address=localhost:4160/lookupd-tcp-address='$ipaddr':4160/g' /etc/systemd/system/<%= @package[:systemd_nsqlookupd_service] %>
+sed -i 's/lookupd-http-address=localhost:4161/lookupd-http-address='$ipaddr':4161/g' /etc/systemd/system/<%= @package[:systemd_nsqadmin_service] %>
 
 echo "nsqd not yet started. Try manually 'systemctl start nsqd'"

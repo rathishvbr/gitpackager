@@ -1,5 +1,5 @@
 description "<%= @package[:package] %> core engine - Omni scheduler."
-author "<%= @basic[:author] %>"
+author "<%= @basic[:vendor] %>"
 
 # When to start the servicee
 start on runlevel [2345]
@@ -16,7 +16,7 @@ stop on (stopped <%= @package[:package] %>)
 respawn
 
 # set the working directory of the job processes
-chdir <%=@basic[:home]/<%= @package[:package] %>
+chdir <%=@basic[:home]+"/"+@package[:package] %>
 
 pre-start script
  cd <%=@basic[:libhome] %>

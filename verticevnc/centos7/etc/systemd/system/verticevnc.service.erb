@@ -6,6 +6,6 @@ After=runlevel3.target
 After=runlevel4.target
 After=runlevel5.target
 [Service]
-EnvironmentFile=/var/lib/megam/env.sh
-ExecStart=/usr/bin/node /usr/share/megam/verticevnc/vnc_monitor.js
+EnvironmentFile=<%= @basic[:libhome] %>/env.sh
+ExecStart=/usr/bin/node <%= @basic[:home]+"/"+@package[:package] %>/vnc_monitor.js
 KillMode=process

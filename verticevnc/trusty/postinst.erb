@@ -1,8 +1,8 @@
 #!/bin/sh
 
-mkdir -p /var/log/megam/verticevnc
+mkdir -p <%= @basic[:loghome] %>/<%= @package[:package] %>
 
-cd /usr/share/megam/verticevnc/
+cd <%= @basic[:home]+"/"+@package[:package] %>
 
 start verticevnc
 
