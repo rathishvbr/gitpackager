@@ -1,6 +1,7 @@
 #!/bin/sh
 
-cd <%= @package[:package] %>
+mv .<%= @basic[:home] %>/vertice_gateway .<%= @basic[:home] %>/<%= @package[:package] %>
+cd .<%= @basic[:home] %>/<%= @package[:package] %>
 
 cat > VERSION <<EOF
 git_version=`git rev-parse HEAD`

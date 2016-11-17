@@ -17,16 +17,19 @@ module Pkg::Data
     end
 
     def self.NILAVU
-        puts "=> Packaging: [#{NILAVU} #{BASIC[:version]}:#{BASIC[:iteration]}]".colorize(:green).bold
+        puts "=> Packaging: [#{NILAVU} #{BASIC[:version]}:#{BASIC[:iteration]}] ".colorize(:green).bold
 
         {
             package: NILAVU,
             description: %Q[Description: The dashboard for #{BASIC[:product]}.],
             category: 'cloud',
 
-            deb_dependencies: "#{Pkg::Version::COMMON}",
+            deb_dependencies: "#{Pkg::Version::COMMON}, git-core, curl,  rake, zlib1g-dev, build-essential, ruby2.3, ruby2.3-dev, libssl-dev, libreadline-dev, libyaml-dev, libsqlite3-dev, sqlite3, nginx-common, nginx-core, nginx, autoconf, libpcre3, libpcre3-dev,libxml2-dev, libxslt1-dev, libcurl4-openssl-dev,libltdl-dev, libtool, python-software-properties, monit,nodejs, npm, runit,socat,language-pack-en, cron, anacron, psmisc, gawk, parallel,git, wget, rsyslog, whois, wbritish, wamerican",
             rpm_dependencies: "#{Pkg::Version::COMMON}",
 
+            git: 'https://gitlab.com/megamsys/nilavu.git',
+          #  git_org:
+            branch: '1.5',
             #The service name to start
             systemd_service: 'unicorn.service',
             upstart_service: 'unicorn'
@@ -152,7 +155,6 @@ module Pkg::Data
             category: 'cloud',
             # download the tar binary
             git: 'https://github.com/megamsys/vnc_server.git',
-            git_org: 'github.com/megamsys',
             branch: 'master',
 
             #The service name to start

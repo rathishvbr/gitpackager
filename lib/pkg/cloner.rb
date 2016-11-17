@@ -1,7 +1,8 @@
 require 'fileutils'
+require 'pkg/version'
 module Pkg
     class Cloner
-
+       include Pkg::Version
         attr_accessor :package
 
         def initialize(package)
@@ -9,7 +10,11 @@ module Pkg
         end
 
         def git_org_dir
+          if @package[:git_org] == nil
+              ".#{BASIC[:home]}"
+          else
             @package[:package]+"/src/"+@package[:git_org]
+          end
         end
 
         def git_org_pkg_dir
@@ -17,6 +22,7 @@ module Pkg
         end
 
         def clone
+           cur_dir=Dir.pwd
             puts "=> 2. Clone: git - #{@package[:git]}".colorize(:green).bold
             unless @package[:git]
                 puts "   ✘ skip git".colorize(:red)
@@ -29,7 +35,8 @@ module Pkg
                 system "git clone -b #{@package[:branch]} #{@package[:git]}"
             end
             puts "   ✔ #{@package[:git]}".colorize(:blue)
-            Dir.chdir "../../../../"
+            Dir.chdir cur_dir
+
         end
     end
 end

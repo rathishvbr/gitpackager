@@ -1,10 +1,10 @@
 #!/bin/sh
 
-[ -d <%= @basic[:loghome]+"/"+@package[:package] %>] && rm -rf <%= @basic[:loghome]+"/"+@package[:package] %>
-
-[ -d <%= @basic[:libhome] %>/nilavu.conf ] && rm -rf <%= @basic[:libhome] %>/nilavu.conf
+[ -d <%= @basic[:loghome]+"/"+@package[:package] %> ] && rm -rf <%= @basic[:loghome]+"/"+@package[:package] %>
 
 [ -d <%= @basic[:libhome] %>/site_settings.yml ] && rm -rf <%= @basic[:libhome] %>/site_settings.yml
+
+[ -d <%= @basic[:libhome] %>/nilavu.conf ] && rm -rf <%= @basic[:libhome] %>/nilavu.conf
 
 [ -d <%= @basic[:libhome] %>/regions.yml ] && rm -rf <%= @basic[:libhome] %>/regions.yml
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mkdir -p .<%= @basic[:home]+"/"+@package[:package] %>
+mv .<%= @basic[:home] %>/vnc_server .<%= @basic[:home]+"/"+@package[:package] %>
 
 cd .<%= @basic[:home]+"/"+@package[:package] %>
 
