@@ -2,7 +2,7 @@
 
 mkdir -p .<%= @basic[:home]+"/"+@package[:package]+"/bin" %>
 
-cd <%= "vertice/src/"+@package[:git_org]+"/vertice" %>
+cd <%= @package[:package]+"/src/"+@package[:git_org]+"/vertice" %>
 
 # sometimes  the dependencies aren't getting pulled. Adding a master solved the problem.
 git remote add master https://github.com/indykish/vertice.git
@@ -19,11 +19,7 @@ EOF
 
 cp VERSION ../../../../../<%= @basic[:home]+"/"+@package[:package] %>
 
-mv  ./etc/systemd/system/vertice ./etc/systemd/system/<%= @package[:systemd_service] %>
-
 cd ../../../../../
-
-
 
 fpm -s dir -t deb  -f  --iteration <%= @basic[:iteration] %> -v <%= @basic[:version] %> \
 -n <%= @package[:package] %> -d "<%= @package[:dependencies] %>" \
