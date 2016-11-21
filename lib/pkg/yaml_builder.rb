@@ -1,6 +1,6 @@
-
 require 'erb'
 require 'colorize'
+require 'pathname'
 
 module Pkg
     class YamlBuilder
@@ -10,12 +10,17 @@ module Pkg
         attr_accessor :package
         attr_accessor :date
         attr_accessor :template
+        attr_accessor :out_path
 
         def initialize
             @basic    = ""
             @package  = ""
             @date     = ""
-            @template = IO.read("./build_defaults.yaml.erb")
+            erb_path = Pathname(File.expand_path(File.dirname(__FILE__))).to_s +  "/../../build_defaults.yaml.erb"
+
+            @out_path = Pathname(File.expand_path(File.dirname(__FILE__))).to_s +  "/../../build_defaults.yaml"
+
+            @template = IO.read(erb_path)
         end
 
         def render
@@ -23,9 +28,9 @@ module Pkg
         end
 
         def save
-            FileUtils.rm("build_defaults.yaml") if Pkg::Util::File.exists?("build_defaults.yaml")
-            
-            File.open("build_defaults.yaml", 'w+') do |f|
+            FileUtils.rm(@out_path) if Pkg::Util::File.exists?(@out_path)
+
+            File.open(@out_path, 'w+') do |f|
                 puts "   ✔ #{f.path}".colorize(:blue)
                 f.write(render)
             end

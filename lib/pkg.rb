@@ -19,7 +19,7 @@ module Pkg
   require 'pkg/utils'
   require 'pkg/scripter'
   require 'pkg/yaml_builder'
-  require 'pkg/shipper'  
+  require 'pkg/shipper'
   require 'pkg/tools'
 
   # Load configuration defaults
