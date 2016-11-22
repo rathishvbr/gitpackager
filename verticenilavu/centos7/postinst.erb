@@ -2,17 +2,12 @@
 
 mkdir -p <%= @basic[:loghome]+"/"+@package[:package] %>
 
-
-## Symbolic link to ruby2.3 to default /usr/bin/ruby
-echo "enter"
-
 ## runit preparation
 cd /
 mkdir -p /etc/runit/1.d
 rm -f /etc/apt/apt.conf.d/40proxy
 npm install uglify-js -g
 npm install svgo -g
-echo "one"
 
 cd /var/www/<%= @package[:package] %>/base
 mkdir -p /etc/runit/3.d
@@ -27,7 +22,6 @@ mkdir -p /etc/service/rsyslog
 mv cron /etc/service/cron/run
 mv rsyslog /etc/service/rsyslog/run
 mv nginx.conf /etc/nginx/nginx.conf
-echo "two"
 
 ### Install jmealloc
 
@@ -40,14 +34,12 @@ cd jemalloc-3.6.0
 make
 mv lib/libjemalloc.so.1 /usr/lib
 cd / && rm -rf /jemalloc
-echo "three"
 
 ###Install nginx
 cd /var/www/<%= @package[:package] %>/base
 chmod 755 install-nginx
 ./install-nginx
 mv install-nginx /tmp/install-nginx
-echo "four"
 
 ###letsencrypt
 mv letsencrypt  /var/www/<%= @package[:package] %>/bin
@@ -60,15 +52,12 @@ cp /var/www/<%= @package[:package] %>/config/nginx.conf /etc/nginx/conf.d/
 mv /etc/nginx/conf.d/nginx.conf /etc/nginx/conf.d/nilavu.conf
 mkdir -p /var/nginx/cache
 
-echo "five"
-
 cat > /etc/runit/3.d/01-nginx <<EOF
 #!/bin/bash
 sv stop nginx
 EOF
 
 chmod 755 /etc/runit/3.d/01-nginx
-echo "six"
 
 cat > /etc/runit/3.d/02-unicorn <<EOF
 #!/bin/bash
@@ -76,7 +65,6 @@ sv stop unicorn
 EOF
 
 chmod 755 /etc/runit/3.d/02-unicorn
-echo "seven"
 
 mkdir -p /etc/service/unicorn
 mkdir -p /etc/service/nginx
@@ -86,32 +74,24 @@ chmod 755 /etc/service/unicorn/run
 mkdir -p /var/service
 ln -s /etc/service/unicorn /var/service
 
-echo "eight"
-
 cat > /etc/service/nginx/run <<EOF
 #!/bin/sh
         exec 2>&1
         exec /usr/sbin/nginx
 EOF
 chmod 755 /etc/service/nginx/run
-echo "nine"
 
 gem install bundler
 
 gem install rake
 
-echo "ten"
-
 cd /var/www/<%= @package[:package] %>/
 
 mkdir -p tmp/pids
-echo "11"
 
 bundle install --deployment --without test --without development
-echo "12"
 
 export MEGAM_HOME=<%= @basic[:libhome] %>
-echo "13"
 
 RAILS_ENV=production bundle exec rake assets:precompile
 
