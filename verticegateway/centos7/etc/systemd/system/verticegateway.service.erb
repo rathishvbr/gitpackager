@@ -1,0 +1,11 @@
+## Systemd script that starts vertice gateway
+[Unit]
+Description=Vertice Gateway
+After=network.target
+After=runlevel2.target
+After=runlevel3.target
+After=runlevel4.target
+After=runlevel5.target
+[Service]
+ExecStart=/usr/share/megam/verticegateway/bin/verticegateway -Dlogger.file=/var/lib/megam/verticegateway/logger.xml -Dconfig.file=/var/lib/megam/verticegateway/gateway.conf
+KillMode=mixed
