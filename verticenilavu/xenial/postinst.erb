@@ -77,8 +77,20 @@ chmod 755 /etc/runit/3.d/02-unicorn
 
 mkdir -p /etc/service/unicorn
 mkdir -p /etc/service/nginx
-cp /lib/systemd/system/<%= @package[:systemd_service] %> /etc/service/unicorn/
-mv /etc/service/unicorn/<%= @package[:systemd_service] %> /etc/service/unicorn/run
+
+cat > /etc/service/unicorn/run <<EOF
+#!/bin/bash
+
+exec 2>&1
+
+cd  /var/www/<%= @package[:package] %>
+
+export MEGAM_HOME=<%= @basic[:libhome] %>
+export RAILS_ENV=production
+
+LD_PRELOAD=/usr/lib/libjemalloc.so.1 exec bundle exec config/unicorn_launcher -E production -c config/unicorn.conf.rb
+EOF
+
 chmod 755 /etc/service/unicorn/run
 
 cat > /etc/service/nginx/run <<EOF
@@ -95,8 +107,13 @@ cd /var/www/<%= @package[:package] %>/
 mkdir -p tmp/pids
 bundle install --deployment --without test --without development
 
-export MEGAM_HOME=/var/lib/megam
+export MEGAM_HOME=<%= @basic[:libhome] %>
 
 RAILS_ENV=production bundle exec rake assets:precompile
+
+mv /var/www/<%= @package[:package] %>/public/assets/social/github-d4fa1d2891690d6c2802dd0b87191b0802ec66682f1b79af9015454273191b6f.png /var/www/<%= @package[:package] %>/public/assets/social/github.png
+mv /var/www/<%= @package[:package] %>/public/assets/social/google_oauth2-980984f58fd9f55d85813f2d5aa0a0ad9c14025a28dc81798c0cfa089956606f.png /var/www/<%= @package[:package] %>/public/assets/social/google_oauth2.png
+mv /var/www/<%= @package[:package] %>/public/assets/social/facebook-87cce93a6298f19d284ad0d9c888ff7006294b9510668411de32ae68ee67bbf6.png /var/www/<%= @package[:package] %>/public/assets/social/facebook.png
+cp /var/www/<%= @package[:package] %>/public/assets/_vendor-f933d878039082303cbbfa73aeea9199ceac1a0ab7b54eee58947db4dca7b035.js /var/www/<%= @package[:package] %>/public/assets/vendor-f933d878039082303cbbfa73aeea9199ceac1a0ab7b54eee58947db4dca7b035.js
 
 echo "sv start unicorn and sv start nginx"
