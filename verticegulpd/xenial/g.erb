@@ -5,9 +5,6 @@ mkdir -p .<%= @basic[:home]+"/"+@package[:package]+"/bin" %>
 cd <%= @package[:package]+"/src/"+@package[:git_org]+"/gulp" %>
 
 # sometimes  the dependencies aren't getting pulled. Adding a master solved the problem.
-
-go get go.skia.org/infra/go/git/gitinfo
-
 git remote add master https://github.com/megamsys/gulp.git
 
 make build
