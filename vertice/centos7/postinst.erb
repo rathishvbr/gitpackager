@@ -8,6 +8,8 @@ cat >> <%= @basic[:libhome] %>/env.sh << EOF
 MEGAM_HOME='<%= @basic[:libhome] %>'
 EOF
 
+mv /etc/rc.d/init.d/<%= @package[:systemd_service] %> /etc/systemd/system/
+
 chmod 0755 <%= @basic[:libhome] %>/env.sh
 
 systemctl enable <%= @package[:systemd_service] %>
