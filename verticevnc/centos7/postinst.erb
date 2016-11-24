@@ -14,7 +14,7 @@ cd <%= @basic[:libhome]+"/"+@package[:package] %>
 rm -rf usr/bin/node
 cp /usr/local/bin/node /usr/bin/node
 
-mv /etc/rc.d/init.d/verticevnc.service /etc/systemd/system/
+mv /etc/rc.d/init.d/verticevnc.service  /etc/systemd/system
 
-systemctl enable verticevnc.service
+Systemctl enable verticevnc.service
 systemctl start verticevnc.service
