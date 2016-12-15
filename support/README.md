@@ -209,7 +209,7 @@ chown oneadmin:oneadmin hook_vertice.rb
 ```
 
 cat >master_key << EOF
-host=http://localhost:9000/v2  // Point to your Gateway
+host=http://localhost:9000/v2  // Change the file to point to your gateway
 masterkey=3b8eb672aa7c8db82e5d34a01f6814cfb63364040b0994ee3f //paste masterkey in gateway.conf
 EOF
 
