@@ -2,6 +2,8 @@
 
 mkdir -p <%= @basic[:loghome]+"/"+@package[:package] %>
 
+echo "Take few minutes for install the package"
+
 ## runit preparation
 cd /
 mkdir -p /etc/runit/1.d
@@ -74,7 +76,6 @@ mv /etc/service/unicorn/<%= @package[:systemd_service] %> /etc/service/unicorn/r
 chmod 755 /etc/service/unicorn/run
 mkdir -p /var/service
 ln -s /etc/service/unicorn /var/service
-ln -s /etc/service/nginx /var/service
 
 cat > /etc/service/nginx/run <<EOF
 #!/bin/sh
@@ -82,6 +83,8 @@ cat > /etc/service/nginx/run <<EOF
         exec /usr/sbin/nginx
 EOF
 chmod 755 /etc/service/nginx/run
+
+ln -s /etc/service/nginx /var/service
 
 gem install bundler
 
