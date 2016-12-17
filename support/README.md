@@ -207,7 +207,6 @@ chown oneadmin:oneadmin hook_vertice.rb
 3. Create `master_key` file into the location  /var/lib/megam
 
 ```
-
 cat >master_key << EOF
 host=http://localhost:9000/v2  // Change the file to point to your gateway
 masterkey=3b8eb672aa7c8db82e5d34a01f6814cfb63364040b0994ee3f //paste masterkey in gateway.conf
@@ -249,12 +248,12 @@ wget https://raw.githubusercontent.com/megamsys/gitpackager/master/support/letse
 chmod 0755 letsencrypt
 
 # install the letsencrypt certificate
-letsencrypt --install  <domainame> <domainip>
+./letsencrypt --install  <domainame> <domainip>
 
 # remove the letsencrypt certificate
-letsencrypt --remove <domainname>
+./letsencrypt --remove <domainname>
 
 # renewal the letsencrypt certificate
-letsencrypt --autorenew <domainname>
+./letsencrypt --autorenew <domainname>
 
 ````
