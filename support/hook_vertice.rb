@@ -15,7 +15,7 @@
 ONE_LOCATION=ENV["ONE_LOCATION"]
 
 if !ONE_LOCATION
-    CONFIG_FILE="/var/lib/detio/master_key"
+    CONFIG_FILE="/var/lib/megam/master_key"
     LOG_FILE="/var/log/one/vertice_error.log"
 else
     CONFIG_FILE=ONE_LOCATION+"/var/config"
