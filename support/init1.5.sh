@@ -2,6 +2,7 @@
 
 dist=`grep PRETTY_NAME /etc/*-release | awk -F '="' '{print $2}'`
 OS=$(echo $dist | awk '{print $1;}')
+OS1=`cut -d' ' -f1 /etc/redhat-release` >> /var/lib/megam/test.log
 
 shopt -s extglob
 set -o errtrace
@@ -494,7 +495,7 @@ vertsbegin() {
 
 vertsbegin "$@"
 
-if [ "$OS" = "Red Hat" ]  || [ "$OS" = "Ubuntu" ] || [ "$OS" = "Debian" ] || [ "$OS" = "CentOS" ] || [ "$OS" = "Fedora" ] || [ "OS" = "CoreOS"]
+if [ "$OS" = "Red Hat" ]  || [ "$OS" = "Ubuntu" ] || [ "$OS" = "Debian" ] || [ "$OS1" = "CentOS" ] || [ "$OS" = "CentOS" ] || [ "$OS" = "Fedora" ] || [ "OS" = "CoreOS"]
 then
 CONF='//var/lib/megam/gulp/gulpd.conf'
 else
@@ -551,6 +552,14 @@ sed -i "s/^[ \t]*name_gulp.*/    name = \"$NODE_NAME\"/" $CONF
 sed -i "s/^[ \t]*assemblies_id.*/    assemblies_id = \"$ASSEMBLIES_ID\"/" $CONF
 sed -i "s/^[ \t]*assembly_id.*/    assembly_id = \"$ASSEMBLY_ID\"/" $CONF
 sed -i "s/^[ \t]*account_id.*/    account_id = \"$ACCOUNTS_ID\"/" $CONF
+
+case "$OS1" in
+   "CentOS")
+        sudo service verticegulpd start  >>/var/lib/megam/test.log
+        sudo service cgconfig start >>/var/lib/megam/test.log
+        sudo service cadvisor start  >>/var/lib/megam/test.log
+          ;;
+esac
 
 case "$OS" in
    "Ubuntu")
