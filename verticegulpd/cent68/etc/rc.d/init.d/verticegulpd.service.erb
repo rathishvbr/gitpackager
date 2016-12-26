@@ -1,0 +1,57 @@
+#!/bin/bash
+
+RETVAL=0
+prog="verticegulpd"
+DESCRIPTION="<%= @package[:package] %> Agent"
+LOCKFILE=/var/lock/megam/$prog
+
+# Declare variables for VirtEngine Gulpd
+GULPD_DIR=/usr/share/megam/verticegulpd
+BIN_DIR=$GULP_DIR/bin/gulpd
+CONFIG_DIR=/var/lib/megam/gulp/gulpd.conf
+PID_FILE=/var/run/megam/verticegulpd.pid
+
+start() {
+  echo -n "Starting $DESCRIPTION: " >> /var/log/megam/verticegulpd/verticegulpd.log
+	cd /var/lib/megam
+	./env.sh
+
+  $HOME_DIR start --config $CONFIG_DIR >> /var/log/megam/verticegulpd/verticegulpd.log 2>&1
+  RETVAL=$?
+  [ $RETVAL -eq 0 ] && touch $LOCKFILE
+  echo
+  return $RETVAL
+}
+
+stop() {
+  echo -n "Stopping $DESCRIPTION:"
+  RETVAL=$?
+  [ $RETVAL -eq 0 ] && rm -f $LOCKFILE
+  echo
+  return $RETVAL
+}
+
+status() {
+  echo -n "Checking $DESCRIOTION status: "
+  [ -f /var/lock/$prog/<service> ] && "$DESCRIPTION running" || "$DESCRIPTION down"
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    status)
+        status
+        ;;
+    restart)
+        stop
+        start
+    *)
+        echo "Usage: $prog {start|stop|status|restart}"
+        exit 1
+        ;;
+esac
+exit $?
