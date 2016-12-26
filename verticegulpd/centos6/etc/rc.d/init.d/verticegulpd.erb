@@ -1,6 +1,6 @@
 RETVAL=0
 prog="verticegulpd"
-DESCRIPTION="Vertice Gulpd Agent"
+DESCRIPTION="gulpd"
 LOCKFILE=/var/lock/megam/$prog
 
 # Declare variables for VirtEngine Gulpd
@@ -11,35 +11,43 @@ PID_FILE=/var/run/megam/verticegulpd.pid
 LOG_FILE=/var/log/megam/verticegulpd/verticegulpd.log
 
 start() {
-  echo -n "Starting $DESCRIPTION "
-	cd /var/lib/megam
-	./env.sh
-  $BIN_DIR start --config $CONFIG_DIR >> $LOG_FILE 2>&1 &
-  RETVAL=$?
-  [ $RETVAL -eq 0 ] && touch $LOCKFILE
-  PID=`status $prog | egrep -oi '([0-9]+)$' | head -n1`
-  echo $PID > $PID_FILE
-
+  printf "Starting $DESCRIPTION. \n"
+  cd /var/lib/megam
+  ./env.sh
+  if [ -f $PID_FILE ]
+  then
+	printf "$DESCRIPTION already started."
+  else
+	$BIN_DIR start --config $CONFIG_DIR >> $LOG_FILE 2>&1 &
+  	RETVAL=$?
+  	[ $RETVAL -eq 0 ] && touch $LOCKFILE
+ 	PID=`pidof gulpd`
+  	echo $PID > $PID_FILE
+  fi
   echo
   return $RETVAL
 }
 
 stop() {
-  echo -n "Stopping $DESCRIPTION "
+  printf "Stopping $DESCRIPTION. \n"
   /bin/kill `cat $PID_FILE  2> /dev/null ` > /dev/null 2>&1
   RETVAL=$?
   if [ $RETVAL -eq 0 ]; then
-        echo "Stopping $prog: " /bin/true
+        printf "Stopping $prog. " /bin/true
   else
-        echo "Stopping $prog: " /bin/false
+        printf "Stopping $prog. " /bin/false
   fi
-  [ $RETVAL -eq 0 ] && rm -f $PID_FILE && rm -f $LOCKFILEE
+  [ $RETVAL -eq 0 ] && rm -f $PID_FILE && rm -f $LOCKFILE
   return $RETVAL
 }
 
 status() {
-  echo -n "Checking $DESCRIPTION status "
-  [ -f /var/lock/megam/$prog ] && echo "$DESCRIPTION running" || echo "$DESCRIPTION down"
+  if [ -f $PID_FILE ]
+  then
+	echo "$DESCRIPTION running."
+  else
+	echo "$DESCRIPTION not running."
+  fi
   RETVAL=$?
   return $RETVAL
 }
