@@ -18,7 +18,7 @@ start() {
   then
 	printf "$DESCRIPTION already started."
   else
-	$BIN_DIR start --config $CONFIG_DIR "$exec $PID_FILE" >> $LOG_FILE 2>&1 &
+	$BIN_DIR start --config $CONFIG_DIR >> $LOG_FILE 2>&1 &
   	RETVAL=$?
   	[ $RETVAL -eq 0 ] && touch $LOCKFILE
  	PID=`pidof gulpd`
