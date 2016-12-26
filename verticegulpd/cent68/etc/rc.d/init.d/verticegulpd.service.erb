@@ -15,6 +15,7 @@ start() {
 	cd /var/lib/megam
 	./env.sh
   $BIN_DIR start --config $CONFIG_DIR >> $LOG_FILE 2>&1 &
+  echo $PID > $PID_FILE
   RETVAL=$?
   [ $RETVAL -eq 0 ] && touch $LOCKFILE
   echo
@@ -23,9 +24,14 @@ start() {
 
 stop() {
   echo -n "Stopping $DESCRIPTION "
+  /bin/kill `cat $PID_FILE  2> /dev/null ` > /dev/null 2>&1
   RETVAL=$?
-  [ $RETVAL -eq 0 ] && rm -f $LOCKFILE
-  echo
+  if [ $RETVAL -eq 0 ]; then
+        echo "Stopping $prog: " /bin/true
+  else
+        echo "Stopping $prog: " /bin/false
+  fi
+  [ $RETVAL -eq 0 ] && rm -f $PID_FILE && rm -f $LOCKFILEE
   return $RETVAL
 }
 
