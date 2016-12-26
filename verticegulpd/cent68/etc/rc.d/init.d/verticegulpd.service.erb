@@ -15,9 +15,11 @@ start() {
 	cd /var/lib/megam
 	./env.sh
   $BIN_DIR start --config $CONFIG_DIR >> $LOG_FILE 2>&1 &
-  echo $PID > $PID_FILE
   RETVAL=$?
   [ $RETVAL -eq 0 ] && touch $LOCKFILE
+  PID=`status $prog | egrep -oi '([0-9]+)$' | head -n1`
+  echo $PID > $PID_FILE
+
   echo
   return $RETVAL
 }
@@ -62,4 +64,3 @@ case "$1" in
         ;;
 esac
 exit $?
-
