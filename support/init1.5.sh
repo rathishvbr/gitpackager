@@ -515,7 +515,7 @@ cat >$CONF  <<'EOF'
     vertice_api = "http://localhost:9000/v2"
     nsqd = ["locl:4150"]
     api_key = "abcdefghijklmnopqrstuvwxyz.,"
-    name = "solutions.megambox.com"
+    name_gulp = "solutions.megambox.com"
     account_id = "testings@megam.io"
     assembly_id = "ASM6054404599503290163"
     assemblies_id = "AMS4797637690447572801"
