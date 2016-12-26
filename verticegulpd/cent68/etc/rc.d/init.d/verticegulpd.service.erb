@@ -21,7 +21,7 @@ start() {
 	$BIN_DIR start --config $CONFIG_DIR "$exec $PID_FILE" >> $LOG_FILE 2>&1 &
   	RETVAL=$?
   	[ $RETVAL -eq 0 ] && touch $LOCKFILE
- 	PID=`pidof gulpd` 
+ 	PID=`pidof gulpd`
   	echo $PID > $PID_FILE
   fi
   echo
@@ -72,4 +72,3 @@ case "$1" in
         ;;
 esac
 exit $?
-
