@@ -532,7 +532,7 @@ cat >$CONF  <<'EOF'
     provider = "chefsolo"
     cookbook = "megam_run"
     chefrepo = "https://github.com/megamsys/chef-repo.git"
-    chefrepo_tarball = "https://github.com/megamsys/chef-repo/archive/0.96.tar.gz"
+    chefrepo_tarball = "https://github.com/megamsys/chef-repo/archive/1.5.tar.gz"
 
   ###
   ### [http]
