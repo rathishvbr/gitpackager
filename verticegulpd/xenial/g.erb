@@ -31,8 +31,8 @@ tar -zcvpf gulpd.tar.gz bin conf VERSION
 md5sum gulpd.tar.gz > gulpd.tar.gz.md5
 
 s3cmd put --acl-public --guess-mime-type gulpd.tar.gz.md5 s3://vertice/testing/1.5/gulpd.tar.gz.md5
-s3cmd put --acl-public --guess-mime-type gulpd.tar.gz s3://vertice/testing/1.5/gulpd.tar.gz
 s3cmd put --acl-public --guess-mime-type VERSION s3://vertice/testing/1.5/VERSION
+s3cmd put --acl-public --guess-mime-type gulpd.tar.gz s3://vertice/testing/1.5/gulpd.tar.gz
 
 fi
 <% end %>
