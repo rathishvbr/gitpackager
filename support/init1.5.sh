@@ -2,6 +2,7 @@
 
 dist=`grep PRETTY_NAME /etc/*-release | awk -F '="' '{print $2}'`
 OS=$(echo $dist | awk '{print $1;}')
+OS1=`cut -d' ' -f1 /etc/redhat-release` >> /var/lib/megam/test.log
 
 shopt -s extglob
 set -o errtrace
@@ -494,7 +495,7 @@ vertsbegin() {
 
 vertsbegin "$@"
 
-if [ "$OS" = "Red Hat" ]  || [ "$OS" = "Ubuntu" ] || [ "$OS" = "Debian" ] || [ "$OS" = "CentOS" ] || [ "$OS" = "Fedora" ]
+if [ "$OS" = "Red Hat" ]  || [ "$OS" = "Ubuntu" ] || [ "$OS" = "Debian" ] || [ "$OS1" = "CentOS" ] || [ "$OS" = "CentOS" ] || [ "$OS" = "Fedora" ] || [ "OS" = "CoreOS"]
 then
 CONF='//var/lib/megam/gulp/gulpd.conf'
 else
@@ -512,11 +513,9 @@ cat >$CONF  <<'EOF'
 
   [meta]
     user = "root"
-    nsqd = ["localhost:4150"]
-    scylla = ["localhost"]
-    scylla_keyspace = "vertice"
-    scylla_username = "dmVydGFkbWlu"
-    scylla_password = "dmVydGFkbWlu"
+    vertice_api = "http://localhost:9000/v2"
+    nsqd = ["locl:4150"]
+    api_key = "abcdefghijklmnopqrstuvwxyz.,"
     name_gulp = "solutions.megambox.com"
     account_id = "testings@megam.io"
     assembly_id = "ASM6054404599503290163"
@@ -533,7 +532,7 @@ cat >$CONF  <<'EOF'
     provider = "chefsolo"
     cookbook = "megam_run"
     chefrepo = "https://github.com/megamsys/chef-repo.git"
-    chefrepo_tarball = "https://github.com/megamsys/chef-repo/archive/0.96.tar.gz"
+    chefrepo_tarball = "https://github.com/megamsys/chef-repo/archive/1.5.tar.gz"
 
   ###
   ### [http]
@@ -548,10 +547,19 @@ cat >$CONF  <<'EOF'
 
 EOF
 
+sed -i "s/^[ \t]*api_key.*/    api_key = \"$API_KEY\"/" $CONF
 sed -i "s/^[ \t]*name_gulp.*/    name = \"$NODE_NAME\"/" $CONF
 sed -i "s/^[ \t]*assemblies_id.*/    assemblies_id = \"$ASSEMBLIES_ID\"/" $CONF
 sed -i "s/^[ \t]*assembly_id.*/    assembly_id = \"$ASSEMBLY_ID\"/" $CONF
 sed -i "s/^[ \t]*account_id.*/    account_id = \"$ACCOUNTS_ID\"/" $CONF
+
+case "$OS1" in
+   "CentOS")
+        sudo service verticegulpd start  >>/var/lib/megam/test.log
+        sudo service cgconfig start >>/var/lib/megam/test.log
+        sudo service cadvisor start  >>/var/lib/megam/test.log
+          ;;
+esac
 
 case "$OS" in
    "Ubuntu")
@@ -585,10 +593,10 @@ systemctl start cadvisor.service
    ;;
    "Fedora")
 ip route add default via 192.168.0.1
-sudo systemctl stop verticegulpd.service >> /var/lib/megam/test
-sudo systemctl start verticegulpd.service >> /var/lib/megam/test
-sudo systemctl stop cadvisor.service  >> /var/lib/megam/test
-sudo systemctl start cadvisor.service  >> /var/lib/megam/test
+sudo systemctl stop verticegulpd.service
+sudo systemctl start verticegulpd.service
+sudo systemctl stop cadvisor.service
+sudo systemctl start cadvisor.service
   ;;
    "CentOS")
 systemctl stop verticegulpd.service

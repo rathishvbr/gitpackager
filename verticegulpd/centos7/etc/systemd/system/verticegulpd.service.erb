@@ -8,7 +8,7 @@ Wants=local-fs.target
 User=root
 Group=root
 EnvironmentFile=<%= @basic[:libhome] %>/env.sh
-ExecStart=<%= @basic[:home] %>/<%= @package[:package] %>/bin/<%= @package[:package] %>  start --config <%= @basic[:libhome] %>/gulp/gulpd.conf
+ExecStart=<%= @basic[:home] %>/<%= @package[:package] %>/bin/gulpd  start --config <%= @basic[:libhome] %>/gulp/gulpd.conf
 KillMode=process
 Restart=on-failure
 RestartSec=42s

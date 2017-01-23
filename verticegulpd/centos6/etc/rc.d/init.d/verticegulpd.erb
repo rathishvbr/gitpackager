@@ -1,0 +1,74 @@
+RETVAL=0
+prog="verticegulpd"
+DESCRIPTION="gulpd"
+LOCKFILE=/var/lock/megam/$prog
+
+# Declare variables for VirtEngine Gulpd
+GULPD_DIR=/usr/share/megam/verticegulpd
+BIN_DIR=$GULPD_DIR/bin/gulpd
+CONFIG_DIR=/var/lib/megam/gulp/gulpd.conf
+PID_FILE=/var/run/megam/verticegulpd.pid
+LOG_FILE=/var/log/megam/verticegulpd/verticegulpd.log
+
+start() {
+  printf "Starting $DESCRIPTION. \n"
+  cd /var/lib/megam
+  ./env.sh
+  if [ -f $PID_FILE ]
+  then
+	printf "$DESCRIPTION already started."
+  else
+	$BIN_DIR start --config $CONFIG_DIR >> $LOG_FILE 2>&1 &
+  	RETVAL=$?
+  	[ $RETVAL -eq 0 ] && touch $LOCKFILE
+ 	PID=`pidof gulpd`
+  	echo $PID > $PID_FILE
+  fi
+  echo
+  return $RETVAL
+}
+
+stop() {
+  printf "Stopping $DESCRIPTION. \n"
+  /bin/kill `cat $PID_FILE  2> /dev/null ` > /dev/null 2>&1
+  RETVAL=$?
+  if [ $RETVAL -eq 0 ]; then
+        printf "Stopping $prog. " /bin/true
+  else
+        printf "Stopping $prog. " /bin/false
+  fi
+  [ $RETVAL -eq 0 ] && rm -f $PID_FILE && rm -f $LOCKFILE
+  return $RETVAL
+}
+
+status() {
+  if [ -f $PID_FILE ]
+  then
+	echo "$DESCRIPTION running."
+  else
+	echo "$DESCRIPTION not running."
+  fi
+  RETVAL=$?
+  return $RETVAL
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    status)
+        status
+        ;;
+    restart)
+        stop
+        start
+	;;
+    *)
+        echo "Usage: $prog {start|stop|status|restart}"
+        exit 1
+        ;;
+esac
+exit $?
