@@ -11,9 +11,7 @@ make build
 
 cp -rf ./conf/ ../../../../..<%= @basic[:home]+"/"+@package[:package] %>
 
-mv  gulpd <%=@package[:package] %>
-
-cp <%=@package[:package] %> ../../../../..<%= @basic[:home]+"/"+@package[:package]+"/bin" %>
+cp gulpd ../../../../..<%= @basic[:home]+"/"+@package[:package]+"/bin" %>
 
 cat > VERSION << EOF
 git_version=`git rev-parse HEAD`
