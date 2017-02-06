@@ -29,7 +29,7 @@ module Pkg::Data
 
             git: 'https://gitlab.com/megamsys/nilavu.git',
           #  git_org:
-            branch: '1.5',
+            branch: '1.5.1',
             #The service name to start
             systemd_service: 'unicorn.service',
             upstart_service: 'unicorn'
@@ -50,7 +50,7 @@ module Pkg::Data
             dependencies: "#{Pkg::Version::COMMON}",
 
             git: 'https://github.com/megamsys/vertice_gateway',
-            branch: '1.5',
+            branch: '1.5.1',
 
             #The service name to start
             systemd_service: "#{GATEWAY}.service",
@@ -91,7 +91,7 @@ module Pkg::Data
             #git_org is needed as golang uses namespace during compiling
             git: 'https://github.com/megamsys/vertice.git',
             git_org: 'github.com/megamsys',
-            branch: '1.5',
+            branch: '1.5.1',
 
             #The service name to start
             systemd_service: "#{VERTICE}.service",

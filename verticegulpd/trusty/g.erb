@@ -15,7 +15,7 @@ cp gulpd ../../../../..<%= @basic[:home]+"/"+@package[:package]+"/bin" %>
 
 cat > VERSION << EOF
 git_version=`git rev-parse HEAD`
-git_branch="1.5"
+git_branch=`git branch`
 EOF
 
 cp VERSION ../../../../..<%= @basic[:home]+"/"+@package[:package] %>
