@@ -97,33 +97,33 @@ SIZE = `#{LVM_CMD}` if DISK_TYPE == LVM
 # Main
 ################################################################################
 
-log "Hook - vertice snapshot  size updating started:"
+log "Hook - vertice vm backup size updating started:"
 
 begin
-response = Megam::Snapshots.show(KEYS)
+response = Megam::Bakups.show(KEYS)
 snaps = response[:body]
 
-snaps.each do |snap|
- if snap.status == "inprogress"
-  (snap.outputs ||= []).push({"key":"image_size","value":"#{SIZE}".chomp})
+backups.each do |bk|
+ if bk.status == "inprogress"
+  (bk.outputs ||= []).push({"key":"image_size","value":"#{SIZE}".chomp})
 upd_keys = {
-   id:  snap.id,
-   name: snap.name,
-   asm_id:  snap.asm_id,
-   account_id: snap.account_id,
-   tosca_type: snap.tosca_type,
-   inputs:  snap.inputs,
-   outputs:  snap.outputs,
+   id:  bk.id,
+   name: bk.name,
+   asm_id:  bk.asm_id,
+   account_id: bk.account_id,
+   tosca_type: bk.tosca_type,
+   inputs:  bk.inputs,
+   outputs:  bk.outputs,
    status: "size_updated",
-   created_at:  snap.created_at,
-   image_id:  snap.image_id,
+   created_at:  bk.created_at,
+   image_id:  bk.image_id,
    email: KEYS[:email],
    master_key: KEYS[:master_key],
    host:  KEYS[:host],
    org_id: KEYS[:org_id]
  }
 
-m  = Megam::Snapshots.update(upd_keys)
+m  = Megam::Backups.update(upd_keys)
 
 end
 end
@@ -134,4 +134,4 @@ log_error e.to_s
 exit -1
 end
 
-log "Hook - vertice snapshot size updated:"
+log "Hook - vertice vm backup size updated:"
