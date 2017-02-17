@@ -53,13 +53,14 @@ end
 HOST_ID = ARGV[0]
 TEMPLATE = ARGV[1]
 STATE = ARGV[2]
+ACTION = ARGV[3]
 
 CEHP_RBD = "RBD"
 LVM = "BLOCK"
 
 NFS = "FILE"
 
-if TEMPLATE.nil? && HOST_ID.nil? && STATE.nil? && STATUS.nil?
+if TEMPLATE.nil? && HOST_ID.nil? && STATE.nil? && ACTION.nil?
    log_error("Exiting due to parameter is  nil.")
    exit -1
 end
@@ -93,30 +94,73 @@ LVM_CMD = "#{SSH} lvdisplay | awk '#{VM_SRC}{found=1}; /LV Size/ && found{print 
 SIZE = `#{RBD_CMD}` if DISK_TYPE == CEHP_RBD
 SIZE = `#{LVM_CMD}` if DISK_TYPE == LVM
 
+updateBackup if ACTION == "backups"
+updateSnapshot if ACTION == "snapshots"
 ################################################################################
 # Main
 ################################################################################
 
-log "Hook - vertice snapshot  size updating started:"
 
+def updateBackup
+  log "Hook - vertice vm backup size updating started:"
+begin
+response = Megam::Bakups.show(KEYS)
+backups = response[:body]
+
+backups.each do |bk|
+ if bk.status == "inprogress"
+  (bk.outputs ||= []).push({"key":"image_size","value":"#{SIZE}".chomp})
+upd_keys = {
+   id:  bk.id,
+   name: bk.name,
+   asm_id:  bk.asm_id,
+   account_id: bk.account_id,
+   tosca_type: bk.tosca_type,
+   inputs:  bk.inputs,
+   outputs:  bk.outputs,
+   status: "size_updated",
+   created_at:  bk.created_at,
+   image_id:  bk.image_id,
+   email: KEYS[:email],
+   master_key: KEYS[:master_key],
+   host:  KEYS[:host],
+   org_id: KEYS[:org_id]
+ }
+
+m  = Megam::Backups.update(upd_keys)
+
+end
+end
+
+rescue Exception => e
+
+log_error e.to_s
+exit -1
+end
+log "Hook - vertice vm backup size updated:"
+end
+
+def updateSnapshot
+  log "Hook - vertice vm snapshots size updating started:"
 begin
 response = Megam::Snapshots.show(KEYS)
 snaps = response[:body]
 
-snaps.each do |snap|
- if snap.status == "inprogress"
-  (snap.outputs ||= []).push({"key":"image_size","value":"#{SIZE}".chomp})
+snaps.each do |snp|
+ if snp.status == "inprogress"
+  (snp.outputs ||= []).push({"key":"image_size","value":"#{SIZE}".chomp})
 upd_keys = {
-   id:  snap.id,
-   name: snap.name,
-   asm_id:  snap.asm_id,
-   account_id: snap.account_id,
-   tosca_type: snap.tosca_type,
-   inputs:  snap.inputs,
-   outputs:  snap.outputs,
+   id:  snp.id,
+   name: snp.name,
+   asm_id:  snp.asm_id,
+   account_id: snp.account_id,
+   tosca_type: snp.tosca_type,
+   inputs:  snp.inputs,
+   outputs:  snp.outputs,
    status: "size_updated",
-   created_at:  snap.created_at,
-   image_id:  snap.image_id,
+   created_at:  snp.created_at,
+   disk_id:  snp.disk_id,
+   snap_id:  snp.snap_id,
    email: KEYS[:email],
    master_key: KEYS[:master_key],
    host:  KEYS[:host],
@@ -133,5 +177,5 @@ rescue Exception => e
 log_error e.to_s
 exit -1
 end
-
-log "Hook - vertice snapshot size updated:"
+log "Hook - vertice vm snapshots size updated:"
+end

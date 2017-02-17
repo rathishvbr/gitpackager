@@ -227,9 +227,16 @@ VM_HOOK = [
     on = "CUSTOM",
     state = "ACTIVE",
     lcm_state = "HOTPLUG_SAVEAS",
-    command = "hook_snapshot.rb",
-    arguments = "$ID $TEMPLATE inprogress" ]
+    command = "hook_backup_snapshot.rb",
+    arguments = "$ID $TEMPLATE inprogress" "backups" ]
 
+VM_HOOK = [
+    name = "vertice_hook",
+    on = "CUSTOM",
+    state = "ACTIVE",
+    lcm_state = "DISK_SNAPSHOT",
+    command = "hook_backup_snapshot.rb",
+    arguments = "$ID $TEMPLATE inprogress" "snapshots" ]
 
 ```
 5.  Copy the `hook_snapshot.rb` file into the location `/var/lib/one/remotes/hooks`
