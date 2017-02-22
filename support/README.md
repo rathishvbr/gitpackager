@@ -188,6 +188,23 @@ VM_HOOK = [
  lcm_state = "RUNNING",
  command   = "hook_vertice.rb",
  arguments = "$ID $TEMPLATE running running" ]
+
+ VM_HOOK = [
+     name = "vertice_hook",
+     on = "CUSTOM",
+     state = "ACTIVE",
+     lcm_state = "HOTPLUG_SAVEAS",
+     command = "hook_backup_snapshot.rb",
+     arguments = "$ID $TEMPLATE inprogress backups" ]
+
+ VM_HOOK = [
+     name = "vertice_hook",
+     on = "CUSTOM",
+     state = "ACTIVE",
+     lcm_state = "DISK_SNAPSHOT",
+     command = "hook_backup_snapshot.rb",
+     arguments = "$ID $TEMPLATE inprogress snapshots" ]
+
 ```
 
 2. Copy the `hook_vertice.rb` file into the location `/var/lib/one/remotes/hooks`
@@ -202,6 +219,14 @@ chmod 755 hook_vertice.rb
 
 chown oneadmin:oneadmin hook_vertice.rb
 
+wget https://raw.githubusercontent.com/megamsys/gitpackager/master/support/hook_backup_snapshot.rb
+
+cp hook_vertice.rb /var/lib/one/remotes/hooks
+
+chmod 755 hook_backup_snapshot.rb
+
+chown oneadmin:oneadmin hook_backup_snapshot.rb
+
 ```
 
 3. Create `master_key` file into the location  /var/lib/megam
@@ -213,46 +238,6 @@ masterkey=3b8eb672aa7c8db82e5d34a01f6814cfb63364040b0994ee3f //paste masterkey i
 EOF
 
 ```
-## hook_vertice.rb
-
-4.hook_snapshot.rb triggers MegamVertice when the virtual machine hits on the `active'state.
-
-## To use the hook_snapshot.rb
-
-1. In your OpenNebula installation, edit the `/etc/one/oned.conf` with the following
-
-```
-VM_HOOK = [
-    name = "vertice_hook",
-    on = "CUSTOM",
-    state = "ACTIVE",
-    lcm_state = "HOTPLUG_SAVEAS",
-    command = "hook_backup_snapshot.rb",
-    arguments = "$ID $TEMPLATE inprogress" "backups" ]
-
-VM_HOOK = [
-    name = "vertice_hook",
-    on = "CUSTOM",
-    state = "ACTIVE",
-    lcm_state = "DISK_SNAPSHOT",
-    command = "hook_backup_snapshot.rb",
-    arguments = "$ID $TEMPLATE inprogress" "snapshots" ]
-
-```
-5.  Copy the `hook_snapshot.rb` file into the location `/var/lib/one/remotes/hooks`
-
-```
-
-wget https://raw.githubusercontent.com/megamsys/gitpackager/master/support/hook_snapshot.rb
-
-cp hook_snapshot.rb /var/lib/one/remotes/hooks
-
-chmod 755 hook_snapshot.rb
-
-chown oneadmin:oneadmin hook_snapshot.rb
-
-
-
 
 ## MegamVerice WHMCS Addon
 
