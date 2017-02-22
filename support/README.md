@@ -207,7 +207,7 @@ VM_HOOK = [
 
 ```
 
-2. Copy the `hook_vertice.rb` file into the location `/var/lib/one/remotes/hooks`
+2. Copy the `hook_vertice.rb` &  `hook_backup_snapshot.rb` file into the location `/var/lib/one/remotes/hooks`
 
 ```
 
