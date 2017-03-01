@@ -223,8 +223,6 @@ function runGulpd()
 (Get-Content  C:\Users\Administrator\gulp\gulp\gulpd.conf) -replace 'assembly_id_value', $assembly_id | Set-Content C:\Users\Administrator\gulp\gulp\gulpd.conf
 (Get-Content  C:\Users\Administrator\gulp\gulp\gulpd.conf) -replace 'api_key_value', $api_key | Set-Content C:\Users\Administrator\gulp\gulp\gulpd.conf
 (Get-Content  C:\Users\Administrator\gulp\gulp\gulpd.conf) -replace 'name_value', $node_name | Set-Content C:\Users\Administrator\gulp\gulp\gulpd.conf
- wget cloud.atomdeploy.com >> c:\cloud.txt
- wget 146.0.247.2:9000 >> c:\9000.txt
  Start-Process -Filepath "C:\gulpd.exe" -ArgumentList "-v start" -RedirectStandardOutput c:\gulpdlogger.log -RedirectStandardError c:\gulpderror.log -NoNewWindow
 
 }
